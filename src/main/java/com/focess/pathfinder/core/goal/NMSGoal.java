@@ -1,5 +1,6 @@
 package com.focess.pathfinder.core.goal;
 
+import com.focess.pathfinder.core.exception.ExceptionCatcher;
 import com.focess.pathfinder.goal.Goal;
 import net.minecraft.server.v1_13_R1.PathfinderGoal;
 
@@ -17,7 +18,7 @@ public class NMSGoal extends PathfinderGoal {
             return goal.canStart();
         }
         catch(Exception e){
-
+            ExceptionCatcher.catchException(e);
             return false;
         }
     }
@@ -28,22 +29,35 @@ public class NMSGoal extends PathfinderGoal {
             return goal.shouldContinue();
         }
         catch (Exception e) {
+            ExceptionCatcher.catchException(e);
             return false;
             }
     }
     @Override
     public void c() {
-        goal.start();
+        try {
+            goal.start();
+        } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
+        }
     }
 
     @Override
     public void d() {
-        goal.stop();
+        try {
+            goal.stop();
+        } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
+        }
     }
 
     @Override
     public void e() {
-        goal.tick();
+        try {
+            goal.tick();
+        } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
+        }
     }
 
     @Override
@@ -51,6 +65,7 @@ public class NMSGoal extends PathfinderGoal {
         try {
             return goal.canStop();
         } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
             return false;
         }
     }
