@@ -35,17 +35,29 @@ public class NMSGoal extends PathfinderGoal {
     }
     @Override
     public void c() {
-        goal.start();
+        try {
+            goal.start();
+        } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
+        }
     }
 
     @Override
     public void d() {
-        goal.stop();
+        try {
+            goal.stop();
+        } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
+        }
     }
 
     @Override
     public void e() {
-        goal.tick();
+        try {
+            goal.tick();
+        } catch (Exception e) {
+            ExceptionCatcher.catchException(e);
+        }
     }
 
     @Override
