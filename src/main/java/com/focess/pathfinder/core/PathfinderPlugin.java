@@ -1,4 +1,4 @@
-package com.focess.pathfinder;
+package com.focess.pathfinder.core;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
