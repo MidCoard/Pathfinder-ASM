@@ -1,11 +1,23 @@
 package com.focess.pathfinder.core.goal;
 
+import java.lang.reflect.Method;
 import java.util.*;
+
 import com.focess.pathfinder.core.goal.util.NMSManager;
+import com.google.common.collect.Lists;
 import org.objectweb.asm.*;
+
 public class NMSGoalDump implements Opcodes {
 
     public static byte[] dump() throws Exception {
+        Class<?> PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
+        char names[] = new char[6];
+        int point = 0;
+        for (Method method : PathfinderGoal.getDeclaredMethods())
+            if (method.getParameterCount() == 0 && method.getName().length() == 1 && names.length > point)
+                names[point++] = method.getName().charAt(0);
+        Arrays.sort(names);
+        point = 0;
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;
@@ -30,7 +42,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "a", "()Z", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()Z", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -43,7 +55,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitLabel(l1);
             mv.visitInsn(IRETURN);
             mv.visitLabel(l2);
-            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
@@ -53,7 +65,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "b", "()Z", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()Z", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -66,7 +78,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitLabel(l1);
             mv.visitInsn(IRETURN);
             mv.visitLabel(l2);
-            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
@@ -76,7 +88,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "c", "()V", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()V", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -90,7 +102,7 @@ public class NMSGoalDump implements Opcodes {
             Label l3 = new Label();
             mv.visitJumpInsn(GOTO, l3);
             mv.visitLabel(l2);
-            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
@@ -101,7 +113,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "d", "()V", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()V", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -115,7 +127,7 @@ public class NMSGoalDump implements Opcodes {
             Label l3 = new Label();
             mv.visitJumpInsn(GOTO, l3);
             mv.visitLabel(l2);
-            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
@@ -126,7 +138,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "e", "()V", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()V", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -140,7 +152,7 @@ public class NMSGoalDump implements Opcodes {
             Label l3 = new Label();
             mv.visitJumpInsn(GOTO, l3);
             mv.visitLabel(l2);
-            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
@@ -151,7 +163,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "f", "()Z", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()Z", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -164,7 +176,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitLabel(l1);
             mv.visitInsn(IRETURN);
             mv.visitLabel(l2);
-            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
