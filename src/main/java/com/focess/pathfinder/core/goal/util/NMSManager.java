@@ -34,6 +34,7 @@ public class NMSManager {
     private static String versionString;
     public static final Class<?> World;
     public static final Class<?> WorldServer;
+    private static String versionStringAsClassName;
 
 
     static {
@@ -160,5 +161,11 @@ public class NMSManager {
             NMSManager.versionString = name.substring(name.lastIndexOf('.') + 1) + ".";
         }
         return NMSManager.versionString;
+    }
+
+    public static String getVersionStringAsClassName() {
+        if (NMSManager.versionStringAsClassName == null)
+            versionStringAsClassName = ("net.minecraft.server." + NMSManager.getVersionString()).replace("\\.","/");
+        return NMSManager.versionStringAsClassName;
     }
 }

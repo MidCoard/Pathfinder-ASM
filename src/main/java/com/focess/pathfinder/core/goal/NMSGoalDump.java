@@ -1,16 +1,17 @@
 package com.focess.pathfinder.core.goal;
+
 import java.util.*;
+import com.focess.pathfinder.core.goal.util.NMSManager;
 import org.objectweb.asm.*;
 public class NMSGoalDump implements Opcodes {
 
-    public static byte[] dump () throws Exception {
-
+    public static byte[] dump() throws Exception {
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;
         AnnotationVisitor av0;
 
-        cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/focess/pathfinder/core/goal/NMSGoal", null, "net/minecraft/server/v1_13_R1/PathfinderGoal", null);
+        cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/focess/pathfinder/core/goal/NMSGoal", null, NMSManager.getVersionStringAsClassName() + "PathfinderGoal", null);
 
         {
             fv = cw.visitField(ACC_PRIVATE + ACC_FINAL, "goal", "Lcom/focess/pathfinder/goal/Goal;", null, null);
@@ -20,7 +21,7 @@ public class NMSGoalDump implements Opcodes {
             mv = cw.visitMethod(ACC_PUBLIC, "<init>", "(Lcom/focess/pathfinder/goal/Goal;)V", null, null);
             mv.visitCode();
             mv.visitVarInsn(ALOAD, 0);
-            mv.visitMethodInsn(INVOKESPECIAL, "net/minecraft/server/v1_13_R1/PathfinderGoal", "<init>", "()V", false);
+            mv.visitMethodInsn(INVOKESPECIAL, NMSManager.getVersionStringAsClassName() + "PathfinderGoal", "<init>", "()V", false);
             mv.visitVarInsn(ALOAD, 0);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitFieldInsn(PUTFIELD, "com/focess/pathfinder/core/goal/NMSGoal", "goal", "Lcom/focess/pathfinder/goal/Goal;");
