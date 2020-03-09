@@ -27,6 +27,7 @@ public abstract class Goal  {
 
     public enum Control
     {
+
         MOVE(1),
         LOOK(2),
         JUMP(4),

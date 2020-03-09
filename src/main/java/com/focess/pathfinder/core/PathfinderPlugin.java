@@ -7,11 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PathfinderPlugin extends JavaPlugin {
-    static {
-        PathfinderClassLoader.loadClasses();
-    }
 
     public void onEnable() {
+        PathfinderClassLoader.loadClasses();
         this.getServer().getScheduler().runTaskTimerAsynchronously(this, new ExceptionRunnable(),0L,20L);
     }
 

@@ -45,7 +45,7 @@ public class NMSManager {
         CraftServer = NMSManager.getCraftClass("CraftServer");
         EntityPlayer = NMSManager.getNMSClass("EntityPlayer");
         CraftEntity = NMSManager.getCraftClass("entity.CraftEntity");
-        Entity = NMSManager.getNMSClass("Entity");
+        Entity = NMSManager.getNMSClass("FocessEntity");
         NBTTagCompound = NMSManager.getNMSClass("NBTTagCompound");
         if (NMSManager.getVersionInt() < 12)
             e = NMSManager.getMethod(NMSManager.Entity, "e", NMSManager.NBTTagCompound);
@@ -133,6 +133,10 @@ public class NMSManager {
     }
 
     public static Class<?> getNMSClass(final String nmsClassName) {
+        return getNMSClass(nmsClassName,false);
+    }
+
+    public static Class<?> getNMSClass(final String nmsClassName ,boolean flag) {
         if (NMSManager.loadedNMSClasses.containsKey(nmsClassName))
             return NMSManager.loadedNMSClasses.get(nmsClassName);
         final String clazzName = "net.minecraft.server." + NMSManager.getVersionString() + nmsClassName;
@@ -140,7 +144,8 @@ public class NMSManager {
         try {
             clazz = Class.forName(clazzName);
         } catch (final Exception e) {
-            e.printStackTrace();
+            if (!flag)
+                e.printStackTrace();
             return NMSManager.loadedNMSClasses.put(nmsClassName, null);
         }
         NMSManager.loadedNMSClasses.put(nmsClassName, clazz);
@@ -165,7 +170,7 @@ public class NMSManager {
 
     public static String getVersionStringAsClassName() {
         if (NMSManager.versionStringAsClassName == null)
-            versionStringAsClassName = ("net.minecraft.server." + NMSManager.getVersionString()).replace("\\.","/");
+            versionStringAsClassName = ("net.minecraft.server." + NMSManager.getVersionString()).replace(".","/");
         return NMSManager.versionStringAsClassName;
     }
 }
