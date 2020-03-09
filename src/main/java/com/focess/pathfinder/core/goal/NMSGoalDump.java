@@ -1,7 +1,9 @@
 package com.focess.pathfinder.core.goal;
 
 import java.util.*;
+
 import org.objectweb.asm.*;
+
 public class NMSGoalDump implements Opcodes {
 
     public static byte[] dump() throws Exception {
