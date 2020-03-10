@@ -38,4 +38,8 @@ public abstract class Goal  {
             this.value = value;
         }
     }
+
+    public GoalItem toGoalItem() {
+        return new GoalItem().buildByGoal(this);
+    }
 }

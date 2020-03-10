@@ -1,14 +1,12 @@
 package com.focess.pathfinder.goal;
 
 import com.focess.pathfinder.goal.entity.FocessEntity;
+import com.google.common.collect.Sets;
 
-public class GoalSelector {
+import java.util.Set;
 
+public interface GoalSelector {
 
-    private final FocessEntity entity;
-
-    public GoalSelector(FocessEntity focessEntity) {
-        this.entity = focessEntity;
-    }
+    Set<GoalItem> getGoalItems();
 
 }
