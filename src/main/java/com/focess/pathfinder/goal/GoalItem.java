@@ -16,7 +16,7 @@ public abstract class  GoalItem {
     private EnumSet<Goal.Control> controls = EnumSet.noneOf(Goal.Control.class);
     protected List<Class<?>> parameters = Lists.newArrayList();
 
-    public GoalItem(GoalType type) {
+    protected GoalItem(GoalType type) {
         this.type = type;
         if (this.type == GoalType.NMS)
             Goals.goalItems.add(this);

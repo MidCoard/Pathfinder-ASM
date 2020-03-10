@@ -15,7 +15,7 @@ public class Goals {
     public static class MOVE {
         public static final GoalItem ArrowAttack = new NMSGoalItem(NMSManager.getNMSClass("PathfinderGoalArrowAttack",true))
                 .addControl(Goal.Control.MOVE).addControl(Goal.Control.LOOK)
-                .addParameters(NMSManager.getNMSClass("IRangedEntity"),double.class,int.class,int.class,float.class);
+                .addParameters(NMSManager.getNMSClass("IRangedEntity",true),double.class,int.class,int.class,float.class);
     }
 
     public static class LOOK {

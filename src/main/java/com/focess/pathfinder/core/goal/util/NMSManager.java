@@ -1,11 +1,12 @@
 package com.focess.pathfinder.core.goal.util;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,8 +20,6 @@ public class NMSManager {
     public static final Class<?> CraftWorld;
 
     // NBT Builder
-    private static final Method e;
-    public static final Class<?> Entity;
     public static final Class<?> EntityPlayer;
     // basic
     private static final Map<Class<?>, Map<String, Field>> loadedFields = new HashMap<>();
@@ -37,6 +36,12 @@ public class NMSManager {
     private static String versionStringAsClassName;
 
 
+    private static final Method getHandle;
+
+    public static final Class<?> PathfinderGoalSelector;
+
+    public static final Class<?> EntityInsentient;
+
     static {
         World = NMSManager.getNMSClass("World");
         MinecraftServer = NMSManager.getNMSClass("MinecraftServer");
@@ -45,12 +50,10 @@ public class NMSManager {
         CraftServer = NMSManager.getCraftClass("CraftServer");
         EntityPlayer = NMSManager.getNMSClass("EntityPlayer");
         CraftEntity = NMSManager.getCraftClass("entity.CraftEntity");
-        Entity = NMSManager.getNMSClass("FocessEntity");
+        getHandle = NMSManager.getMethod(CraftEntity,"getHandle");
         NBTTagCompound = NMSManager.getNMSClass("NBTTagCompound");
-        if (NMSManager.getVersionInt() < 12)
-            e = NMSManager.getMethod(NMSManager.Entity, "e", NMSManager.NBTTagCompound);
-        else
-            e = NMSManager.getMethod(NMSManager.Entity, "save", NMSManager.NBTTagCompound);
+        PathfinderGoalSelector = NMSManager.getNMSClass("PathfinderGoalSelector");
+        EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
     }
 
     public static Object getConnection(final Player player) {
@@ -172,5 +175,20 @@ public class NMSManager {
         if (NMSManager.versionStringAsClassName == null)
             versionStringAsClassName = ("net.minecraft.server." + NMSManager.getVersionString()).replace(".","/");
         return NMSManager.versionStringAsClassName;
+    }
+
+    public static boolean isHighVersion() {
+        return getVersionInt() > 13;
+    }
+
+    public static Object getNMSEntity(org.bukkit.entity.Entity entity) {
+        try {
+            return getHandle.invoke(entity);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

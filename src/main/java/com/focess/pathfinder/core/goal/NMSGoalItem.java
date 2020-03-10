@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Objects;
 
 public class NMSGoalItem extends GoalItem {
 
@@ -13,6 +14,19 @@ public class NMSGoalItem extends GoalItem {
     public NMSGoalItem(Class<?> clz) {
         super(GoalType.NMS);
         this.clz = clz;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NMSGoalItem)) return false;
+        NMSGoalItem that = (NMSGoalItem) o;
+        return clz.equals(that.clz);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clz);
     }
 
     @Override
