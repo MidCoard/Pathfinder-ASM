@@ -1,5 +1,6 @@
 package com.focess.pathfinder.core.goal.util;
 
+import net.minecraft.server.v1_13_R1.PathfinderGoal;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class NMSManager {
 
@@ -42,6 +44,12 @@ public class NMSManager {
 
     public static final Class<?> EntityInsentient;
 
+    public static final Class<?> PathfinderGoal;
+
+    private static final char[] pathfinderGoalMethodNames;
+
+    public static Field PathfinderGoalsField = null;
+
     static {
         World = NMSManager.getNMSClass("World");
         MinecraftServer = NMSManager.getNMSClass("MinecraftServer");
@@ -50,10 +58,27 @@ public class NMSManager {
         CraftServer = NMSManager.getCraftClass("CraftServer");
         EntityPlayer = NMSManager.getNMSClass("EntityPlayer");
         CraftEntity = NMSManager.getCraftClass("entity.CraftEntity");
-        getHandle = NMSManager.getMethod(CraftEntity,"getHandle");
+        getHandle = NMSManager.getMethod(CraftEntity, "getHandle");
         NBTTagCompound = NMSManager.getNMSClass("NBTTagCompound");
         PathfinderGoalSelector = NMSManager.getNMSClass("PathfinderGoalSelector");
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
+        PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
+        pathfinderGoalMethodNames = new char[6];
+        int point = 0;
+        for (Method method : PathfinderGoal.getDeclaredMethods())
+            if (method.getParameterCount() == 0 && method.getName().length() == 1 && pathfinderGoalMethodNames.length > point)
+                pathfinderGoalMethodNames[point++] = method.getName().charAt(0);
+        Arrays.sort(pathfinderGoalMethodNames);
+        try {
+            if (getVersionInt() > 13) {
+                PathfinderGoalsField = PathfinderGoal.getDeclaredField("d");
+            } else {
+
+                PathfinderGoalsField = PathfinderGoal.getDeclaredField("b");
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Object getConnection(final Player player) {
@@ -136,10 +161,10 @@ public class NMSManager {
     }
 
     public static Class<?> getNMSClass(final String nmsClassName) {
-        return getNMSClass(nmsClassName,false);
+        return getNMSClass(nmsClassName, false);
     }
 
-    public static Class<?> getNMSClass(final String nmsClassName ,boolean flag) {
+    public static Class<?> getNMSClass(final String nmsClassName, boolean flag) {
         if (NMSManager.loadedNMSClasses.containsKey(nmsClassName))
             return NMSManager.loadedNMSClasses.get(nmsClassName);
         final String clazzName = "net.minecraft.server." + NMSManager.getVersionString() + nmsClassName;
@@ -173,7 +198,7 @@ public class NMSManager {
 
     public static String getVersionStringAsClassName() {
         if (NMSManager.versionStringAsClassName == null)
-            versionStringAsClassName = ("net.minecraft.server." + NMSManager.getVersionString()).replace(".","/");
+            versionStringAsClassName = ("net.minecraft.server." + NMSManager.getVersionString()).replace(".", "/");
         return NMSManager.versionStringAsClassName;
     }
 
@@ -190,5 +215,9 @@ public class NMSManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static char[] getPathfinderGoalMethodNames() {
+        return Arrays.copyOf(pathfinderGoalMethodNames, 6);
     }
 }

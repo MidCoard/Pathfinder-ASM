@@ -6,4 +6,6 @@ import org.bukkit.entity.Entity;
 public interface FocessEntity {
 
     GoalSelector getGoalSelector();
+
+    Entity getBukkitEntity();
 }

@@ -1,7 +1,9 @@
 package com.focess.pathfinder.core.goal;
 
 import com.focess.pathfinder.goal.GoalItem;
+import com.focess.pathfinder.wrapped.WrappedIRangedEntity;
 import com.google.common.collect.Lists;
+import jdk.nashorn.internal.objects.NativeFloat32Array;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -9,29 +11,16 @@ import java.util.Objects;
 
 public class NMSGoalItem extends GoalItem {
 
-    private final Class<?> clz;
+    private List<Object> values;
 
-    public NMSGoalItem(Class<?> clz) {
-        super(GoalType.NMS);
-        this.clz = clz;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof NMSGoalItem)) return false;
-        NMSGoalItem that = (NMSGoalItem) o;
-        return clz.equals(that.clz);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(clz);
+    public NMSGoalItem(Class<?> clz,int args) {
+        super(GoalType.NMS, clz);
+        this.values =  Lists.newArrayList(args);
     }
 
     @Override
     public Object build(Object... objects) {
-        GoalConstructor goalConstructor = new GoalConstructor(this.parameters);
+        GoalConstructor goalConstructor = new GoalConstructor();
         for (Object object : objects)
             goalConstructor.write(object);
         if (!goalConstructor.isEnd())
@@ -39,8 +28,34 @@ public class NMSGoalItem extends GoalItem {
         return goalConstructor.build(this);
     }
 
-    public Class<?> getGoalClass() {
-        return clz;
+    protected void write(int i, Object object) {
+        this.values.set(i,object);
+    }
+
+    public class PointerWriter {
+
+        private final int start;
+        private final int len;
+        private final int end;
+        private int pointer;
+
+        public PointerWriter(int start, int len) {
+            this.start = start;
+            this.len = len;
+            this.end = start + len - 1;
+            this.pointer = 0;
+        }
+
+        public void write(Object object) {
+            NMSGoalItem.this.write(this.pointer+this.start,object);
+            if (this.isEnd())
+                pointer = 0;
+            else pointer++;
+        }
+
+        private boolean isEnd() {
+            return (this.pointer + this.start) == this.end;
+        }
     }
 
     private static class GoalConstructor {

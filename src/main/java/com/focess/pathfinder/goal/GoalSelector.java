@@ -13,15 +13,15 @@ public interface GoalSelector {
         this.removeExactGoal(goalItem,null);
     }
 
-    void removeExactGoal(GoalItem goalItem,Object object);
-
-    void addGoal(Object object);
-
     default boolean containsGoal(GoalItem goalItem) {
         return this.containsExactGoal(goalItem,null);
     }
 
-    boolean containsExactGoal(GoalItem goalItem,Object object);
+    void removeExactGoal(GoalItem goalItem, Goal goal);
+
+    void addGoal(Goal goal);
+
+    boolean containsExactGoal(GoalItem goalItem, Goal goal);
 
     Object getGoal(GoalItem goalItem);
 

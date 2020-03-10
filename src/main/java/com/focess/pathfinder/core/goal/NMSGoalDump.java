@@ -10,14 +10,8 @@ import org.objectweb.asm.*;
 public class NMSGoalDump implements Opcodes {
 
     public static byte[] dump() throws Exception {
-        Class<?> PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
-        char names[] = new char[6];
+        char names[] = NMSManager.getPathfinderGoalMethodNames();
         int point = 0;
-        for (Method method : PathfinderGoal.getDeclaredMethods())
-            if (method.getParameterCount() == 0 && method.getName().length() == 1 && names.length > point)
-                names[point++] = method.getName().charAt(0);
-        Arrays.sort(names);
-        point = 0;
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;

@@ -7,6 +7,11 @@ import java.util.EnumSet;
 public abstract class Goal  {
 
     private final EnumSet<Control> controls = EnumSet.noneOf(Control.class);
+    private final int priority;
+
+    public Goal(int priority) {
+        this.priority = priority;
+    }
 
     public abstract boolean canStart();
 
@@ -20,12 +25,12 @@ public abstract class Goal  {
 
     public void tick() {}
 
-    public void setControls(EnumSet<Control> controls) {
+    public final void setControls(EnumSet<Control> controls) {
         this.controls.clear();
         this.controls.addAll(controls);
     }
 
-    public EnumSet<Control> getControls() { return this.controls; }
+    public final EnumSet<Control> getControls() { return this.controls; }
 
     public enum Control
     {
@@ -41,7 +46,7 @@ public abstract class Goal  {
         }
     }
 
-    public GoalItem toGoalItem() {
+    public final GoalItem toGoalItem() {
         return new FocessGoalItem(this);
     }
 }

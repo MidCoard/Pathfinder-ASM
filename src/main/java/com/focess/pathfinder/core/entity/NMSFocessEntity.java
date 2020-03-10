@@ -19,4 +19,9 @@ public class NMSFocessEntity implements FocessEntity {
     public GoalSelector getGoalSelector() {
         return this.goalSelector;
     }
+
+    @Override
+    public Entity getBukkitEntity() {
+        return this.entity;
+    }
 }
