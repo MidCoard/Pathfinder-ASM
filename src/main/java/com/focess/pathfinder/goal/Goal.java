@@ -1,5 +1,7 @@
 package com.focess.pathfinder.goal;
 
+import com.focess.pathfinder.core.goal.FocessGoalItem;
+
 import java.util.EnumSet;
 
 public abstract class Goal  {
@@ -40,6 +42,6 @@ public abstract class Goal  {
     }
 
     public GoalItem toGoalItem() {
-        return new GoalItem().buildByGoal(this);
+        return new FocessGoalItem(this);
     }
 }
