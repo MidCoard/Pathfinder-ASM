@@ -13,19 +13,17 @@ public class NMSGoalItem extends GoalItem {
 
     private List<Object> values;
 
-    public NMSGoalItem(Class<?> clz,int args) {
+    private List<Class<?>> parameters;
+
+    public NMSGoalItem(Class<?> clz,int args,Class<?>... parameters) {
         super(GoalType.NMS, clz);
         this.values =  Lists.newArrayList(args);
+        this.parameters = Lists.newArrayList(parameters);
     }
 
     @Override
     public Object build(Object... objects) {
-        GoalConstructor goalConstructor = new GoalConstructor();
-        for (Object object : objects)
-            goalConstructor.write(object);
-        if (!goalConstructor.isEnd())
-            throw new IllegalArgumentException("Some arguments are lost in building NMS goal.");
-        return goalConstructor.build(this);
+        return getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance(this, values.toArray(new Object[0]));
     }
 
     protected void write(int i, Object object) {
@@ -58,45 +56,5 @@ public class NMSGoalItem extends GoalItem {
         }
     }
 
-    private static class GoalConstructor {
 
-        private final List<Class<?>> parameters;
-        private int point;
-
-        public GoalConstructor(List<Class<?>> parameters) {
-            this.parameters = parameters;
-            this.point = 0;
-        }
-
-        private final List<Object> values = Lists.newArrayList();
-
-
-        public void write(Object object) {
-            if (this.isEnd())
-                return;
-            if (parameters.get(point).isAssignableFrom(object.getClass())) {
-                values.add(object);
-                point++;
-            } else throw new IllegalArgumentException(object + " is not the type of " + parameters.get(point));
-        }
-
-        public boolean isEnd() {
-            return point == parameters.size();
-        }
-
-        public Object build(NMSGoalItem goalItem) {
-            try {
-                return goalItem.getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance(this, values.toArray(new Object[0]));
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
 }
