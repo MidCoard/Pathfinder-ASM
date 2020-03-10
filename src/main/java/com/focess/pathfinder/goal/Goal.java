@@ -88,6 +88,10 @@ public abstract class Goal {
         private Control(int value) {
             this.value = value;
         }
+
+        public int getValue() {
+            return this.value;
+        }
     }
 
     public final GoalItem toGoalItem() {

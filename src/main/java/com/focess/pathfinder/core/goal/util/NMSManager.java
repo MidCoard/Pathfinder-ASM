@@ -1,5 +1,9 @@
 package com.focess.pathfinder.core.goal.util;
 
+import com.focess.pathfinder.goal.Goal;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import net.minecraft.client.gui.screen.options.ControlsListWidget;
 import net.minecraft.server.v1_13_R1.PathfinderGoal;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -9,10 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class NMSManager {
 
@@ -48,9 +49,27 @@ public class NMSManager {
 
     private static final char[] pathfinderGoalMethodNames;
 
-    public static Field PathfinderGoalsField = null;
+    public static final Field PathfinderGoalsField;
+
+    public static final Field PathfinderGoalItema;
+
+    public static final Field PathfinderGoalItemb;
+
+    public static final Method PathfinderGoalMutex;
+
+    public static final Method PathfinderGoalSelectorAdd;
+
+    public static final Method PathfinderGoalSelectorRemove;
+
+    public static final Class<Enum<?>> Control;
 
     static {
+        Field PathfinderGoalsField1 = null;
+        Field PathfinderGoalItema1 = null;
+        Field PathfinderGoalItemb1 = null;
+        Method PathfinderGoalMutex1 = null;
+        Method PathfinderGoalSelectorAdd1 = null;
+        Method PathfinderGoalSelectorRemove1 = null;
         World = NMSManager.getNMSClass("World");
         MinecraftServer = NMSManager.getNMSClass("MinecraftServer");
         WorldServer = NMSManager.getNMSClass("WorldServer");
@@ -63,22 +82,45 @@ public class NMSManager {
         PathfinderGoalSelector = NMSManager.getNMSClass("PathfinderGoalSelector");
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
         PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
+        Control = (Class<Enum<?>>) NMSManager.getNMSClass("PathfinderGoal$Type");
         pathfinderGoalMethodNames = new char[6];
         int point = 0;
         for (Method method : PathfinderGoal.getDeclaredMethods())
-            if (method.getParameterCount() == 0 && method.getName().length() == 1 && pathfinderGoalMethodNames.length > point)
+            if (method.getParameterCount() == 0 && method.getName().length() == 1 && pathfinderGoalMethodNames.length > point) {
                 pathfinderGoalMethodNames[point++] = method.getName().charAt(0);
+            } else if (method.getParameterCount() == 1)
+                PathfinderGoalMutex1 = method;
+        PathfinderGoalMutex = PathfinderGoalMutex1;
         Arrays.sort(pathfinderGoalMethodNames);
+        for (Method method : PathfinderGoalSelector.getDeclaredMethods())
+            if (method.getParameterCount() == 2 && Arrays.equals(method.getParameterTypes(), new Class<?>[]{int.class, PathfinderGoal}))
+                PathfinderGoalSelectorAdd1 = method;
+            else if (method.getParameterCount() == 1 && Arrays.equals(method.getParameterTypes(),new Class<?>[]{PathfinderGoal}))
+                PathfinderGoalSelectorRemove1 = method;
+        PathfinderGoalSelectorAdd = PathfinderGoalSelectorAdd1;
+        PathfinderGoalSelectorRemove = PathfinderGoalSelectorRemove1;
         try {
             if (getVersionInt() > 13) {
-                PathfinderGoalsField = PathfinderGoal.getDeclaredField("d");
+                PathfinderGoalItema1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "a");
+                PathfinderGoalItemb1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "b");
+                PathfinderGoalsField1 = PathfinderGoal.getDeclaredField("d");
             } else {
-
-                PathfinderGoalsField = PathfinderGoal.getDeclaredField("b");
+                Class<?> PathfinderGoalItem;
+                try {
+                    PathfinderGoalItem = Class.forName("net.minecraft.server." + NMSManager.getVersionString() + "PathfinderGoalSelector$PathfinderGoalSelectorItem");
+                } catch (Exception e) {
+                    PathfinderGoalItem = Class.forName("net.minecraft.server." + NMSManager.getVersionString() + "PathfinderGoalSelectorItem");
+                }
+                PathfinderGoalItema1 = NMSManager.getField(PathfinderGoalItem, "a");
+                PathfinderGoalItemb1 = NMSManager.getField(PathfinderGoalItem, "b");
+                PathfinderGoalsField1 = PathfinderGoal.getDeclaredField("b");
             }
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        PathfinderGoalsField = PathfinderGoalsField1;
+        PathfinderGoalItema = PathfinderGoalItema1;
+        PathfinderGoalItemb = PathfinderGoalItemb1;
     }
 
     public static Object getConnection(final Player player) {
@@ -219,5 +261,39 @@ public class NMSManager {
 
     public static char[] getPathfinderGoalMethodNames() {
         return Arrays.copyOf(pathfinderGoalMethodNames, 6);
+    }
+
+    public static Object toNMSControls(EnumSet<Goal.Control> controls) {
+        if (controls.size() == 0)
+            try {
+                return EnumSet.class.getDeclaredMethod("noneOf", Class.class).invoke(null,Control);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        List<Enum> enums = Lists.newArrayList();
+        Enum<?> first = null;
+        boolean flag = false;
+        for (Goal.Control control:controls)
+            if (!flag) {
+                flag = true;
+                first = toNMSControl(control);
+            }
+            else
+                enums.add(toNMSControl(control));
+        try {
+            return EnumSet.class
+                    .getDeclaredMethod("of", Enum.class, Enum[].class).invoke(null,first,enums.toArray(new Enum[0]));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Enum<?> toNMSControl(Goal.Control control) {
+        for (Enum<?> c:Control.getEnumConstants())
+            if (c.name().equals(control.name()))
+                return c;
+        return null;
     }
 }

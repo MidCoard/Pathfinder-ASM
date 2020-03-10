@@ -1,8 +1,6 @@
 package com.focess.pathfinder.goal;
 
-import com.focess.pathfinder.goal.entity.FocessEntity;
-import com.google.common.collect.Sets;
-
+import java.util.List;
 import java.util.Set;
 
 public interface GoalSelector {
@@ -23,6 +21,6 @@ public interface GoalSelector {
 
     boolean containsExactGoal(GoalItem goalItem, Goal goal);
 
-    Object getGoal(GoalItem goalItem);
+    List<Goal> getGoal(GoalItem goalItem);
 
 }

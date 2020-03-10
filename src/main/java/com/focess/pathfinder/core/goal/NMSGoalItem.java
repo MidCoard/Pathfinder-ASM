@@ -22,7 +22,7 @@ public abstract class NMSGoalItem extends GoalItem {
     public abstract NMSGoalItem clear();
 
     @Override
-    public final Goal build(int priority) {
+    public Goal build(int priority) {
         Object nmsGoal = null;
         try {
             nmsGoal = getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance(this, values.toArray(new Object[0]));
