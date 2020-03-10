@@ -31,7 +31,7 @@ public abstract class NMSGoalItem extends GoalItem {
         }
         char[] names = NMSManager.getPathfinderGoalMethodNames();
         Object finalNmsGoal = nmsGoal;
-        return new Goal(priority) {
+        return new Goal(this,priority,nmsGoal) {
             @Override
             public boolean canStart() {
                 try {

@@ -11,7 +11,7 @@ public class NMSFocessEntity implements FocessEntity {
     private final Entity entity;
     private final GoalSelector goalSelector;
 
-    protected NMSFocessEntity(Entity entity) {
+    public NMSFocessEntity(Entity entity) {
         this.entity = entity;
         this.goalSelector = new SimpleGoalSelector(this);
     }

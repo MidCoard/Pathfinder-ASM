@@ -11,10 +11,10 @@ public class Goals {
 
     protected static Set<GoalItem> goalItems = Sets.newHashSet();
 
-    public static GoalItem getNMSGoalItem(Class<?> clz) {
+    public static NMSGoalItem getNMSGoalItem(Class<?> clz) {
         for (GoalItem goalItem:goalItems)
             if (goalItem.getGoalClass().equals(clz))
-                return goalItem;
+                return (NMSGoalItem) goalItem;
         return null;
     }
 
