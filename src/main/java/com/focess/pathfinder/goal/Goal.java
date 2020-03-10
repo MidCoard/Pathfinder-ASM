@@ -7,9 +7,17 @@ import java.util.EnumSet;
 public abstract class Goal  {
 
     private final EnumSet<Control> controls = EnumSet.noneOf(Control.class);
+
     private final int priority;
 
+    private final GoalItem goalItem;
+
     public Goal(int priority) {
+        this(null,priority);
+    }
+
+    public Goal(GoalItem goalItem,int priority) {
+        this.goalItem = goalItem;
         this.priority = priority;
     }
 
@@ -47,6 +55,8 @@ public abstract class Goal  {
     }
 
     public final GoalItem toGoalItem() {
+        if (this.goalItem != null)
+            return this.goalItem;
         return new FocessGoalItem(this);
     }
 }

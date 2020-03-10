@@ -12,7 +12,7 @@ public class FocessGoalItem extends GoalItem {
     }
 
     @Override
-    public Object build(Object... objects) {
+    public Goal build(int priority) {
         throw new UnsupportedOperationException("FocessGoal cannot be build.");
     }
 }

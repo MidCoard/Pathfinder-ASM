@@ -1,9 +1,6 @@
 package com.focess.pathfinder.goal;
 
-import com.google.common.collect.Lists;
-
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Objects;
 
 public abstract class  GoalItem {
@@ -51,7 +48,7 @@ public abstract class  GoalItem {
         return this.type;
     }
 
-    public abstract Object build(Object... objects);
+    public abstract Goal build(int priority);
 
     public enum GoalType{
         NMS,FOCESS;

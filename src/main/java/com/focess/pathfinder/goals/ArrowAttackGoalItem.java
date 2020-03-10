@@ -4,8 +4,6 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.goal.util.NMSManager;
 import com.focess.pathfinder.wrapped.WrappedIRangedEntity;
 
-import java.awt.*;
-
 public class ArrowAttackGoalItem extends NMSGoalItem {
 
     public ArrowAttackGoalItem() {
@@ -32,6 +30,12 @@ public class ArrowAttackGoalItem extends NMSGoalItem {
 
     public ArrowAttackGoalItem writeFloat(float f) {
         this.write(4, f);
+        return this;
+    }
+
+    @Override
+    public ArrowAttackGoalItem clear() {
+        intWriter.clear();
         return this;
     }
 }
