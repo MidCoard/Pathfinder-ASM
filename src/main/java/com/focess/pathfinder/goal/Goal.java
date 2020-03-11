@@ -51,7 +51,7 @@ public abstract class Goal {
         TARGET(8);
         private final int value;
 
-        private Control(int value) {
+        Control(int value) {
             this.value = value;
         }
 

@@ -43,6 +43,6 @@ public abstract class  GoalItem {
     public abstract WrappedGoal build(int priority);
 
     public enum GoalType{
-        NMS,FOCESS;
+        NMS,FOCESS
     }
 }
