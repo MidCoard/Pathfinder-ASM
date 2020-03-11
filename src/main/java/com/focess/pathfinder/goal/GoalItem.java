@@ -22,22 +22,13 @@ public abstract class  GoalItem {
         return Objects.hash(type, clz);
     }
 
-    public EnumSet<Goal.Control> getControls() {
-        return controls;
-    }
-
-    private EnumSet<Goal.Control> controls = EnumSet.noneOf(Goal.Control.class);
-
-    protected GoalItem(GoalType type, Class<?> clz) {
-        this.type = type;
+    protected GoalItem(Class<?> clz) {
         this.clz = clz;
-        if (this.type == GoalType.NMS)
+        if (clz.getName().startsWith("net.minecraft")) {
+            this.type = GoalType.NMS;
             Goals.goalItems.add(this);
-    }
-
-    protected GoalItem addControl(Goal.Control control) {
-        controls.add(control);
-        return this;
+        }
+        else this.type = GoalType.FOCESS;
     }
 
     public Class<?> getGoalClass(){
@@ -48,7 +39,7 @@ public abstract class  GoalItem {
         return this.type;
     }
 
-    public abstract Goal build(int priority);
+    public abstract WrappedGoal build(int priority);
 
     public enum GoalType{
         NMS,FOCESS;

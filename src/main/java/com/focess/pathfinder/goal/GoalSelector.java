@@ -7,20 +7,16 @@ public interface GoalSelector {
 
     Set<GoalItem> getGoalItems();
 
-    default void removeGoal(GoalItem goalItem) {
-        this.removeExactGoal(goalItem,null);
-    }
+    void removeGoal(GoalItem goalItem);
 
-    default boolean containsGoal(GoalItem goalItem) {
-        return this.containsExactGoal(goalItem,null);
-    }
+    boolean containsGoal(GoalItem goalItem);
 
-    void removeExactGoal(GoalItem goalItem, Goal goal);
+    void removeExactGoal(WrappedGoal goal);
 
-    void addGoal(Goal goal);
+    void addGoal(WrappedGoal goal);
 
-    boolean containsExactGoal(GoalItem goalItem, Goal goal);
+    boolean containsExactGoal(WrappedGoal goal);
 
-    List<Goal> getGoal(GoalItem goalItem);
+    List<WrappedGoal> getGoal(GoalItem goalItem);
 
 }

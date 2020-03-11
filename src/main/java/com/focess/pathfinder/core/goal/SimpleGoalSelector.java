@@ -183,16 +183,23 @@ public class SimpleGoalSelector implements GoalSelector {
     }
 
     @Override
-    public void removeExactGoal(GoalItem goalItem, Goal goal) {
-        update();
-//        if (goal.)
-//        List<Goal>
+    public void removeExactGoal(Goal goal) {
         Object nmsEntity = NMSManager.getNMSEntity(this.entity.getBukkitEntity());
-        if (goal.getControls().contains(Goal.Control.TARGET)) {
-            Object targetSelector = NMSManager.getField(NMSManager.EntityInsentient, "targetSelector").get(nmsEntity);
-            NMSManager.PathfinderGoalSelectorRemove.invoke(targetSelector,)
-        } else {
-            Object goalSelector = NMSManager.getField(NMSManager.EntityInsentient, "goalSelector").get(nmsEntity);
+        try {
+            if (goal.getControls().contains(Goal.Control.TARGET)) {
+                Object targetSelector = NMSManager.getField(NMSManager.EntityInsentient, "targetSelector").get(nmsEntity);
+                Field nmsGoalField = Goal.class.getDeclaredField("nmsGoal");
+                nmsGoalField.setAccessible(true);
+                NMSManager.PathfinderGoalSelectorRemove.invoke(targetSelector, nmsGoalField.get(goal));
+            } else {
+                Object goalSelector = NMSManager.getField(NMSManager.EntityInsentient, "goalSelector").get(nmsEntity);
+                Field nmsGoalField = Goal.class.getDeclaredField("nmsGoal");
+                nmsGoalField.setAccessible(true);
+                NMSManager.PathfinderGoalSelectorRemove.invoke(goalSelector, nmsGoalField.get(goal));
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -222,10 +229,10 @@ public class SimpleGoalSelector implements GoalSelector {
     }
 
     @Override
-    public boolean containsExactGoal(GoalItem goalItem, Goal goal) {
-        update();
+    public boolean containsExactGoal(Goal goal) {
+        update();a
         for (Goal g : goals)
-            if (g.toGoalItem().equals(goalItem) && (goal == null || g.equals(goal)))
+            if (g.equals(goal))
                 return true;
         return false;
     }

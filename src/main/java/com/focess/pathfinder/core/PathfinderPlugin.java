@@ -12,8 +12,7 @@ public class PathfinderPlugin extends JavaPlugin {
     public void onEnable() {
         PathfinderClassLoader.loadClasses();
         this.getServer().getScheduler().runTaskTimerAsynchronously(this, new ExceptionRunnable(),0L,20L);
-
-        new Example();
+        this.getServer().getPluginManager().registerEvents(new Example(),this);
     }
 
     public void onDisable() {
