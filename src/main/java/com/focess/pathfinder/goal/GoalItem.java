@@ -1,6 +1,7 @@
 package com.focess.pathfinder.goal;
 
-import java.util.EnumSet;
+import com.focess.pathfinder.goals.Goals;
+
 import java.util.Objects;
 
 public abstract class  GoalItem {

@@ -11,7 +11,7 @@ public class PathfinderClassLoader extends ClassLoader {
         try {
             byte[] nmsGoal = NMSGoalDump.dump();
             NMSGoal = loader.buildClass("com.focess.pathfinder.core.goal.NMSGoal",nmsGoal,0,nmsGoal.length);
-            System.err.println("Build Goal Successfully.");
+            System.out.println("Build Goal Successfully.");
         } catch (Exception e) {
             System.err.println("Build Goal Wrongly.");
             e.printStackTrace();

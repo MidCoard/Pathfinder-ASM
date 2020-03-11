@@ -19,4 +19,6 @@ public interface GoalSelector {
 
     List<WrappedGoal> getGoal(GoalItem goalItem);
 
+    List<WrappedGoal> getGoals(GoalItem goalItem);
+
 }

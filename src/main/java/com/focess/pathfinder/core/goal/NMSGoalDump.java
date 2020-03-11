@@ -1,16 +1,12 @@
 package com.focess.pathfinder.core.goal;
 
-import java.lang.reflect.Method;
-import java.util.*;
-
-import com.focess.pathfinder.core.goal.util.NMSManager;
-import com.google.common.collect.Lists;
+import com.focess.pathfinder.core.util.NMSManager;
 import org.objectweb.asm.*;
 
 public class NMSGoalDump implements Opcodes {
 
     public static byte[] dump() throws Exception {
-        char names[] = NMSManager.getPathfinderGoalMethodNames();
+        String[] names = NMSManager.getPathfinderGoalMethodNames();
         int point = 0;
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
@@ -36,7 +32,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()Z", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, names[point++], "()Z", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -59,7 +55,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()Z", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, names[point++], "()Z", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -82,7 +78,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()V", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, names[point++], "()V", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -107,7 +103,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()V", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, names[point++], "()V", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -132,7 +128,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()V", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, names[point++], "()V", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -157,7 +153,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, String.valueOf(names[point++]), "()Z", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, names[point++], "()Z", null, null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();

@@ -1,12 +1,8 @@
-package com.focess.pathfinder.core.goal.util;
+package com.focess.pathfinder.core.util;
 
 import com.focess.pathfinder.goal.Goal;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import net.minecraft.client.gui.screen.options.ControlsListWidget;
-import net.minecraft.server.v1_13_R1.PathfinderGoal;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -47,7 +43,7 @@ public class NMSManager {
 
     public static final Class<?> PathfinderGoal;
 
-    private static final char[] pathfinderGoalMethodNames;
+    private static final String[] pathfinderGoalMethodNames;
 
     public static final Field PathfinderGoalsField;
 
@@ -63,6 +59,8 @@ public class NMSManager {
 
     public static final Class<Enum<?>> Control;
 
+    public static final Method PathfinderGoalMutexGetter;
+
     static {
         Field PathfinderGoalsField1 = null;
         Field PathfinderGoalItema1 = null;
@@ -70,6 +68,7 @@ public class NMSManager {
         Method PathfinderGoalMutex1 = null;
         Method PathfinderGoalSelectorAdd1 = null;
         Method PathfinderGoalSelectorRemove1 = null;
+        Method PathfinderGoalMutexGetter1 = null;
         World = NMSManager.getNMSClass("World");
         MinecraftServer = NMSManager.getNMSClass("MinecraftServer");
         WorldServer = NMSManager.getNMSClass("WorldServer");
@@ -83,15 +82,20 @@ public class NMSManager {
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
         PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
         Control = (Class<Enum<?>>) NMSManager.getNMSClass("PathfinderGoal$Type");
-        pathfinderGoalMethodNames = new char[6];
+        pathfinderGoalMethodNames = new String[6];
         int point = 0;
         for (Method method : PathfinderGoal.getDeclaredMethods())
-            if (method.getParameterCount() == 0 && method.getName().length() == 1 && pathfinderGoalMethodNames.length > point) {
-                pathfinderGoalMethodNames[point++] = method.getName().charAt(0);
+            if (!method.getReturnType().equals(boolean.class) && !method.getReturnType().equals(Void.TYPE))
+                PathfinderGoalMutexGetter1 = method;
+                else if (method.getParameterCount() == 0 && method.getName().length() == 1 && 5 > point) {
+                pathfinderGoalMethodNames[point++] = method.getName();
             } else if (method.getParameterCount() == 1)
                 PathfinderGoalMutex1 = method;
+            else if (method.getParameterCount() == 0 && method.getReturnType().equals(boolean.class))
+                pathfinderGoalMethodNames[5] = method.getName();
         PathfinderGoalMutex = PathfinderGoalMutex1;
-        Arrays.sort(pathfinderGoalMethodNames);
+        PathfinderGoalMutexGetter = PathfinderGoalMutexGetter1;
+        Arrays.sort(pathfinderGoalMethodNames,0,5);
         for (Method method : PathfinderGoalSelector.getDeclaredMethods())
             if (method.getParameterCount() == 2 && Arrays.equals(method.getParameterTypes(), new Class<?>[]{int.class, PathfinderGoal}))
                 PathfinderGoalSelectorAdd1 = method;
@@ -259,7 +263,7 @@ public class NMSManager {
         return null;
     }
 
-    public static char[] getPathfinderGoalMethodNames() {
+    public static String[] getPathfinderGoalMethodNames() {
         return Arrays.copyOf(pathfinderGoalMethodNames, 6);
     }
 
@@ -294,6 +298,22 @@ public class NMSManager {
         for (Enum<?> c:Control.getEnumConstants())
             if (c.name().equals(control.name()))
                 return c;
+        return null;
+    }
+
+    public static EnumSet<Goal.Control> toFocessControls(Collection<?> collection) {
+        EnumSet<Goal.Control> controls = EnumSet.noneOf(Goal.Control.class);
+        for (Object obj:collection)
+            controls.add(toFocessControl(obj));
+        return controls;
+    }
+
+    private static Goal.Control toFocessControl(Object obj) {
+        try {
+            return Goal.Control.valueOf((String) Enum.class.getDeclaredMethod("name").invoke(obj));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

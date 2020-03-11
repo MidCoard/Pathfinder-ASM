@@ -1,6 +1,8 @@
-package com.focess.pathfinder.goal;
+package com.focess.pathfinder.goals;
 
 import com.focess.pathfinder.core.goal.NMSGoalItem;
+import com.focess.pathfinder.goal.GoalItem;
+import com.focess.pathfinder.goal.WrappedGoal;
 import com.focess.pathfinder.goals.ArrowAttackGoalItem;
 import com.google.common.collect.Sets;
 
@@ -8,7 +10,7 @@ import java.util.Set;
 
 public class Goals {
 
-    protected static Set<GoalItem> goalItems = Sets.newHashSet();
+    public static Set<GoalItem> goalItems = Sets.newHashSet();
 
     public static NMSGoalItem getNMSGoalItem(Class<?> clz) {
         for (GoalItem goalItem:goalItems)

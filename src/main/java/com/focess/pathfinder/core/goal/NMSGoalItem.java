@@ -1,7 +1,5 @@
 package com.focess.pathfinder.core.goal;
 
-import com.focess.pathfinder.core.goal.util.NMSManager;
-import com.focess.pathfinder.goal.Goal;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.WrappedGoal;
 import com.google.common.collect.Lists;
@@ -14,7 +12,7 @@ public abstract class NMSGoalItem extends GoalItem {
 
     private List<Class<?>> parameters;
 
-    public NMSGoalItem(Class<?> clz,int args,Class<?>... parameters) {
+    protected NMSGoalItem(Class<?> clz,int args,Class<?>... parameters) {
         super(clz);
         this.values =  Lists.newArrayList(args);
         this.parameters = Lists.newArrayList(parameters);
@@ -30,7 +28,7 @@ public abstract class NMSGoalItem extends GoalItem {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new WrappedGoal(this,nmsGoal);
+        return new WrappedGoal(this,nmsGoal,priority);
     }
 
     protected void write(int i, Object object) {
