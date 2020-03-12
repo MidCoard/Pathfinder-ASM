@@ -58,7 +58,7 @@ public class TextClassBuilder {
             StringBuilder sb = new StringBuilder();
             sb.append(buildClearMethodClaim());
             sb.append(buildClearMethodStart());
-            for (TextFieldBuilder field :fields)
+            for (TextFieldBuilder field : fields)
                 sb.append(buildFieldClear(field));
             sb.append(buildClearMethodReturn());
             sb.append(buildClearMethodEnd());
@@ -171,12 +171,18 @@ public class TextClassBuilder {
 
         public static VarName var(String name) {
             VarName varName = new VarName(name);
+            VarName remove = null;
             for (VarName v : varNames)
                 if (v.equals(varName)) {
                     if (v.pos == -1)
                         v.pos = 0;
                     varName.pos = v.pos + 1;
+                    remove = v;
+                    break;
                 }
+            if (remove != null)
+                varNames.remove(remove);
+            varNames.add(varName);
             return varName;
         }
 

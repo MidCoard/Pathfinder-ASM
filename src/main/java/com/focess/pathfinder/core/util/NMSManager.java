@@ -107,7 +107,7 @@ public class NMSManager {
             if (getVersionInt() > 13) {
                 PathfinderGoalItema1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "a");
                 PathfinderGoalItemb1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "b");
-                PathfinderGoalsField1 = PathfinderGoal.getDeclaredField("d");
+                PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector,"d");
             } else {
                 Class<?> PathfinderGoalItem;
                 try {
@@ -117,7 +117,7 @@ public class NMSManager {
                 }
                 PathfinderGoalItema1 = NMSManager.getField(PathfinderGoalItem, "a");
                 PathfinderGoalItemb1 = NMSManager.getField(PathfinderGoalItem, "b");
-                PathfinderGoalsField1 = PathfinderGoal.getDeclaredField("b");
+                PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector,"b");
             }
         } catch (Exception e) {
             e.printStackTrace();

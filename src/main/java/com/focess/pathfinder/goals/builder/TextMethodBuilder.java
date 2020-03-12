@@ -1,18 +1,20 @@
 package com.focess.pathfinder.goals.builder;
 
+import java.lang.reflect.Type;
+
 public class TextMethodBuilder {
     private final TextClassBuilder.VarName name;
-    private final Class<?> c;
+    private final Type c;
     private int pos;
     private TextFieldBuilder field;
 
-    public TextMethodBuilder(TextClassBuilder.VarName var, Class<?> c, int pos) {
+    public TextMethodBuilder(TextClassBuilder.VarName var, Type c, int pos) {
         this.name = var;
         this.c = c;
         this.pos = pos;
     }
 
-    public TextMethodBuilder(TextClassBuilder.VarName var, Class<?> c, TextFieldBuilder field) {
+    public TextMethodBuilder(TextClassBuilder.VarName var, Type c, TextFieldBuilder field) {
         this.name = var;
         this.field = field;
         this.c = c;
@@ -55,6 +57,29 @@ public class TextMethodBuilder {
         return "public %className% %methodName%(%fieldClassName% arg) "
                 .replace("%className%",c.getSimpleName())
                 .replace("%methodName%",name.getFinalName())
-                .replace("%fieldClassName%",this.c.getName());
+                .replace("%fieldClassName%",buildFieldClassName());
+    }
+
+    private String buildFieldClassName() {
+        return getFieldClassName(this.c.getTypeName());
+    }
+
+    private String getFieldClassName(String name) {
+        int pos;
+        if ((pos = name.indexOf('<')) != -1) {
+            String temp = name.substring(pos+1,name.length()-1);
+            String head = name.substring(0,pos);
+            if (name.startsWith("net.minecraft")) {
+                String temps[] = head.split("\\.");
+                return "com.focess.pathfinder.wrapped.Wrapped" + temps[temps.length - 1] + "<" + getFieldClassName(temp) + ">";
+            }
+            else
+                return head + "<" + getFieldClassName(temp) + ">";
+        }
+        else if (name.startsWith("net.minecraft")) {
+            String temp[] = name.split("\\.");
+            return "com.focess.pathfinder.wrapped.Wrapped" + temp[temp.length - 1];
+        }
+        return name;
     }
 }

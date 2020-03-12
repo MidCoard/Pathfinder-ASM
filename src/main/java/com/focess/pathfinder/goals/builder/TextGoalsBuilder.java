@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class TextGoalsBuilder {
         List<String> classes = getClassesFromPackage(NMSManager.PathfinderGoal.getPackage(), "PathfinderGoal");
         getClassesExtendsGoal(classes).forEach((Class c) -> {
             try {
-                FileWriter writer = new FileWriter(new File(c.getSimpleName().replace("PathfinderGoal","") + "GoalItem.java"));
+                FileWriter writer = new FileWriter(new File("plugins/" + c.getSimpleName().replace("PathfinderGoal","") + "GoalItem.java"));
                 writer.write(translation(c));
                 writer.close();
             } catch (IOException e) {
@@ -31,12 +31,14 @@ public class TextGoalsBuilder {
 
     private static class Reader {
 
+        private final Type[] types;
         private int pointer;
 
         private final Class<?>[] classes;
 
-        private Reader(Class<?>[] classes) {
+        private Reader(Class<?>[] classes,Type[] types) {
             this.classes = classes;
+            this.types = types;
             this.pointer = 0;
         }
 
@@ -48,11 +50,15 @@ public class TextGoalsBuilder {
             return this.classes[pointer++];
         }
 
-        public int search(Class<?> n) {
+        public int search(Type n) {
             int start = this.pointer;
-            while(this.classes[pointer].equals(n) && !isEnd())
+            while(!isEnd() && this.classes[pointer].equals(n))
                 this.pointer++;
             return this.pointer - start + 1;
+        }
+
+        public Type getType() {
+            return this.types[this.pointer - 1];
         }
     }
 
@@ -67,17 +73,18 @@ public class TextGoalsBuilder {
                 constructor = c;
         // find the main constructor
         builder.setConstructor(constructor);
-        Reader reader = new Reader(constructor.getParameterTypes());
+        Reader reader = new Reader(constructor.getParameterTypes(),constructor.getGenericParameterTypes());
         while (!reader.isEnd()) {
             int pos = reader.pointer;
             Class<?> n = reader.next();
+            Type type = reader.getType();
             int len = reader.search(n);
             if (len > 1) {
                 TextFieldBuilder field = new TextFieldBuilder(TextClassBuilder.VarPool.var(PathfinderUtil.styleLowerClassName(n) + "Writer"),pos,len);
                 builder.addField(field);
-                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)),n,field));
+                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)),type,field));
             } else
-                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)),n,pos));
+                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)),type,pos));
         }
         return builder.build();
     }
@@ -101,7 +108,7 @@ public class TextGoalsBuilder {
             String protocol = url.getProtocol();
             if (protocol.equalsIgnoreCase("file")) {
                 String packagepath = url.getPath().trim();
-                AddClass(classes, packagepath, pack.getName(), filter);
+                addClass(classes, packagepath, pack.getName(), filter);
             } else if (protocol.equalsIgnoreCase("jar")) {
                 JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
                 Enumeration<JarEntry> jarEntryEnumeration = jarURLConnection.getJarFile().entries();
@@ -114,11 +121,7 @@ public class TextGoalsBuilder {
                             continue;
                         }
                         classname = classname.replace("/", ".");
-                        if (classname.contains(filter)) {
-
-                        } else {
-                            continue;
-                        }
+                        if (classname.contains(filter))
                         classes.add(classname);
                     }
                 }
@@ -127,14 +130,13 @@ public class TextGoalsBuilder {
         return classes;
     }
 
-    private static void AddClass(List<String> list, String packpath, String packname, String filter) throws ClassNotFoundException {
+    private static void addClass(List<String> list, String packpath, String packname, String filter) throws ClassNotFoundException {
         File f = new File(packpath);
         String name = f.getName().substring(0, f.getName().indexOf("."));
         String classname = packname + "." + name;
-        if (classname.contains("$")) {
-            return;
+        if (!classname.contains("$")) {
+            if (!classname.contains(filter))
+                list.add(classname);
         }
-        if (!classname.contains(filter))
-        list.add(classname);
     }
 }
