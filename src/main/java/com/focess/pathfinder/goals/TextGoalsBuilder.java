@@ -29,6 +29,7 @@ public class TextGoalsBuilder {
     private static File Translation(Class<?> clazz) throws IOException {
         String filename = clazz.getName();
         filename = filename.substring(filename.lastIndexOf(".") + 1);
+        filename = filename.replaceAll("PathfinderGoal","");
         filename = filename + "GoalItems.java";
         File f = new File("C:\\Users\\dell\\Desktop\\GoalItems", filename);
         if (!f.exists()) {
@@ -48,14 +49,14 @@ public class TextGoalsBuilder {
         String strings = "package com.focess.pathfinder.goals;\n" +
                 "\n" +
                 "import com.focess.pathfinder.core.goal.NMSGoalItem;\n" +
-                "import com.focess.pathfinder.core.goal.util.NMSManager;\n" +
+                "import com.focess.pathfinder.core.util.NMSManager;\n" +
                 "import com.focess.pathfinder.wrapped.WrappedEntityCreature;\n" +
                 "\n" +
                 "import java.util.function.Predicate;\n" +
                 "\n" +
                 "public class AvoidTargetGoalItem extends NMSGoalItem {\n" +
                 "    public AvoidTargetGoalItem() {\n" +
-                "        super(NMSManager.getNMSClass(\"" + clazz.getName() + "\",true)," + parameters + "\n" +
+                "        super(NMSManager.getNMSClass(\"" + clazz.getName().substring(clazz.getName().lastIndexOf(".")+1) + "\",true)," + parameters + "\n" +
                 "                ,NMSManager.getNMSClass(\"<>1\",true)\n" +
                 "                ,<>2,<>3,<>4,<>5,<>6,<>7,<>8,<>9);\n" +
                 "    }\n" +
@@ -100,7 +101,11 @@ public class TextGoalsBuilder {
                 "}";
         strings = strings.replaceAll("AvoidTargetGoalItem", filename + "GoalItems");
         for (int i = 1; i <= parameters; i++) {
-            strings = strings.replaceAll("<>" + i, constructor.getParameterTypes()[i - 1].getName() + ".class");
+            String paraname = constructor.getParameterTypes()[i - 1].getName();
+            if(paraname.contains(".")){
+                paraname = paraname.substring(paraname.lastIndexOf(".")+1);
+            }
+            strings = strings.replaceAll("<>" + i, paraname + ".class");
         }
         for (int i = 1; i <= 9; i++) {
             strings = strings.replaceAll(",<>" + i, "");
