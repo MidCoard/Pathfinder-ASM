@@ -4,6 +4,7 @@ import com.focess.pathfinder.core.util.NMSManager;
 import com.focess.pathfinder.core.util.PathfinderUtil;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -19,7 +20,9 @@ public class TextGoalsBuilder {
         List<String> classes = getClassesFromPackage(NMSManager.PathfinderGoal.getPackage(), "PathfinderGoal");
         getClassesExtendsGoal(classes).forEach((Class c) -> {
             try {
-                translation(c);
+                FileWriter writer = new FileWriter(new File(c.getSimpleName().replace("PathfinderGoal","") + "GoalItem.java"));
+                writer.write(translation(c));
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

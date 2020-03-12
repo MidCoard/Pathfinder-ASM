@@ -9,12 +9,16 @@ public class PathfinderClassLoader extends ClassLoader {
     public static void loadClasses() {
         PathfinderClassLoader loader = new PathfinderClassLoader();
         try {
-            byte[] nmsGoal = NMSGoalDump.dump();
-            NMSGoal = loader.buildClass("com.focess.pathfinder.core.goal.NMSGoal",nmsGoal,0,nmsGoal.length);
-            System.out.println("Build Goal Successfully.");
-        } catch (Exception e) {
-            System.err.println("Build Goal Wrongly.");
-            e.printStackTrace();
+            NMSGoal = Class.forName("com,focess.pathfinder.core.goal.NMSGoal");
+        } catch (ClassNotFoundException exception) {
+            try {
+                byte[] nmsGoal = NMSGoalDump.dump();
+                NMSGoal = loader.buildClass("com.focess.pathfinder.core.goal.NMSGoal",nmsGoal,0,nmsGoal.length);
+                System.out.println("Build Goal Successfully.");
+            } catch (Exception e) {
+                System.err.println("Build Goal Wrongly.");
+                e.printStackTrace();
+            }
         }
     }
 
