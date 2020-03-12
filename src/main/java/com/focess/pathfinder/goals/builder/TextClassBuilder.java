@@ -3,7 +3,6 @@ package com.focess.pathfinder.goals.builder;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Objects;
@@ -14,8 +13,8 @@ public class TextClassBuilder {
     private final String simpleName;
     private final Class<?> c;
 
-    private List<TextMethodBuilder> methods = Lists.newArrayList();
-    private List<TextFieldBuilder> fields = Lists.newArrayList();
+    private final List<TextMethodBuilder> methods = Lists.newArrayList();
+    private final List<TextFieldBuilder> fields = Lists.newArrayList();
     private Constructor<?> constructor;
 
     public TextClassBuilder(String simpleName, Class<?> c) {
@@ -52,6 +51,100 @@ public class TextClassBuilder {
         return new TextClearMethodBuilder().build();
     }
 
+    private String buildConstructor() {
+        return new TextConstructorBuilder().build();
+    }
+
+    public String getSimpleName() {
+        return this.simpleName;
+    }
+
+    private String buildClassEnd() {
+        return "}";
+    }
+
+    private String buildClassStart() {
+        return "{";
+    }
+
+    private String buildImport() {
+        return "import com.focess.pathfinder.core.goal.NMSGoalItem;import com.focess.pathfinder.core.util.NMSManager;";
+    }
+
+    private String buildClassClaim() {
+        return "public class " + this.simpleName + " extends NMSGoalItem";
+    }
+
+    private String buildPackage() {
+        return "package com.focess.pathfinder.goals;";
+    }
+
+    public void setConstructor(Constructor<?> constructor) {
+        this.constructor = constructor;
+    }
+
+    public static class VarPool {
+
+        private static final Set<VarName> varNames = Sets.newHashSet();
+
+        public static VarName var(String name) {
+            VarName varName = new VarName(name);
+            VarName remove = null;
+            for (VarName v : varNames)
+                if (v.equals(varName)) {
+                    if (v.pos == -1)
+                        v.pos = 0;
+                    varName.pos = v.pos + 1;
+                    remove = v;
+                    break;
+                }
+            if (remove != null)
+                varNames.remove(remove);
+            varNames.add(varName);
+            return varName;
+        }
+
+        public static void clear() {
+            varNames.clear();
+        }
+    }
+
+    public static class VarName {
+        private final String name;
+        private int pos = -1;
+
+        public VarName(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getPos() {
+            return pos;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof VarName)) return false;
+            VarName varName = (VarName) o;
+            return Objects.equals(name, varName.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+
+        public String getFinalName() {
+            if (this.getPos() == -1)
+                return this.getName();
+            return this.getName() + this.getPos();
+        }
+    }
+
     private class TextClearMethodBuilder {
 
         public String build() {
@@ -86,14 +179,6 @@ public class TextClassBuilder {
         }
     }
 
-    private String buildConstructor() {
-        return new TextConstructorBuilder().build();
-    }
-
-    public String getSimpleName() {
-        return this.simpleName;
-    }
-
     private class TextConstructorBuilder {
 
         public String build() {
@@ -119,9 +204,9 @@ public class TextClassBuilder {
         }
 
         private String buildNMSClassOrDefault(Class<?> c) {
-            if (c.getName().startsWith("net.minecraft"))
+            if (c.getTypeName().startsWith("net.minecraft"))
                 return buildNMSClassGetter(c.getSimpleName());
-            return c.getName() + ".class";
+            return c.getTypeName() + ".class";
         }
 
         private String buildNMSClassGetter(String className) {
@@ -138,92 +223,6 @@ public class TextClassBuilder {
 
         private String buildConstructorClaim() {
             return "protected " + simpleName + "()";
-        }
-    }
-
-    private String buildClassEnd() {
-        return "}";
-    }
-
-    private String buildClassStart() {
-        return "{";
-    }
-
-    private String buildImport() {
-        return "import com.focess.pathfinder.core.goal.NMSGoalItem;import com.focess.pathfinder.core.util.NMSManager;";
-    }
-
-    private String buildClassClaim() {
-        return "public class " + this.simpleName + " extends NMSGoalItem";
-    }
-
-    private String buildPackage() {
-        return "package com.focess.pathfinder.goals;";
-    }
-
-    public void setConstructor(Constructor<?> constructor) {
-        this.constructor = constructor;
-    }
-
-    public static class VarPool {
-
-        private static Set<VarName> varNames = Sets.newHashSet();
-
-        public static VarName var(String name) {
-            VarName varName = new VarName(name);
-            VarName remove = null;
-            for (VarName v : varNames)
-                if (v.equals(varName)) {
-                    if (v.pos == -1)
-                        v.pos = 0;
-                    varName.pos = v.pos + 1;
-                    remove = v;
-                    break;
-                }
-            if (remove != null)
-                varNames.remove(remove);
-            varNames.add(varName);
-            return varName;
-        }
-
-        public static void clear() {
-            varNames.clear();
-        }
-    }
-
-    public static class VarName {
-        private String name;
-        private int pos = -1;
-
-        public String getName() {
-            return name;
-        }
-
-        public int getPos() {
-            return pos;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof VarName)) return false;
-            VarName varName = (VarName) o;
-            return Objects.equals(name, varName.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name);
-        }
-
-        public VarName(String name) {
-            this.name = name;
-        }
-
-        public String getFinalName() {
-            if (this.getPos() == -1)
-                return this.getName();
-            return this.getName() + this.getPos();
         }
     }
 }

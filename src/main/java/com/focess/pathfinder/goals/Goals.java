@@ -3,7 +3,6 @@ package com.focess.pathfinder.goals;
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.WrappedGoal;
-import com.focess.pathfinder.goals.ArrowAttackGoalItem;
 import com.google.common.collect.Sets;
 
 import java.util.Set;
@@ -13,10 +12,10 @@ public class Goals {
     public static Set<GoalItem> goalItems = Sets.newHashSet();
 
     public static NMSGoalItem getNMSGoalItem(Class<?> clz) {
-        for (GoalItem goalItem:goalItems)
+        for (GoalItem goalItem : goalItems)
             if (goalItem.getGoalClass().equals(clz))
                 return (NMSGoalItem) goalItem;
-        return new NMSGoalItem(clz,0) {
+        return new NMSGoalItem(clz, 0) {
             @Override
             public NMSGoalItem clear() {
                 return this;
@@ -35,7 +34,7 @@ public class Goals {
     }
 
     public static class MOVE {
-        public static final ArrowAttackGoalItem ArrowAttack = new ArrowAttackGoalItem();
+//        public static final ArrowAttackGoalItem ArrowAttack = new ArrowAttackGoalItem();
     }
 
     public static class LOOK {

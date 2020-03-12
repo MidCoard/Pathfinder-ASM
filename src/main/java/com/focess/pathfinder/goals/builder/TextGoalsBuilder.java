@@ -20,7 +20,7 @@ public class TextGoalsBuilder {
         List<String> classes = getClassesFromPackage(NMSManager.PathfinderGoal.getPackage(), "PathfinderGoal");
         getClassesExtendsGoal(classes).forEach((Class c) -> {
             try {
-                FileWriter writer = new FileWriter(new File("plugins/" + c.getSimpleName().replace("PathfinderGoal","") + "GoalItem.java"));
+                FileWriter writer = new FileWriter(new File("plugins/" + c.getSimpleName().replace("PathfinderGoal", "") + "GoalItem.java"));
                 writer.write(translation(c));
                 writer.close();
             } catch (IOException e) {
@@ -29,62 +29,28 @@ public class TextGoalsBuilder {
         });
     }
 
-    private static class Reader {
-
-        private final Type[] types;
-        private int pointer;
-
-        private final Class<?>[] classes;
-
-        private Reader(Class<?>[] classes,Type[] types) {
-            this.classes = classes;
-            this.types = types;
-            this.pointer = 0;
-        }
-
-        private boolean isEnd() {
-            return this.pointer == classes.length;
-        }
-
-        public Class<?> next() {
-            return this.classes[pointer++];
-        }
-
-        public int search(Type n) {
-            int start = this.pointer;
-            while(!isEnd() && this.classes[pointer].equals(n))
-                this.pointer++;
-            return this.pointer - start + 1;
-        }
-
-        public Type getType() {
-            return this.types[this.pointer - 1];
-        }
-    }
-
-
     private static String translation(Class<?> clazz) throws IOException {
-        TextClassBuilder builder = new TextClassBuilder(clazz.getSimpleName().replace("PathfinderGoal","") + "GoalItem",clazz);
+        TextClassBuilder builder = new TextClassBuilder(clazz.getSimpleName().replace("PathfinderGoal", "") + "GoalItem", clazz);
         Constructor<?> constructor = null;
-        for (Constructor<?> c:clazz.getConstructors())
+        for (Constructor<?> c : clazz.getConstructors())
             if (constructor == null)
                 constructor = c;
             else if (constructor.getParameterCount() < c.getParameterCount())
                 constructor = c;
         // find the main constructor
         builder.setConstructor(constructor);
-        Reader reader = new Reader(constructor.getParameterTypes(),constructor.getGenericParameterTypes());
+        Reader reader = new Reader(constructor.getParameterTypes(), constructor.getGenericParameterTypes());
         while (!reader.isEnd()) {
             int pos = reader.pointer;
             Class<?> n = reader.next();
             Type type = reader.getType();
             int len = reader.search(n);
             if (len > 1) {
-                TextFieldBuilder field = new TextFieldBuilder(TextClassBuilder.VarPool.var(PathfinderUtil.styleLowerClassName(n) + "Writer"),pos,len);
+                TextFieldBuilder field = new TextFieldBuilder(TextClassBuilder.VarPool.var(PathfinderUtil.styleLowerClassName(n) + "Writer"), pos, len);
                 builder.addField(field);
-                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)),type,field));
+                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)), type, field));
             } else
-                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)),type,pos));
+                builder.addMethod(new TextMethodBuilder(TextClassBuilder.VarPool.var("write" + PathfinderUtil.styleUpperClassName(n)), type, pos));
         }
         return builder.build();
     }
@@ -122,7 +88,7 @@ public class TextGoalsBuilder {
                         }
                         classname = classname.replace("/", ".");
                         if (classname.contains(filter))
-                        classes.add(classname);
+                            classes.add(classname);
                     }
                 }
             }
@@ -137,6 +103,38 @@ public class TextGoalsBuilder {
         if (!classname.contains("$")) {
             if (!classname.contains(filter))
                 list.add(classname);
+        }
+    }
+
+    private static class Reader {
+
+        private final Type[] types;
+        private final Class<?>[] classes;
+        private int pointer;
+
+        private Reader(Class<?>[] classes, Type[] types) {
+            this.classes = classes;
+            this.types = types;
+            this.pointer = 0;
+        }
+
+        private boolean isEnd() {
+            return this.pointer == classes.length;
+        }
+
+        public Class<?> next() {
+            return this.classes[pointer++];
+        }
+
+        public int search(Type n) {
+            int start = this.pointer;
+            while (!isEnd() && this.classes[pointer].equals(n))
+                this.pointer++;
+            return this.pointer - start + 1;
+        }
+
+        public Type getType() {
+            return this.types[this.pointer - 1];
         }
     }
 }

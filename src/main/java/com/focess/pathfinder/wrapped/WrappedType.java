@@ -6,7 +6,7 @@ import java.util.Map;
 
 public abstract class WrappedType {
 
-    private static Map<Class<?>,Class<? extends WrappedType>> registersType = Maps.newHashMap();
+    private static final Map<Class<?>,Class<? extends WrappedType>> registersType = Maps.newHashMap();
 
     protected static void register(Class<?> nmsClass,Class<? extends WrappedType> wrappedClass) {
         registersType.put(nmsClass,wrappedClass);

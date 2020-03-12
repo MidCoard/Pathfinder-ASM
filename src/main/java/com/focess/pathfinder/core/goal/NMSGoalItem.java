@@ -8,9 +8,9 @@ import java.util.List;
 
 public abstract class NMSGoalItem extends GoalItem {
 
-    private List<Object> values;
+    private final List<Object> values;
 
-    private List<Class<?>> parameters;
+    private final List<Class<?>> parameters;
 
     protected NMSGoalItem(Class<?> clz,int args,Class<?>... parameters) {
         super(clz);

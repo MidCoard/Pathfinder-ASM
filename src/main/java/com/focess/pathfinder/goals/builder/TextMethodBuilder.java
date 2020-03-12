@@ -34,7 +34,7 @@ public class TextMethodBuilder {
     }
 
     private String buildFieldWrite() {
-        return "%fieldName%.write(arg);".replace("%fieldName%",this.field.getName());
+        return "%fieldName%.write(arg);".replace("%fieldName%", this.field.getName());
     }
 
     private String buildReturn() {
@@ -55,9 +55,9 @@ public class TextMethodBuilder {
 
     private String buildMethodClaim(TextClassBuilder c) {
         return "public %className% %methodName%(%fieldClassName% arg) "
-                .replace("%className%",c.getSimpleName())
-                .replace("%methodName%",name.getFinalName())
-                .replace("%fieldClassName%",buildFieldClassName());
+                .replace("%className%", c.getSimpleName())
+                .replace("%methodName%", name.getFinalName())
+                .replace("%fieldClassName%", buildFieldClassName());
     }
 
     private String buildFieldClassName() {
@@ -65,19 +65,19 @@ public class TextMethodBuilder {
     }
 
     private String getFieldClassName(String name) {
+        if (name.endsWith("[]"))
+            return getFieldClassName(name.substring(0, name.length() - 2)) + "[]";
         int pos;
         if ((pos = name.indexOf('<')) != -1) {
-            String temp = name.substring(pos+1,name.length()-1);
-            String head = name.substring(0,pos);
+            String temp = name.substring(pos + 1, name.length() - 1);
+            String head = name.substring(0, pos);
             if (name.startsWith("net.minecraft")) {
-                String temps[] = head.split("\\.");
+                String[] temps = head.split("\\.");
                 return "com.focess.pathfinder.wrapped.Wrapped" + temps[temps.length - 1] + "<" + getFieldClassName(temp) + ">";
-            }
-            else
+            } else
                 return head + "<" + getFieldClassName(temp) + ">";
-        }
-        else if (name.startsWith("net.minecraft")) {
-            String temp[] = name.split("\\.");
+        } else if (name.startsWith("net.minecraft")) {
+            String[] temp = name.split("\\.");
             return "com.focess.pathfinder.wrapped.Wrapped" + temp[temp.length - 1];
         }
         return name;

@@ -23,7 +23,7 @@ public class SimpleGoalSelector implements GoalSelector {
         this.entity = focessEntity;
     }
 
-    private List<WrappedGoal> wrappedGoals = Lists.newArrayList();
+    private final List<WrappedGoal> wrappedGoals = Lists.newArrayList();
 
     private void update() {
         Object nmsEntity = NMSManager.getNMSEntity(this.entity.getBukkitEntity());
