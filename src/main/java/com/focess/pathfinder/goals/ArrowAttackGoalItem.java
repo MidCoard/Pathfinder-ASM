@@ -33,8 +33,8 @@ public class ArrowAttackGoalItem extends NMSGoalItem {
         return this;
     }
 
-    @Override
-    public ArrowAttackGoalItem clear() {
+
+    @Override public ArrowAttackGoalItem clear() {
         intWriter.clear();
         return this;
     }

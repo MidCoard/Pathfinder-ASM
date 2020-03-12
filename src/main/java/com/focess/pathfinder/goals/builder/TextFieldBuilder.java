@@ -10,4 +10,15 @@ public class TextFieldBuilder {
         this.start = pos;
         this.len = len;
     }
+
+    public String build() {
+        return "private PointerWriter %fieldName% = new PointerWriter(%start%, %len%);"
+                .replace("%fieldName%", name.getFinalName())
+                .replace("%start%", this.start + "")
+                .replace("%len%", this.len + "");
+    }
+
+    public String getName() {
+        return this.name.getFinalName();
+    }
 }
