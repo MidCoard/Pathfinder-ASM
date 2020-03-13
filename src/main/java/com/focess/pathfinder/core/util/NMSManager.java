@@ -3,6 +3,7 @@ package com.focess.pathfinder.core.util;
 import com.focess.pathfinder.goal.Goal;
 import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -28,6 +29,7 @@ public class NMSManager {
     public static final Class<?> MinecraftServer;
 
     public static final Class<?> NBTTagCompound;
+    public static Object ExceptCreativeOrSpectator = null
     private static int versionInt = -1;
     private static String versionString;
     public static final Class<?> World;
@@ -119,6 +121,7 @@ public class NMSManager {
                 PathfinderGoalItemb1 = NMSManager.getField(PathfinderGoalItem, "b");
                 PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector,"b");
             }
+            ExceptCreativeOrSpectator = NMSManager.getField(NMSManager.getNMSClass("IEntitySelector"),"e").get(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -252,7 +255,7 @@ public class NMSManager {
         return getVersionInt() > 13;
     }
 
-    public static Object getNMSEntity(org.bukkit.entity.Entity entity) {
+    public static Object getNMSEntity(Entity entity) {
         try {
             return getHandle.invoke(entity);
         } catch (IllegalAccessException e) {

@@ -4,7 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class GotoTargetGoalItem extends NMSGoalItem {
-    private PointerWriter intWriter = new PointerWriter(2, 2);
+    private final PointerWriter intWriter = new PointerWriter(2, 2);
 
     protected GotoTargetGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalGotoTarget", true), 4, NMSManager.getNMSClass("EntityCreature", true), double.class, int.class, int.class);

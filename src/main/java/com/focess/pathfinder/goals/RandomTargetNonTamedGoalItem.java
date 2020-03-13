@@ -3,9 +3,11 @@ package com.focess.pathfinder.goals;
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
+import java.util.function.Predicate;
+
 public class RandomTargetNonTamedGoalItem extends NMSGoalItem {
     protected RandomTargetNonTamedGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalRandomTargetNonTamed", true), 4, NMSManager.getNMSClass("EntityTameableAnimal", true), Class.class, boolean.class, java.util.function.Predicate.class);
+        super(NMSManager.getNMSClass("PathfinderGoalRandomTargetNonTamed", true), 4, NMSManager.getNMSClass("EntityTameableAnimal", true), Class.class, boolean.class, Predicate.class);
     }
 
     public RandomTargetNonTamedGoalItem writeEntityTameableAnimal(com.focess.pathfinder.wrapped.WrappedEntityTameableAnimal arg) {
@@ -23,7 +25,7 @@ public class RandomTargetNonTamedGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public RandomTargetNonTamedGoalItem writePredicate(java.util.function.Predicate<com.focess.pathfinder.wrapped.WrappedEntityLiving> arg) {
+    public RandomTargetNonTamedGoalItem writePredicate(Predicate<com.focess.pathfinder.wrapped.WrappedEntityLiving> arg) {
         this.write(3, arg);
         return this;
     }

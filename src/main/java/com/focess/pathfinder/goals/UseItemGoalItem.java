@@ -3,9 +3,11 @@ package com.focess.pathfinder.goals;
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
+import java.util.function.Predicate;
+
 public class UseItemGoalItem extends NMSGoalItem {
     protected UseItemGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalUseItem", true), 4, NMSManager.getNMSClass("EntityInsentient", true), NMSManager.getNMSClass("ItemStack", true), NMSManager.getNMSClass("SoundEffect", true), java.util.function.Predicate.class);
+        super(NMSManager.getNMSClass("PathfinderGoalUseItem", true), 4, NMSManager.getNMSClass("EntityInsentient", true), NMSManager.getNMSClass("ItemStack", true), NMSManager.getNMSClass("SoundEffect", true), Predicate.class);
     }
 
     public UseItemGoalItem writeEntityInsentient(T arg) {
@@ -23,7 +25,7 @@ public class UseItemGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public UseItemGoalItem writePredicate(java.util.function.Predicate<? super T> arg) {
+    public UseItemGoalItem writePredicate(Predicate<? super T> arg) {
         this.write(3, arg);
         return this;
     }

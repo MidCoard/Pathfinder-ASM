@@ -3,9 +3,11 @@ package com.focess.pathfinder.goals;
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
+import java.util.function.BooleanSupplier;
+
 public class MoveThroughVillageGoalItem extends NMSGoalItem {
     protected MoveThroughVillageGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalMoveThroughVillage", true), 5, NMSManager.getNMSClass("EntityCreature", true), double.class, boolean.class, int.class, java.util.function.BooleanSupplier.class);
+        super(NMSManager.getNMSClass("PathfinderGoalMoveThroughVillage", true), 5, NMSManager.getNMSClass("EntityCreature", true), double.class, boolean.class, int.class, BooleanSupplier.class);
     }
 
     public MoveThroughVillageGoalItem writeEntityCreature(com.focess.pathfinder.wrapped.WrappedEntityCreature arg) {
@@ -28,7 +30,7 @@ public class MoveThroughVillageGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public MoveThroughVillageGoalItem writeBooleanSupplier(java.util.function.BooleanSupplier arg) {
+    public MoveThroughVillageGoalItem writeBooleanSupplier(BooleanSupplier arg) {
         this.write(4, arg);
         return this;
     }

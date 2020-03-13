@@ -2,11 +2,14 @@ package com.focess.pathfinder.core.goal;
 
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.WrappedGoal;
+import com.focess.pathfinder.wrapped.WrappedType;
 import com.google.common.collect.Lists;
 
 import java.util.List;
 
 public abstract class NMSGoalItem extends GoalItem {
+
+    private final List<Object> fixedValues = Lists.newArrayList();
 
     private final List<Object> values;
 
@@ -22,14 +25,24 @@ public abstract class NMSGoalItem extends GoalItem {
 
     @Override
     public WrappedGoal build(int priority) {
+        this.fixedValues.clear();
+        for (Object object:values)
+            fixedValues.add(buildParameter(object));
         Object nmsGoal = null;
         try {
-            nmsGoal = getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance(this, values.toArray(new Object[0]));
+            nmsGoal = getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance(this, fixedValues.toArray(new Object[0]));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new WrappedGoal(this,nmsGoal,priority);
     }
+
+    private Object buildParameter(Object object) {
+        if (object instanceof WrappedType)
+            return ((WrappedType) object).toNMS();
+        return object;
+    }
+
 
     protected void write(int i, Object object) {
         this.values.set(i,object);

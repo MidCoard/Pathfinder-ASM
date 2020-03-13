@@ -4,7 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class LookAtPlayerGoalItem extends NMSGoalItem {
-    private PointerWriter floatWriter = new PointerWriter(2, 2);
+    private final PointerWriter floatWriter = new PointerWriter(2, 2);
 
     protected LookAtPlayerGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalLookAtPlayer", true), 4, NMSManager.getNMSClass("EntityInsentient", true), Class.class, float.class, float.class);

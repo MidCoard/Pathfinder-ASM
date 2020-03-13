@@ -4,7 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class InteractGoalItem extends NMSGoalItem {
-    private PointerWriter floatWriter = new PointerWriter(2, 2);
+    private final PointerWriter floatWriter = new PointerWriter(2, 2);
 
     protected InteractGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalInteract", true), 4, NMSManager.getNMSClass("EntityInsentient", true), Class.class, float.class, float.class);

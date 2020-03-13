@@ -4,7 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class TargetGoalItem extends NMSGoalItem {
-    private PointerWriter booleanWriter = new PointerWriter(1, 2);
+    private final PointerWriter booleanWriter = new PointerWriter(1, 2);
 
     protected TargetGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalTarget", true), 3, NMSManager.getNMSClass("EntityInsentient", true), boolean.class, boolean.class);

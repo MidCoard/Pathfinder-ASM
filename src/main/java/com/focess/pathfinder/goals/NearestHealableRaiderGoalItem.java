@@ -3,9 +3,11 @@ package com.focess.pathfinder.goals;
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
+import java.util.function.Predicate;
+
 public class NearestHealableRaiderGoalItem extends NMSGoalItem {
     protected NearestHealableRaiderGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalNearestHealableRaider", true), 4, NMSManager.getNMSClass("EntityRaider", true), Class.class, boolean.class, java.util.function.Predicate.class);
+        super(NMSManager.getNMSClass("PathfinderGoalNearestHealableRaider", true), 4, NMSManager.getNMSClass("EntityRaider", true), Class.class, boolean.class, Predicate.class);
     }
 
     public NearestHealableRaiderGoalItem writeEntityRaider(com.focess.pathfinder.wrapped.WrappedEntityRaider arg) {
@@ -23,7 +25,7 @@ public class NearestHealableRaiderGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public NearestHealableRaiderGoalItem writePredicate(java.util.function.Predicate<com.focess.pathfinder.wrapped.WrappedEntityLiving> arg) {
+    public NearestHealableRaiderGoalItem writePredicate(Predicate<com.focess.pathfinder.wrapped.WrappedEntityLiving> arg) {
         this.write(3, arg);
         return this;
     }

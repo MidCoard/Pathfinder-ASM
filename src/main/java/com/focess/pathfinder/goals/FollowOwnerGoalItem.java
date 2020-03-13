@@ -4,7 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class FollowOwnerGoalItem extends NMSGoalItem {
-    private PointerWriter floatWriter = new PointerWriter(2, 2);
+    private final PointerWriter floatWriter = new PointerWriter(2, 2);
 
     protected FollowOwnerGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalFollowOwner", true), 5, NMSManager.getNMSClass("EntityTameableAnimal", true), double.class, float.class, float.class, boolean.class);

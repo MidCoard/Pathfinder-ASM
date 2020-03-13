@@ -2,7 +2,7 @@ package com.focess.pathfinder.core.entity;
 
 import com.focess.pathfinder.core.goal.SimpleGoalSelector;
 import com.focess.pathfinder.goal.GoalSelector;
-import com.focess.pathfinder.goal.entity.FocessEntity;
+import com.focess.pathfinder.entity.FocessEntity;
 import org.bukkit.entity.Entity;
 
 public class NMSFocessEntity implements FocessEntity {

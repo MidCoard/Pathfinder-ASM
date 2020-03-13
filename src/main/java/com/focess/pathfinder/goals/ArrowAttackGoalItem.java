@@ -2,15 +2,16 @@ package com.focess.pathfinder.goals;
 
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
+import com.focess.pathfinder.wrapped.WrappedIRangedEntity;
 
 public class ArrowAttackGoalItem extends NMSGoalItem {
-    private PointerWriter intWriter = new PointerWriter(2, 2);
+    private final PointerWriter intWriter = new PointerWriter(2, 2);
 
     protected ArrowAttackGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalArrowAttack", true), 5, NMSManager.getNMSClass("IRangedEntity", true), double.class, int.class, int.class, float.class);
     }
 
-    public ArrowAttackGoalItem writeIRangedEntity(com.focess.pathfinder.wrapped.WrappedIRangedEntity arg) {
+    public ArrowAttackGoalItem writeIRangedEntity(WrappedIRangedEntity arg) {
         this.write(0, arg);
         return this;
     }

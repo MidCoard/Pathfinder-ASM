@@ -8,6 +8,7 @@ public class BegGoalItem extends NMSGoalItem {
         super(NMSManager.getNMSClass("PathfinderGoalBeg", true), 2, NMSManager.getNMSClass("EntityWolf", true), float.class);
     }
 
+
     public BegGoalItem writeEntityWolf(com.focess.pathfinder.wrapped.WrappedEntityWolf arg) {
         this.write(0, arg);
         return this;
