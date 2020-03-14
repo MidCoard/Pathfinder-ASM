@@ -13,4 +13,18 @@ public class PathfinderUtil {
                 ret.add(control);
         return ret;
     }
+
+    public static String styleUpperClassName(Class<?> c) {
+        if (c.isPrimitive())
+            return String.valueOf(c.getSimpleName().charAt(0)).toUpperCase() + c.getSimpleName().substring(1);
+        if (c.isArray())
+            return styleUpperClassName(c.getComponentType()) + "s";
+        return c.getSimpleName();
+    }
+
+    public static String styleLowerClassName(Class<?> c) {
+        if (c.isArray())
+            return styleLowerClassName(c.getComponentType()) + "s";
+        return String.valueOf(c.getSimpleName().charAt(0)).toLowerCase() + c.getSimpleName().substring(1);
+    }
 }

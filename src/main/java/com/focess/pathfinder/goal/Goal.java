@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 public abstract class Goal {
 
-    private EnumSet<Control> controls = EnumSet.noneOf(Control.class);
+    private final EnumSet<Control> controls = EnumSet.noneOf(Control.class);
     private GoalItem goalItem;
 
     public abstract boolean canStart();

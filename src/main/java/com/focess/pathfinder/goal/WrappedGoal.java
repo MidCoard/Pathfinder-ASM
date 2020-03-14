@@ -2,18 +2,24 @@ package com.focess.pathfinder.goal;
 
 import com.focess.pathfinder.core.util.NMSManager;
 import com.focess.pathfinder.core.util.PathfinderUtil;
+import com.google.common.collect.Lists;
 
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Objects;
 
 public class WrappedGoal {
 
-    private final GoalItem goalItem;
+    private final List<GoalItem> goalItems;
     private EnumSet<Goal.Control> controls = EnumSet.noneOf(Goal.Control.class);
 
-    public GoalItem getGoalItem() {
-        return goalItem;
+    public WrappedGoal(GoalItem goalItem, Object nmsGoal, int priority) {
+        this(Lists.newArrayList(goalItem),nmsGoal,priority);
+    }
+
+    public List<GoalItem> getGoalItems() {
+        return goalItems;
     }
 
     public Object getNmsGoal() {
@@ -27,8 +33,8 @@ public class WrappedGoal {
     private final Object nmsGoal;
     private final int priority;
 
-    public WrappedGoal(GoalItem goalItem, Object nmsGoal, int priority) {
-        this.goalItem = goalItem;
+    public WrappedGoal(List<GoalItem> goalItems, Object nmsGoal, int priority) {
+        this.goalItems = goalItems;
         this.nmsGoal = nmsGoal;
         this.priority = priority;
         try {

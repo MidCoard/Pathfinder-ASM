@@ -1,4 +1,4 @@
-package com.focess.pathfinder.goal.entity;
+package com.focess.pathfinder.entity;
 
 import com.focess.pathfinder.core.entity.NMSFocessEntity;
 import org.bukkit.entity.Entity;

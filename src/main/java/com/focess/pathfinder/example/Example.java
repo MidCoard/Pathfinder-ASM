@@ -2,8 +2,8 @@ package com.focess.pathfinder.example;
 
 
 import com.focess.pathfinder.goal.FocessGoalItem;
-import com.focess.pathfinder.goal.entity.EntityManager;
-import com.focess.pathfinder.goal.entity.FocessEntity;
+import com.focess.pathfinder.entity.EntityManager;
+import com.focess.pathfinder.entity.FocessEntity;
 import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

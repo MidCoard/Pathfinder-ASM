@@ -10,7 +10,7 @@ public class ExceptionCatcher {
         return exceptions;
     }
 
-    private static List<Exception> exceptions = Lists.newCopyOnWriteArrayList();
+    private static final List<Exception> exceptions = Lists.newCopyOnWriteArrayList();
 
     public static void catchException(Exception exception) {
         exceptions.add(exception);
