@@ -11,4 +11,6 @@ public class WrappedEntityPerchable extends WrappedType {
     public Object toNMS() {
         return null;
     }
+
+    public static WrappedEntityPerchable getWrappedEntityPerchable(Perchable)
 }

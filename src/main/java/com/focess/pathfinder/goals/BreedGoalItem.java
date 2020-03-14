@@ -5,7 +5,7 @@ import com.focess.pathfinder.core.util.NMSManager;
 
 public class BreedGoalItem extends NMSGoalItem {
     protected BreedGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalBreed", true), 3, NMSManager.getNMSClass("EntityAnimal", true), double.class, Class.class);
+        super(NMSManager.getNMSClass("PathfinderGoalBreed", true), 2, NMSManager.getNMSClass("EntityAnimal", true), double.class);
     }
 
     public BreedGoalItem writeEntityAnimal(com.focess.pathfinder.wrapped.WrappedEntityAnimal arg) {
@@ -15,11 +15,6 @@ public class BreedGoalItem extends NMSGoalItem {
 
     public BreedGoalItem writeDouble(double arg) {
         this.write(1, arg);
-        return this;
-    }
-
-    public BreedGoalItem writeClass(Class<? extends net.minecraft.server.v1_15_R1.EntityAnimal> arg) {
-        this.write(2, arg);
         return this;
     }
 
