@@ -5,6 +5,7 @@ import com.focess.pathfinder.core.util.NMSManager;
 import com.focess.pathfinder.entity.FocessEntity;
 import org.bukkit.entity.Entity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public abstract class NMSNavigation {
@@ -30,5 +31,14 @@ public abstract class NMSNavigation {
             }
         }
         throw new NavigationUnMatch("Could not match the navigation from this entity");
+    }
+
+    public void MoveTo(double x,double y,double z,double speed) throws InvocationTargetException, IllegalAccessException {
+        Method a = NMSManager.getMethod(navigation,"a",double.class,double.class,double.class,double.class);
+        a.invoke(navigation,x,y,z,speed);
+    }
+    public void MoveTo(double x,double y,double z) throws InvocationTargetException, IllegalAccessException {
+        Method a = NMSManager.getMethod(navigation,"a",double.class,double.class,double.class);
+        a.invoke(navigation,x,y,z);
     }
 }
