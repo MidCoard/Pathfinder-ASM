@@ -2,7 +2,7 @@ package com.focess.pathfinder.core.navigation;
 
 import com.focess.pathfinder.core.exception.NavigationUnMatch;
 import com.focess.pathfinder.core.util.NMSManager;
-import com.focess.pathfinder.goal.entity.FocessEntity;
+import com.focess.pathfinder.entity.FocessEntity;
 import org.bukkit.entity.Entity;
 
 import java.lang.reflect.Method;
@@ -13,6 +13,9 @@ public abstract class NMSNavigation {
     public NMSNavigation(FocessEntity entity) throws Exception {
         this.focessEntity = entity;
         Adapt(entity);
+    }
+    public Class<?> getNavigation(){
+        return navigation;
     }
     private void Adapt(FocessEntity entity) throws Exception {
         Entity bukkit = entity.getBukkitEntity();
@@ -27,9 +30,5 @@ public abstract class NMSNavigation {
             }
         }
         throw new NavigationUnMatch("Could not match the navigation from this entity");
-    }
-
-    public enum NavigationType{
-        Fly,Guardian,Normal
     }
 }
