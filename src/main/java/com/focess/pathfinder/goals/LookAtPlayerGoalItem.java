@@ -2,8 +2,10 @@ package com.focess.pathfinder.goals;
 
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
+import org.bukkit.entity.EntityType;
 
 public class LookAtPlayerGoalItem extends NMSGoalItem {
+    public static final float CHANCE = 0.02f;
     private final PointerWriter floatWriter = new PointerWriter(2, 2);
 
     protected LookAtPlayerGoalItem() {
@@ -15,7 +17,7 @@ public class LookAtPlayerGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public LookAtPlayerGoalItem writeClass(Class<? extends net.minecraft.server.v1_15_R1.EntityLiving> arg) {
+    public LookAtPlayerGoalItem writeClass(Class<?> arg) {
         this.write(1, arg);
         return this;
     }
@@ -29,5 +31,10 @@ public class LookAtPlayerGoalItem extends NMSGoalItem {
     public LookAtPlayerGoalItem clear() {
         floatWriter.clear();
         return this;
+    }
+    public static class EntityClasses {
+        public static Class<?> getEntityClass(EntityType type){
+            return NMSManager.getNMSClass("Entity" + type.getEntityClass().getSimpleName());
+        }
     }
 }

@@ -4,10 +4,9 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class GotoTargetGoalItem extends NMSGoalItem {
-    private final PointerWriter intWriter = new PointerWriter(2, 2);
 
     protected GotoTargetGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalGotoTarget", true), 4, NMSManager.getNMSClass("EntityCreature", true), double.class, int.class, int.class);
+        super(NMSManager.getNMSClass("PathfinderGoalGotoTarget", true), 3, NMSManager.getNMSClass("EntityCreature", true), double.class, int.class);
     }
 
     public GotoTargetGoalItem writeEntityCreature(com.focess.pathfinder.wrapped.WrappedEntityCreature arg) {
@@ -21,13 +20,12 @@ public class GotoTargetGoalItem extends NMSGoalItem {
     }
 
     public GotoTargetGoalItem writeInt(int arg) {
-        intWriter.write(arg);
+        this.write(2,arg);
         return this;
     }
 
     @Override
     public GotoTargetGoalItem clear() {
-        intWriter.clear();
         return this;
     }
 }
