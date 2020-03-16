@@ -2,6 +2,9 @@ package com.focess.pathfinder.goals;
 
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
+import com.focess.pathfinder.wrapped.WrappedEntityLiving;
+import com.focess.pathfinder.wrapped.WrappedNMSPredicate;
+import org.bukkit.entity.EntityType;
 
 import java.util.function.Predicate;
 
@@ -15,7 +18,7 @@ public class RandomTargetNonTamedGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public RandomTargetNonTamedGoalItem writeClass(Class<T> arg) {
+    public RandomTargetNonTamedGoalItem writeClass(Class<?> arg) {
         this.write(1, arg);
         return this;
     }
@@ -25,7 +28,7 @@ public class RandomTargetNonTamedGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public RandomTargetNonTamedGoalItem writePredicate(Predicate<com.focess.pathfinder.wrapped.WrappedEntityLiving> arg) {
+    public RandomTargetNonTamedGoalItem writePredicate(WrappedNMSPredicate<WrappedEntityLiving> arg) {
         this.write(3, arg);
         return this;
     }
@@ -33,5 +36,11 @@ public class RandomTargetNonTamedGoalItem extends NMSGoalItem {
     @Override
     public RandomTargetNonTamedGoalItem clear() {
         return this;
+    }
+
+    public static class EntityClasses {
+        public static Class<?> getEntityClass(EntityType type){
+            return NMSManager.getNMSClass("Entity" + type.getEntityClass().getSimpleName());
+        }
     }
 }

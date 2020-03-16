@@ -4,6 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class RandomStrollLandGoalItem extends NMSGoalItem {
+    public static final float PROBABILIITY = 0.001f;
     protected RandomStrollLandGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalRandomStrollLand", true), 3, NMSManager.getNMSClass("EntityCreature", true), double.class, float.class);
     }
