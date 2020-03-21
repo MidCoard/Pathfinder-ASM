@@ -22,10 +22,8 @@ public class WrappedEntityCat extends WrappedType{
     }
 
     private static WrappedEntityCat getWrappedEntityCat(Object nmsCat) {
-        if (NMSManager.getNMSClass("EntityCat").isAssignableFrom(nmsCat.getClass()))
             return new WrappedEntityCat(nmsCat);
-        throw new ClassCastException(nmsCat.getClass().getTypeName() + " cannot be cast to " + WrappedEntityCat.class.getTypeName());
-    }
+   }
 
     @Override
     public Object toNMS() {

@@ -24,8 +24,6 @@ public class WrappedEntityMonster extends WrappedType {
     }
 
     private static WrappedEntityMonster getWrappedEntityMonster(Object nmsMonster) {
-        if (NMSManager.getNMSClass("EntityMonster").isAssignableFrom(nmsMonster.getClass()))
             return new WrappedEntityMonster(nmsMonster);
-        throw new ClassCastException(nmsMonster.getClass().getTypeName() + " cannot be cast to " + WrappedEntityMonster.class.getTypeName());
-    }
+     }
 }

@@ -21,9 +21,7 @@ public class WrappedEntitySkeletonAbstract extends WrappedType {
     }
 
     private static WrappedEntitySkeletonAbstract getWrappedEntitySkeletonAbstract(Object nmsSkeleton) {
-        if (NMSManager.getNMSClass("EntitySkeletonAbstract").isAssignableFrom(nmsSkeleton.getClass()))
-            return new WrappedEntitySkeletonAbstract(nmsSkeleton);
-        throw new ClassCastException(nmsSkeleton.getClass().getTypeName() + " cannot be cast to " + WrappedEntitySkeletonAbstract.class.getTypeName());
+           return new WrappedEntitySkeletonAbstract(nmsSkeleton);
     }
 
     @Override

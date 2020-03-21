@@ -26,9 +26,7 @@ public class WrappedEntityCreature extends WrappedType {
     }
 
     private static WrappedEntityCreature getWrappedEntityCreature(Object nmsCreature) {
-        if (NMSManager.getNMSClass("EntityCreature").isAssignableFrom(nmsCreature.getClass()))
             return new WrappedEntityCreature(nmsCreature);
-        throw new ClassCastException(nmsCreature.getClass().getTypeName() + " cannot be cast to " + WrappedEntityCreature.class.getTypeName());
     }
 
 }

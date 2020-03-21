@@ -29,7 +29,7 @@ public class NMSManager {
     public static final Class<?> MinecraftServer;
 
     public static final Class<?> NBTTagCompound;
-    public static Object ExceptCreativeOrSpectator = null
+    public static Object ExceptCreativeOrSpectator = null;
     private static int versionInt = -1;
     private static String versionString;
     public static final Class<?> World;
@@ -145,9 +145,11 @@ public class NMSManager {
         return null;
     }
 
-    public static Constructor<?> getConstructor(final Class<?> clazz, final Class<?>[] params) {
+    public static Constructor<?> getConstructor(final Class<?> clazz, final Class<?>... params) {
         try {
-            return clazz.getConstructor(params);
+            Constructor<?> constructor = clazz.getConstructor(params);
+            constructor.setAccessible(true);
+            return constructor;
         } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -315,6 +317,15 @@ public class NMSManager {
         try {
             return Goal.Control.valueOf((String) Enum.class.getDeclaredMethod("name").invoke(obj));
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Class<?> arrayType(Class<?> clazz) {
+        try {
+            return Class.forName("[L" + clazz.getName() + ";");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;

@@ -21,10 +21,8 @@ public class WrappedEntityHorse extends  WrappedType {
     }
 
     private static WrappedEntityHorse getWrappedEntityHorse(Object nmsHorse) {
-        if (NMSManager.getNMSClass("EntityHorse").isAssignableFrom(nmsHorse.getClass()))
             return new WrappedEntityHorse(nmsHorse);
-        throw new ClassCastException(nmsHorse.getClass().getTypeName() + " cannot be cast to " + WrappedEntityHorse.class.getTypeName());
-    }
+     }
 
     @Override
     public Object toNMS() {

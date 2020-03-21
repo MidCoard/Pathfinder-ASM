@@ -26,8 +26,6 @@ public class WrappedEntityWolf extends WrappedType {
     }
 
     private static WrappedEntityWolf getWrappedEntityWolf(Object nmsWolf) {
-        if (NMSManager.getNMSClass("EntityWolf").isAssignableFrom(nmsWolf.getClass()))
-            return new WrappedEntityWolf(nmsWolf);
-        throw new ClassCastException(nmsWolf.getClass().getTypeName() + " cannot be cast to " + WrappedEntityWolf.class.getTypeName());
-    }
+           return new WrappedEntityWolf(nmsWolf);
+     }
 }

@@ -4,6 +4,7 @@ import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 
 public class TargetGoalItem extends NMSGoalItem {
+    public static final boolean CHECK_NAVIGABLE = false;
     private final PointerWriter booleanWriter = new PointerWriter(1, 2);
 
     protected TargetGoalItem() {

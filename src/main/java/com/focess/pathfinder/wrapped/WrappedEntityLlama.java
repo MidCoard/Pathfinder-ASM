@@ -20,9 +20,7 @@ public class WrappedEntityLlama extends WrappedType {
     }
 
     private static WrappedEntityLlama getWrappedEntityLlama(Object nmsLlama) {
-        if (NMSManager.getNMSClass("EntityLlama").isAssignableFrom(nmsLlama.getClass()))
             return new WrappedEntityLlama(nmsLlama);
-        throw new ClassCastException(nmsLlama.getClass().getTypeName() + " cannot be cast to " + WrappedEntityLlama.class.getTypeName());
     }
 
     @Override

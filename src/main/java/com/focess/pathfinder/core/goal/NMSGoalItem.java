@@ -3,6 +3,7 @@ package com.focess.pathfinder.core.goal;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.WrappedGoal;
 import com.focess.pathfinder.goals.BreedGoalItem_1_11;
+import com.focess.pathfinder.wrapped.WrappedSet;
 import com.focess.pathfinder.wrapped.WrappedType;
 import com.google.common.collect.Lists;
 
@@ -43,6 +44,8 @@ public abstract class NMSGoalItem extends GoalItem {
             return ((WrappedType) object).toNMS();
         if (object instanceof BreedGoalItem_1_11.WrappedClass)
             return ((BreedGoalItem_1_11.WrappedClass) object).getClass(this.fixedValues);
+        if (object instanceof WrappedSet)
+            return ((WrappedSet) object).toNMS();
         return object;
     }
 

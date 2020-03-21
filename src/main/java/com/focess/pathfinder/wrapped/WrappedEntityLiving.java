@@ -21,9 +21,7 @@ public class WrappedEntityLiving extends WrappedType {
     }
 
     private static WrappedEntityLiving getWrappedEntityLiving(Object nmsLivingEntity) {
-        if (NMSManager.getNMSClass("LivingEntity").isAssignableFrom(nmsLivingEntity.getClass()))
             return new WrappedEntityLiving(nmsLivingEntity);
-        throw new ClassCastException(nmsLivingEntity.getClass().getTypeName() + " cannot be cast to " + WrappedEntityLiving.class.getTypeName());
     }
 
     public static WrappedEntityLiving getWrappedEntityLiving(LivingEntity livingEntity) {

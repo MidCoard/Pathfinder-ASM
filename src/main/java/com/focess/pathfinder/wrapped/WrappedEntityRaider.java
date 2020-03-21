@@ -21,10 +21,8 @@ public class WrappedEntityRaider extends WrappedType {
     }
 
     private static WrappedEntityRaider getWrappedEntityRaider(Object nmsRaider) {
-        if (NMSManager.getNMSClass("EntityRaider").isAssignableFrom(nmsRaider.getClass()))
             return new WrappedEntityRaider(nmsRaider);
-        throw new ClassCastException(nmsRaider.getClass().getTypeName() + " cannot be cast to " + WrappedEntityRaider.class.getTypeName());
-    }
+     }
 
     @Override
     public Object toNMS() {

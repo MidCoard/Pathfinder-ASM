@@ -21,9 +21,7 @@ public class WrappedEntityTameableAnimal extends WrappedType {
     }
 
     private static WrappedEntityTameableAnimal getWrappedEntityTameableAnimal(Object nmsTameable) {
-        if (NMSManager.getNMSClass("EntityTameableAnimal").isAssignableFrom(nmsTameable.getClass()))
             return new WrappedEntityTameableAnimal(nmsTameable);
-        throw new ClassCastException(nmsTameable.getClass().getTypeName() + " cannot be cast to " + WrappedEntityTameableAnimal.class.getTypeName());
     }
 
     @Override

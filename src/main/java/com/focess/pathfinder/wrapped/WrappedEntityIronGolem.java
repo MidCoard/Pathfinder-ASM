@@ -21,10 +21,8 @@ public class WrappedEntityIronGolem extends WrappedType {
     }
 
     private static WrappedEntityIronGolem getWrappedEntityIronGolem(Object nmsIronGolem) {
-        if (NMSManager.getNMSClass("EntityIronGolem").isAssignableFrom(nmsIronGolem.getClass()))
             return new WrappedEntityIronGolem(nmsIronGolem);
-        throw new ClassCastException(nmsIronGolem.getClass().getTypeName() + " cannot be cast to " + WrappedEntityIronGolem.class.getTypeName());
-    }
+     }
 
     @Override
     public Object toNMS() {

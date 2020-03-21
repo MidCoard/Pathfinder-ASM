@@ -21,9 +21,7 @@ public class WrappedEntityInsentient extends WrappedType {
     }
 
     private static WrappedEntityInsentient getWrappedEntityInsentient(Object nmsMob) {
-        if (NMSManager.getNMSClass("EntityInsentient").isAssignableFrom(nmsMob.getClass()))
             return new WrappedEntityInsentient(nmsMob);
-        throw new ClassCastException(nmsMob.getClass().getTypeName() + " cannot be cast to " + WrappedEntityInsentient.class.getTypeName());
     }
 
     @Override

@@ -21,10 +21,8 @@ public class WrappedEntityVillager extends WrappedType {
     }
 
     private static WrappedEntityVillager getWrappedEntityVillager(Object nmsVillager) {
-        if (NMSManager.getNMSClass("EntityVillager").isAssignableFrom(nmsVillager.getClass()))
-            return new WrappedEntityVillager(nmsVillager);
-        throw new ClassCastException(nmsVillager.getClass().getTypeName() + " cannot be cast to " + WrappedEntityVillager.class.getTypeName());
-    }
+         return new WrappedEntityVillager(nmsVillager);
+   }
 
     @Override
     public Object toNMS() {

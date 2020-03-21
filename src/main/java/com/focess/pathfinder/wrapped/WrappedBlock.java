@@ -34,9 +34,7 @@ public class WrappedBlock extends WrappedType {
     }
 
     public static WrappedBlock getWrappedBlock(Object nmsBlock){
-        if (NMSManager.getNMSClass("Block").isAssignableFrom(nmsBlock.getClass()))
-            return new WrappedBlock(nmsBlock);
-        throw new ClassCastException(nmsBlock.getClass().getTypeName() + " cannot be cast to " + WrappedBlock.class.getTypeName());
+        return new WrappedBlock(nmsBlock);
     }
 
     public static WrappedBlock getWrappedBlock(Material material) {
