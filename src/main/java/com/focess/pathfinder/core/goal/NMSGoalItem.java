@@ -26,17 +26,17 @@ public abstract class NMSGoalItem extends GoalItem {
     public abstract NMSGoalItem clear();
 
     @Override
-    public WrappedGoal build(int priority) {
+    public WrappedGoal build(int priority,boolean isTarget) {
         this.fixedValues.clear();
         for (Object object:values)
             fixedValues.add(buildParameter(object));
         Object nmsGoal = null;
         try {
-            nmsGoal = getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance(this, fixedValues.toArray(new Object[0]));
+            nmsGoal = getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance( fixedValues.toArray(new Object[0]));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return new WrappedGoal(this,nmsGoal,priority);
+        return new WrappedGoal(this,nmsGoal,priority,isTarget);
     }
 
     private Object buildParameter(Object object) {

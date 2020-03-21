@@ -14,7 +14,7 @@ public class FocessGoalItem extends GoalItem {
     }
 
     @Override
-    public WrappedGoal build(int priority) {
+    public WrappedGoal build(int priority,boolean isTarget) {
         try {
             Object nmsGoal = PathfinderClassLoader.NMSGoal.getConstructor(Goal.class).newInstance(this.goal);
             if (NMSManager.isHighVersion())
@@ -25,7 +25,7 @@ public class FocessGoalItem extends GoalItem {
                     value += control.getValue();
                 NMSManager.PathfinderGoalMutex.invoke(nmsGoal,value);
             }
-            return new WrappedGoal(this,nmsGoal,priority);
+            return new WrappedGoal(this,nmsGoal,priority,isTarget);
         } catch (Exception e) {
             e.printStackTrace();
         }

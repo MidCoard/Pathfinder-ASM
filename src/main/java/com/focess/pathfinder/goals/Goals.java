@@ -26,7 +26,7 @@ public class Goals {
                 }
 
                 @Override
-                public WrappedGoal build(int priority) {
+                public WrappedGoal build(int priority,boolean isTarget) {
                     throw new UnsupportedOperationException("Unknown NMSGoal cannot be built.");
                 }
 

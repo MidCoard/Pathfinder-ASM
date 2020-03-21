@@ -43,7 +43,7 @@ public class WrappedGoal {
             else
                 this.controls = PathfinderUtil.toFocessControls((int) NMSManager.PathfinderGoalMutexGetter.invoke(nmsGoal),isTarget);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

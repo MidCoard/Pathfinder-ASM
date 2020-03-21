@@ -26,7 +26,7 @@ public abstract class  GoalItem {
 
     protected GoalItem(Class<?> clz) {
         this.clz = clz;
-        if (clz.getName().startsWith("net.minecraft")) {
+        if (clz!= null && clz.getName().startsWith("net.minecraft")) {
             this.type = GoalType.NMS;
             Goals.goalItems.add((NMSGoalItem) this);
         }
@@ -41,7 +41,7 @@ public abstract class  GoalItem {
         return this.type;
     }
 
-    public abstract WrappedGoal build(int priority);
+    public abstract WrappedGoal build(int priority,boolean isTarget);
 
     public enum GoalType{
         NMS,FOCESS

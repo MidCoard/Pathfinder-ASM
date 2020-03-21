@@ -1,15 +1,14 @@
 package com.focess.pathfinder.example;
 
 import com.focess.pathfinder.goal.Goal;
-import org.bukkit.Material;
-import org.bukkit.entity.Spider;
+import org.bukkit.entity.Sheep;
 
 public class SpiderNetGoal extends Goal {
 
-    private final Spider spider;
+    private final Sheep sheep;
 
-    public SpiderNetGoal(Spider spider) {
-        this.spider = spider;
+    public SpiderNetGoal(Sheep sheep) {
+        this.sheep = sheep;
         this.addControl(Control.MOVE);
         this.addControl(Control.JUMP);
         this.addControl(Control.LOOK);
@@ -17,11 +16,11 @@ public class SpiderNetGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        return spider.isOnGround();
+        return sheep.isOnGround();
     }
 
     @Override
     public void start() {
-        spider.getLocation().getBlock().setType(Material.LEGACY_WEB);
+        throw new NullPointerException();
     }
 }

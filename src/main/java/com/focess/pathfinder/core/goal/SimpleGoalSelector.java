@@ -27,6 +27,7 @@ public class SimpleGoalSelector implements GoalSelector {
     private final List<WrappedGoal> wrappedGoals = Lists.newArrayList();
 
     private void update() {
+        this.wrappedGoals.clear();
         Object nmsEntity = NMSManager.getNMSEntity(this.entity.getBukkitEntity());
         Field goalSelector = NMSManager.getField(NMSManager.EntityInsentient, "goalSelector");
         Field targetSelector = NMSManager.getField(NMSManager.EntityInsentient, "targetSelector");
@@ -139,8 +140,4 @@ public class SimpleGoalSelector implements GoalSelector {
         return foundGoals;
     }
 
-    @Override
-    public List<WrappedGoal> getGoals(GoalItem goalItem) {
-        return null;
-    }
 }
