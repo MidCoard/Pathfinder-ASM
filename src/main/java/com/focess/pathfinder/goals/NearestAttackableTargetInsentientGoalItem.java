@@ -3,7 +3,6 @@ package com.focess.pathfinder.goals;
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
 import com.focess.pathfinder.wrapped.WrappedEntityInsentient;
-import org.bukkit.entity.EntityType;
 
 public class NearestAttackableTargetInsentientGoalItem extends NMSGoalItem {
 
@@ -23,11 +22,5 @@ public class NearestAttackableTargetInsentientGoalItem extends NMSGoalItem {
     @Override
     public NearestAttackableTargetInsentientGoalItem clear() {
         return this;
-    }
-
-    public static class EntityClasses {
-        public static Class<?> getEntityClass(EntityType type){
-            return NMSManager.getNMSClass("Entity" + type.getEntityClass().getSimpleName());
-        }
     }
 }

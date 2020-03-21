@@ -10,6 +10,9 @@ public class SpiderNetGoal extends Goal {
 
     public SpiderNetGoal(Spider spider) {
         this.spider = spider;
+        this.addControl(Control.MOVE);
+        this.addControl(Control.JUMP);
+        this.addControl(Control.LOOK);
     }
 
     @Override

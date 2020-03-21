@@ -1,5 +1,6 @@
 package com.focess.pathfinder.goal;
 
+import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.goals.Goals;
 
 import java.util.Objects;
@@ -27,7 +28,7 @@ public abstract class  GoalItem {
         this.clz = clz;
         if (clz.getName().startsWith("net.minecraft")) {
             this.type = GoalType.NMS;
-            Goals.goalItems.add(this);
+            Goals.goalItems.add((NMSGoalItem) this);
         }
         else this.type = GoalType.FOCESS;
     }

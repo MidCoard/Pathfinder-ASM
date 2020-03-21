@@ -15,7 +15,7 @@ public class InteractGoalItem extends NMSGoalItem {
         return this;
     }
 
-    public InteractGoalItem writeClass(Class<? extends net.minecraft.server.v1_15_R1.EntityLiving> arg) {
+    public InteractGoalItem writeClass(Class<?> arg) {
         this.write(1, arg);
         return this;
     }

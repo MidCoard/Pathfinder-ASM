@@ -2,7 +2,6 @@ package com.focess.pathfinder.goals;
 
 import com.focess.pathfinder.core.goal.NMSGoalItem;
 import com.focess.pathfinder.core.util.NMSManager;
-import org.bukkit.entity.EntityType;
 
 public class LookAtPlayerGoalItem extends NMSGoalItem {
     public static final float CHANCE = 0.02f;
@@ -31,10 +30,5 @@ public class LookAtPlayerGoalItem extends NMSGoalItem {
     public LookAtPlayerGoalItem clear() {
         floatWriter.clear();
         return this;
-    }
-    public static class EntityClasses {
-        public static Class<?> getEntityClass(EntityType type){
-            return NMSManager.getNMSClass("Entity" + type.getEntityClass().getSimpleName());
-        }
     }
 }
