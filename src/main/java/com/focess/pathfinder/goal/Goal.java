@@ -48,7 +48,9 @@ public abstract class Goal {
         MOVE(1),
         LOOK(2),
         JUMP(4),
-        TARGET(8);
+        //in lower version of Minecraft,which uses MutexBits to avoid goal-conflict,the value of MOVE is equal to the value of TARGET,
+        //because target-goals is in the TargetGoalSelector
+        TARGET(1);
         private final int value;
 
         Control(int value) {

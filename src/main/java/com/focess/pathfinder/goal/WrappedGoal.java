@@ -14,8 +14,8 @@ public class WrappedGoal {
     private final List<GoalItem> goalItems;
     private EnumSet<Goal.Control> controls = EnumSet.noneOf(Goal.Control.class);
 
-    public WrappedGoal(GoalItem goalItem, Object nmsGoal, int priority) {
-        this(Lists.newArrayList(goalItem),nmsGoal,priority);
+    public WrappedGoal(GoalItem goalItem, Object nmsGoal, int priority,boolean isTarget) {
+        this(Lists.newArrayList(goalItem),nmsGoal,priority,isTarget);
     }
 
     public List<GoalItem> getGoalItems() {
@@ -33,7 +33,7 @@ public class WrappedGoal {
     private final Object nmsGoal;
     private final int priority;
 
-    public WrappedGoal(List<GoalItem> goalItems, Object nmsGoal, int priority) {
+    public WrappedGoal(List<GoalItem> goalItems, Object nmsGoal, int priority,boolean isTarget) {
         this.goalItems = goalItems;
         this.nmsGoal = nmsGoal;
         this.priority = priority;
@@ -41,7 +41,7 @@ public class WrappedGoal {
             if (NMSManager.isHighVersion())
                 this.controls = NMSManager.toFocessControls((Collection<?>) NMSManager.PathfinderGoalMutexGetter.invoke(nmsGoal));
             else
-                this.controls = PathfinderUtil.toFocessControls((int) NMSManager.PathfinderGoalMutexGetter.invoke(nmsGoal));
+                this.controls = PathfinderUtil.toFocessControls((int) NMSManager.PathfinderGoalMutexGetter.invoke(nmsGoal),isTarget);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ public class Example implements Listener {
         if (event.getEntity() instanceof Spider) {
             FocessEntity entity = EntityManager.getFocessEntity(event.getEntity());
             entity.getGoalSelector().addGoal(new FocessGoalItem(new SpiderNetGoal((Spider) event.getEntity())).build(0));
+//            entity.getGoalSelector().addGoal();
         }
     }
 

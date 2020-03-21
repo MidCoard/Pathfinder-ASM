@@ -6,11 +6,16 @@ import java.util.EnumSet;
 
 public class PathfinderUtil {
 
-    public static EnumSet<Goal.Control> toFocessControls(int value) {
+    public static EnumSet<Goal.Control> toFocessControls(int value, boolean isTarget) {
         EnumSet<Goal.Control> ret = EnumSet.noneOf(Goal.Control.class);
-        for (Goal.Control control: Goal.Control.values())
-            if ((value &control.getValue()) == control.getValue())
-                ret.add(control);
+        if ((value & 1) == 1)
+            if (isTarget)
+                ret.add(Goal.Control.TARGET);
+            else ret.add(Goal.Control.MOVE);
+        if ((value & 2) == 2)
+            ret.add(Goal.Control.LOOK);
+        if ((value & 4) == 4)
+            ret.add(Goal.Control.JUMP);
         return ret;
     }
 

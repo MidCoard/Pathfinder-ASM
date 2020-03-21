@@ -38,22 +38,22 @@ public class SimpleGoalSelector implements GoalSelector {
                 int priority = (int) NMSManager.PathfinderGoalItemb.get(nmsWrappedGoal);
                 if (nmsGoal.getClass().getName().equals("com.focess.pathfinder.core.goal.NMSGoal")) {
                     Goal goal = (Goal) PathfinderClassLoader.NMSGoal.getDeclaredField("goal").get(nmsGoal);
-                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority));
+                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority,false));
                     continue;
                 }
                 List<GoalItem> goalItems = Goals.getNMSGoalItem(nmsGoal.getClass());
-                wrappedGoals.add(new WrappedGoal(goalItems,nmsGoal,priority));
+                wrappedGoals.add(new WrappedGoal(goalItems,nmsGoal,priority,false));
             }
             for (Object nmsWrappedGoal : nmsWrappedGoals2) {
                 Object nmsGoal = NMSManager.PathfinderGoalItema.get(nmsWrappedGoal);
                 int priority = (int) NMSManager.PathfinderGoalItemb.get(nmsWrappedGoal);
                 if (nmsGoal.getClass().getName().equals("com.focess.pathfinder.core.goal.NMSGoal")) {
                     Goal goal = (Goal) PathfinderClassLoader.NMSGoal.getDeclaredField("goal").get(nmsGoal);
-                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority));
+                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority,true));
                     continue;
                 }
                 List<GoalItem> goalItems = Goals.getNMSGoalItem(nmsGoal.getClass());
-                wrappedGoals.add(new WrappedGoal(goalItems,nmsGoal,priority));
+                wrappedGoals.add(new WrappedGoal(goalItems,nmsGoal,priority,true));
             }
         } catch (Exception e) {
             e.printStackTrace();
