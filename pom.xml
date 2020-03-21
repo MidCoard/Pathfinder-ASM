@@ -38,8 +38,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <excludes>**/navigation/*</excludes>
-                    <excludes>**/example/*</excludes>
+                    <excludes>
+                        <exclude>**/example/*</exclude>
+                        <exclude>**/navigation/*</exclude>s
+                    </excludes>
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
@@ -74,8 +76,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <excludes>**/example/*</excludes>
-                    <excludes>**/navigation/*</excludes>
+                    <excludes>
+                        <exclude>**/example/*</exclude>
+                        <exclude>**/navigation/*</exclude>s
+                    </excludes>
                     <outputDirectory>C:\Users\Admin\Desktop</outputDirectory>
                 </configuration>
             </plugin>
