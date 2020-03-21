@@ -166,7 +166,7 @@ public class Goals {
     public static final PerchGoalItem PERCH = new PerchGoalItem();
     public static final RestrictOpenDoorGoalItem RESTRICT_OPEN_DOOR = new RestrictOpenDoorGoalItem();
     public static final RestrictSunGoalItem RESTRICT_SUN = new RestrictSunGoalItem();
-    public static final TargetGoalItem TARGET = new TargetGoalItem();
+    public static final TargetGoalItem TARGET_GOAL_ITEM = new TargetGoalItem();
     public static final UseItemGoalItem USE_ITEM = new UseItemGoalItem();
     public static final WaterGoalItem WATER = new WaterGoalItem();
 

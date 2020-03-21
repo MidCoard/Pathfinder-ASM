@@ -8,9 +8,9 @@ import com.focess.pathfinder.wrapped.WrappedNMSPredicate;
 import java.util.function.Predicate;
 
 public class NearestAttackableTargetGoalItem extends NMSGoalItem {
-
-    public static final boolean FLAG = false;
-    public static final WrappedNMSPredicate<WrappedEntityLiving> PREDICATE = null;
+    public static final int RECIPROCAL_CHANCE = 10;
+    public static final boolean CHECK_CAN_NAVIGATE = false;
+    public static final WrappedNMSPredicate<WrappedEntityLiving> TARGET_PREDICATE = null;
     private final PointerWriter booleanWriter = new PointerWriter(3, 2);
 
     protected NearestAttackableTargetGoalItem() {
