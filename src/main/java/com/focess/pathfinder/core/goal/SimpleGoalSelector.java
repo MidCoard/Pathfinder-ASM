@@ -95,8 +95,6 @@ public class SimpleGoalSelector implements GoalSelector {
                 NMSManager.PathfinderGoalSelectorRemove.invoke(targetSelector, goal.getNmsGoal());
             } else {
                 Object goalSelector = NMSManager.getField(NMSManager.EntityInsentient, "goalSelector").get(nmsEntity);
-                Field nmsGoalField = Goal.class.getDeclaredField("nmsGoal");
-                nmsGoalField.setAccessible(true);
                 NMSManager.PathfinderGoalSelectorRemove.invoke(goalSelector,  goal.getNmsGoal());
             }
         }
@@ -138,6 +136,12 @@ public class SimpleGoalSelector implements GoalSelector {
             if (goal.getGoalItems().contains(goalItem))
                 foundGoals.add(goal);
         return foundGoals;
+    }
+
+    @Override
+    public List<WrappedGoal> getGoals() {
+        update();
+        return this.wrappedGoals;
     }
 
 }

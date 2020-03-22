@@ -80,7 +80,6 @@
                         <exclude>**/example/*</exclude>
                         <exclude>**/navigation/*</exclude>s
                     </excludes>
-                    <outputDirectory>C:\Users\Admin\Desktop</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
