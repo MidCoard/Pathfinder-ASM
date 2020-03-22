@@ -18,3 +18,8 @@ There is some help [in the wiki](https://github.com/MIdCoard/Pathfinder-ASM/wiki
 只需要将它放到你的 Spigot/Bukkit/PaperSpigot 服务器就可以了。如果没有插件支持它不会干任何事。
 
 Just download it and put it in your Spigot/Bukkit/PaperSpigot Server.It won't do anything on its own if there is no plugin supporting it.
+
+##Websites
+MCBBS: https://www.mcbbs.net/thread-993486-1-1.html
+
+SPIGOTMC: https://www.spigotmc.org/resources/pathfinderapi.76339/
