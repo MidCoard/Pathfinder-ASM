@@ -19,7 +19,7 @@ There is some help [in the wiki](https://github.com/MIdCoard/Pathfinder-ASM/wiki
 
 Just download it and put it in your Spigot/Bukkit/PaperSpigot Server.It won't do anything on its own if there is no plugin supporting it.
 
-##Websites
+## Websites
 MCBBS: https://www.mcbbs.net/thread-993486-1-1.html
 
 SPIGOTMC: https://www.spigotmc.org/resources/pathfinderapi.76339/
