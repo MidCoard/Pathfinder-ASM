@@ -11,9 +11,10 @@ If you have the ability to sponsor us, please go to [AFDIAN platform to support 
 ## For Developers
 [这里](https://github.com/MIdCoard/Pathfinder-ASM/wiki)是 Wiki。
 
-[Here](https://github.com/MIdCoard/Pathfinder-ASM/wiki) is the wiki.
+
+There is some help [in the wiki](https://github.com/MIdCoard/Pathfinder-ASM/wiki).
 
 ## For Server Operators
-只需要将它放到你的 Spigot/Bukkit/PaperSpigot 服务器就可以了。
+只需要将它放到你的 Spigot/Bukkit/PaperSpigot 服务器就可以了。如果没有插件支持它不会干任何事。
 
-Just put it in your Spigot/Bukkit/PaperSpigot Server.
+Just download it and put it in your Spigot/Bukkit/PaperSpigot Server.It won't do anything on its own if there is no plugin supporting it.
