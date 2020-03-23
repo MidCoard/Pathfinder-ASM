@@ -40,7 +40,6 @@
                 <configuration>
                     <excludes>
                         <exclude>**/example/*</exclude>
-                        <exclude>**/navigation/*</exclude>s
                     </excludes>
                     <source>8</source>
                     <target>8</target>
@@ -78,7 +77,6 @@
                 <configuration>
                     <excludes>
                         <exclude>**/example/*</exclude>
-                        <exclude>**/navigation/*</exclude>s
                     </excludes>
                 </configuration>
             </plugin>

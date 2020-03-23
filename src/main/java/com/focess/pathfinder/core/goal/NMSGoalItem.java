@@ -13,14 +13,14 @@ public abstract class NMSGoalItem extends GoalItem {
 
     private final List<Object> fixedValues = Lists.newArrayList();
 
-    private final List<Object> values;
+    private final Object[] values;
 
-    private final List<Class<?>> parameters;
+    private final Class<?>[] parameters;
 
     protected NMSGoalItem(Class<?> clz,int args,Class<?>... parameters) {
         super(clz);
-        this.values =  Lists.newArrayList(args);
-        this.parameters = Lists.newArrayList(parameters);
+        this.values =  new Object[args];
+        this.parameters = parameters;
     }
 
     public abstract NMSGoalItem clear();
@@ -32,7 +32,7 @@ public abstract class NMSGoalItem extends GoalItem {
             fixedValues.add(buildParameter(object));
         Object nmsGoal = null;
         try {
-            nmsGoal = getGoalClass().getConstructor(this.parameters.toArray(new Class<?>[0])).newInstance( fixedValues.toArray(new Object[0]));
+            nmsGoal = getGoalClass().getConstructor(this.parameters).newInstance(fixedValues.toArray(new Object[0]));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +51,7 @@ public abstract class NMSGoalItem extends GoalItem {
 
 
     protected void write(int i, Object object) {
-        this.values.set(i,object);
+        this.values[i] = object;
     }
 
     public class PointerWriter {

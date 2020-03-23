@@ -2,6 +2,7 @@ package com.focess.pathfinder.core.util;
 
 import com.focess.pathfinder.goal.Goal;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -63,6 +64,16 @@ public class NMSManager {
 
     public static final Method PathfinderGoalMutexGetter;
 
+    public static final Class<?> NavigationAbstract;
+
+    public static final Field NavigationAbstractc;
+
+    public static final Class<?> PathEntity;
+
+    public static final Method PathEntityMethodb;
+
+    public static final Method EntityInsentientMethodgetNavigation;
+
     static {
         Field PathfinderGoalsField1 = null;
         Field PathfinderGoalItema1 = null;
@@ -82,6 +93,7 @@ public class NMSManager {
         NBTTagCompound = NMSManager.getNMSClass("NBTTagCompound");
         PathfinderGoalSelector = NMSManager.getNMSClass("PathfinderGoalSelector");
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
+        EntityInsentientMethodgetNavigation = NMSManager.getMethod(EntityInsentient,"getNavigation");
         PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
         Control = (Class<Enum<?>>) NMSManager.getNMSClass("PathfinderGoal$Type");
         pathfinderGoalMethodNames = new String[6];
@@ -128,6 +140,59 @@ public class NMSManager {
         PathfinderGoalsField = PathfinderGoalsField1;
         PathfinderGoalItema = PathfinderGoalItema1;
         PathfinderGoalItemb = PathfinderGoalItemb1;
+        NavigationAbstract = NMSManager.getNMSClass("NavigationAbstract");
+        NavigationAbstractc = NMSManager.getField(NavigationAbstract,"c");
+        PathEntity = NMSManager.getNMSClass("PathEntity");
+        PathEntityMethodb = NMSManager.getMethod(PathEntity,"b");
+    }
+
+    private static class ClassIdentity {
+
+        private List<MethodType> methodTypes = Lists.newCopyOnWriteArrayList();
+        private List<Method> methods;
+        public ClassIdentity addMethodType(MethodType methodType) {
+            methodTypes.add(methodType);
+            return this;
+        }
+
+        public Map<String,String> identity(Class<?> clazz) {
+            Map<String,String> ret = Maps.newHashMap();
+            methods = Lists.newCopyOnWriteArrayList(Lists.newArrayList(clazz.getDeclaredMethods()));
+            for (MethodType methodType:methodTypes)
+                for (Method method:methods){
+                    if (Arrays.equals(method.getParameterTypes(), methodType.getParameterTypes()) && method.getReturnType().equals(methodType.getReturnType())) {
+                        ret.put(methodType.getMethodName(),method.getName());
+                        methods.remove(method);
+                        methodTypes.remove(methodTypes);
+                    }
+                }
+            return ret;
+        }
+
+    }
+
+    private static class MethodType{
+        private Class<?> returnType;
+        private final String methodName;
+        private Class<?>[] parameterTypes;
+
+        public Class<?> getReturnType() {
+            return returnType;
+        }
+
+        public String getMethodName() {
+            return methodName;
+        }
+
+        public Class<?>[] getParameterTypes() {
+            return parameterTypes;
+        }
+
+        public MethodType(String methodName, Class<?> returnType, Class<?>... parameterTypes){
+            this.methodName = methodName;
+            this.parameterTypes = parameterTypes;
+            this.returnType = returnType;
+        }
     }
 
     public static Object getConnection(final Player player) {
