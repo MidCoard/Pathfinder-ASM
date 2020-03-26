@@ -22,4 +22,9 @@ public class WrappedPath implements Path {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Object toNMS() {
+        return this.nmsPath;
+    }
 }

@@ -4,5 +4,5 @@ public interface Path {
 
     boolean isFinished();
 
-
+    Object toNMS();
 }

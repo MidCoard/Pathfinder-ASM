@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class NMSManager {
 
@@ -74,6 +75,28 @@ public class NMSManager {
 
     public static final Method EntityInsentientMethodgetNavigation;
 
+    public static final Field NavigationAbstractd;
+
+    public static Field NavigationAbstracts;
+
+    public static Map<String, Method> NavigationAbstractMethodNames;
+
+    public static Field NavigationAbstractRecalculate;
+
+    public static Field NavigationAbstractGetPathfinder;
+
+    private static final Class<?> PathfinderAbstract;
+
+    public static Field PathfinderGetPathfinderAbstract;
+
+    public static Field NavigationAbstractGetPathfinderAbstract;
+
+    public static Map<String, Method> PathfinderAbstractMethodNames;
+
+    public static Map<String, Method> PathfinderNormalMethodNames;
+
+    public static final Field NavigationFieldAvoidSunlight;
+
     static {
         Field PathfinderGoalsField1 = null;
         Field PathfinderGoalItema1 = null;
@@ -93,7 +116,7 @@ public class NMSManager {
         NBTTagCompound = NMSManager.getNMSClass("NBTTagCompound");
         PathfinderGoalSelector = NMSManager.getNMSClass("PathfinderGoalSelector");
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
-        EntityInsentientMethodgetNavigation = NMSManager.getMethod(EntityInsentient,"getNavigation");
+        EntityInsentientMethodgetNavigation = NMSManager.getMethod(EntityInsentient, "getNavigation");
         PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
         Control = (Class<Enum<?>>) NMSManager.getNMSClass("PathfinderGoal$Type");
         pathfinderGoalMethodNames = new String[6];
@@ -101,7 +124,7 @@ public class NMSManager {
         for (Method method : PathfinderGoal.getDeclaredMethods())
             if (!method.getReturnType().equals(boolean.class) && !method.getReturnType().equals(Void.TYPE))
                 PathfinderGoalMutexGetter1 = method;
-                else if (method.getParameterCount() == 0 && method.getName().length() == 1 && 5 > point) {
+            else if (method.getParameterCount() == 0 && method.getName().length() == 1 && 5 > point) {
                 pathfinderGoalMethodNames[point++] = method.getName();
             } else if (method.getParameterCount() == 1)
                 PathfinderGoalMutex1 = method;
@@ -109,11 +132,11 @@ public class NMSManager {
                 pathfinderGoalMethodNames[5] = method.getName();
         PathfinderGoalMutex = PathfinderGoalMutex1;
         PathfinderGoalMutexGetter = PathfinderGoalMutexGetter1;
-        Arrays.sort(pathfinderGoalMethodNames,0,5);
+        Arrays.sort(pathfinderGoalMethodNames, 0, 5);
         for (Method method : PathfinderGoalSelector.getDeclaredMethods())
             if (method.getParameterCount() == 2 && Arrays.equals(method.getParameterTypes(), new Class<?>[]{int.class, PathfinderGoal}))
                 PathfinderGoalSelectorAdd1 = method;
-            else if (method.getParameterCount() == 1 && Arrays.equals(method.getParameterTypes(),new Class<?>[]{PathfinderGoal}))
+            else if (method.getParameterCount() == 1 && Arrays.equals(method.getParameterTypes(), new Class<?>[]{PathfinderGoal}))
                 PathfinderGoalSelectorRemove1 = method;
         PathfinderGoalSelectorAdd = PathfinderGoalSelectorAdd1;
         PathfinderGoalSelectorRemove = PathfinderGoalSelectorRemove1;
@@ -121,7 +144,7 @@ public class NMSManager {
             if (getVersionInt() > 13) {
                 PathfinderGoalItema1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "a");
                 PathfinderGoalItemb1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "b");
-                PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector,"d");
+                PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector, "d");
             } else {
                 Class<?> PathfinderGoalItem;
                 try {
@@ -131,9 +154,9 @@ public class NMSManager {
                 }
                 PathfinderGoalItema1 = NMSManager.getField(PathfinderGoalItem, "a");
                 PathfinderGoalItemb1 = NMSManager.getField(PathfinderGoalItem, "b");
-                PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector,"b");
+                PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector, "b");
             }
-            ExceptCreativeOrSpectator = NMSManager.getField(NMSManager.getNMSClass("IEntitySelector"),"e").get(null);
+            ExceptCreativeOrSpectator = NMSManager.getField(NMSManager.getNMSClass("IEntitySelector"), "e").get(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,27 +164,103 @@ public class NMSManager {
         PathfinderGoalItema = PathfinderGoalItema1;
         PathfinderGoalItemb = PathfinderGoalItemb1;
         NavigationAbstract = NMSManager.getNMSClass("NavigationAbstract");
-        NavigationAbstractc = NMSManager.getField(NavigationAbstract,"c");
+        NavigationAbstractc = NMSManager.getField(NavigationAbstract, "c");
+        NavigationAbstractd = NMSManager.getField(NavigationAbstract, "d");
         PathEntity = NMSManager.getNMSClass("PathEntity");
-        PathEntityMethodb = NMSManager.getMethod(PathEntity,"b");
+        PathEntityMethodb = NMSManager.getMethod(PathEntity, "b");
+        if (NMSManager.getVersionInt() > 14)
+            NavigationAbstracts = NMSManager.getField(NavigationAbstract, "s");
+        if (NMSManager.getVersionInt() == 8)
+            NavigationAbstractMethodNames = new ClassIdentity()
+                    .addMethodType(new MethodType("startMovingAlong", NamePattern.DEFAULT, boolean.class, NMSManager.PathEntity, double.class))
+                    .addMethodType(new MethodType("findPathTo", NamePattern.DEFAULT, NMSManager.PathEntity, double.class, double.class, double.class))
+                    .identity(NavigationAbstract);
+        else if (NMSManager.getVersionInt() < 12)
+            NavigationAbstractMethodNames = new ClassIdentity()
+                    .addMethodType(new MethodType("startMovingAlong", NamePattern.DEFAULT, boolean.class, NMSManager.PathEntity, double.class))
+                    .addMethodType(new MethodType("findPathTo", NamePattern.DEFAULT, NMSManager.PathEntity, double.class, double.class, double.class))
+                    .addMethodType(new MethodType("recalculatePath", NamePattern.ofCharPattern(c -> c == 'j'), void.class))
+                    .identity(NavigationAbstract);
+        else if (NMSManager.getVersionInt() < 14)
+            NavigationAbstractMethodNames = new ClassIdentity()
+                    .addMethodType(new MethodType("startMovingAlong", NamePattern.DEFAULT, boolean.class, NMSManager.PathEntity, double.class))
+                    .addMethodType(new MethodType("findPathTo", NamePattern.DEFAULT, NMSManager.PathEntity, double.class, double.class, double.class))
+                    .addMethodType(new MethodType("recalculatePath", NamePattern.ofCharPattern(c -> c == 'k' || c == 'l' || c == 'j'), void.class))
+                    .identity(NavigationAbstract);
+        else NavigationAbstractMethodNames = new ClassIdentity()
+                    .addMethodType(new MethodType("startMovingAlong", NamePattern.DEFAULT, boolean.class, NMSManager.PathEntity, double.class))
+                    .addMethodType(new MethodType("findPathTo", NamePattern.DEFAULT, NMSManager.PathEntity, double.class, double.class, double.class, int.class))
+                    .addMethodType(new MethodType("recalculatePath", NamePattern.ofCharPattern(c -> c == 'j' || c == 'k' || c == 'l'), void.class))
+                    .identity(NavigationAbstract);
+        if (NMSManager.getVersionInt() > 8)
+            if (NMSManager.getVersionInt() == 9)
+                NavigationAbstractRecalculate = NMSManager.getField(NavigationAbstract, "p");
+            else if (NMSManager.getVersionInt() < 12)
+                NavigationAbstractRecalculate = NMSManager.getField(NavigationAbstract, "o");
+            else if (NMSManager.getVersionInt() == 12)
+                NavigationAbstractRecalculate = NMSManager.getField(NavigationAbstract, "g");
+            else NavigationAbstractRecalculate = NMSManager.getField(NavigationAbstract, "m");
+        PathfinderAbstract = NMSManager.getNMSClass("PathfinderAbstract");
+        if (NMSManager.getVersionInt() == 8) {
+            Class<?> Pathfinder = NMSManager.getNMSClass("Pathfinder");
+            for (Field field : NavigationAbstract.getDeclaredFields())
+                if (field.getType().equals(Pathfinder)) {
+                    field.setAccessible(true);
+                    NavigationAbstractGetPathfinder = field;
+                }
+            for (Field field : Pathfinder.getDeclaredFields())
+                if (field.getType().equals(PathfinderAbstract)) {
+                    field.setAccessible(true);
+                    PathfinderGetPathfinderAbstract = field;
+                }
+            PathfinderNormalMethodNames = new ClassIdentity()
+                    .addMethodType(new MethodType("setEnterDoors", NamePattern.ofCharPattern(c -> c == 'a'), void.class, boolean.class))
+                    .addMethodType(new MethodType("setAvoidsWater", NamePattern.ofCharPattern(c -> c == 'c'), void.class, boolean.class))
+                    .addMethodType(new MethodType("setCanSwim", NamePattern.ofCharPattern(c -> c == 'd'), void.class, boolean.class))
+                    .addMethodType(new MethodType("getEnterDoors", NamePattern.ofCharPattern((c) -> c == 'b'), boolean.class))
+                    .addMethodType(new MethodType("getCanSwim", NamePattern.ofCharPattern((c) -> c == 'd'), boolean.class))
+                    .addMethodType(new MethodType("getAvoidsWater", NamePattern.ofCharPattern((c) -> c == 'e'), boolean.class))
+                    .identity(NMSManager.getNMSClass("PathfinderNormal"));
+        } else {
+            for (Field field : NavigationAbstract.getDeclaredFields())
+                if (field.getType().equals(PathfinderAbstract)) {
+                    field.setAccessible(true);
+                    NavigationAbstractGetPathfinderAbstract = field;
+                }
+            PathfinderAbstractMethodNames = new ClassIdentity()
+                    .addMethodType(new MethodType("setCanEnterOpenDoors", NamePattern.ofCharPattern((c) -> c == 'a'), void.class, boolean.class))
+                    .addMethodType(new MethodType("setCanOpenDoors", NamePattern.ofCharPattern((c) -> c == 'b'), void.class, boolean.class))
+                    .addMethodType(new MethodType("setCanSwim", NamePattern.ofCharPattern((c) -> c == 'c'), void.class, boolean.class))
+                    .addMethodType(new MethodType("canEnterOpenDoors", NamePattern.ofCharPattern((c) -> c == 'c'), boolean.class))
+                    .addMethodType(new MethodType("canOpenDoors", NamePattern.ofCharPattern((c) -> c == 'd'), boolean.class))
+                    .addMethodType(new MethodType("canSwim", NamePattern.ofCharPattern((c) -> c == 'e'), boolean.class))
+                    .identity(PathfinderAbstract);
+        }
+        if (NMSManager.getVersionInt() < 12)
+            NavigationFieldAvoidSunlight = NMSManager.getField(NMSManager.getNMSClass("Navigation"), "f");
+        else if (NMSManager.getVersionInt() == 12)
+            NavigationFieldAvoidSunlight = NMSManager.getField(NMSManager.getNMSClass("Navigation"), "i");
+        else
+            NavigationFieldAvoidSunlight = NMSManager.getField(NMSManager.getNMSClass("Navigation"), "p");
     }
 
     private static class ClassIdentity {
 
         private List<MethodType> methodTypes = Lists.newCopyOnWriteArrayList();
         private List<Method> methods;
+
         public ClassIdentity addMethodType(MethodType methodType) {
             methodTypes.add(methodType);
             return this;
         }
 
-        public Map<String,String> identity(Class<?> clazz) {
-            Map<String,String> ret = Maps.newHashMap();
+        public Map<String, Method> identity(Class<?> clazz) {
+            Map<String, Method> ret = Maps.newHashMap();
             methods = Lists.newCopyOnWriteArrayList(Lists.newArrayList(clazz.getDeclaredMethods()));
-            for (MethodType methodType:methodTypes)
-                for (Method method:methods){
-                    if (Arrays.equals(method.getParameterTypes(), methodType.getParameterTypes()) && method.getReturnType().equals(methodType.getReturnType())) {
-                        ret.put(methodType.getMethodName(),method.getName());
+            for (MethodType methodType : methodTypes)
+                for (Method method : methods) {
+                    if (methodType.getPattern().contains(methodType.getPattern().toPattern(method.getName())) && Arrays.equals(method.getParameterTypes(), methodType.getParameterTypes()) && method.getReturnType().equals(methodType.getReturnType())) {
+                        ret.put(methodType.getMethodName(), method);
                         methods.remove(method);
                         methodTypes.remove(methodTypes);
                     }
@@ -171,9 +270,15 @@ public class NMSManager {
 
     }
 
-    private static class MethodType{
+    private static class MethodType {
         private Class<?> returnType;
         private final String methodName;
+        private final NamePattern pattern;
+
+        public NamePattern getPattern() {
+            return pattern;
+        }
+
         private Class<?>[] parameterTypes;
 
         public Class<?> getReturnType() {
@@ -188,11 +293,49 @@ public class NMSManager {
             return parameterTypes;
         }
 
-        public MethodType(String methodName, Class<?> returnType, Class<?>... parameterTypes){
+        public MethodType(String methodName, NamePattern pattern, Class<?> returnType, Class<?>... parameterTypes) {
             this.methodName = methodName;
+            this.pattern = pattern;
             this.parameterTypes = parameterTypes;
             this.returnType = returnType;
         }
+    }
+
+    private abstract static class NamePattern implements Cloneable {
+        public static final NamePattern DEFAULT = new NamePattern() {
+            @Override
+            public Object toPattern(String name) {
+                return name;
+            }
+
+            @Override
+            protected boolean contains(Object object) {
+                return true;
+            }
+        };
+
+        public static NamePattern ofCharPattern(Predicate<Character> predicate) {
+            return new NamePattern() {
+
+                @Override
+                public Character toPattern(String name) {
+                    if (name.length() == 1)
+                        return name.charAt(0);
+                    return null;
+                }
+
+                @Override
+                public boolean contains(Object object) {
+                    if (object == null || object instanceof Character)
+                        return false;
+                    return predicate.test((Character) object);
+                }
+            };
+        }
+
+        public abstract Object toPattern(String name);
+
+        protected abstract boolean contains(Object object);
     }
 
     public static Object getConnection(final Player player) {
@@ -340,7 +483,7 @@ public class NMSManager {
     public static Object toNMSControls(EnumSet<Goal.Control> controls) {
         if (controls.size() == 0)
             try {
-                return EnumSet.class.getDeclaredMethod("noneOf", Class.class).invoke(null,Control);
+                return EnumSet.class.getDeclaredMethod("noneOf", Class.class).invoke(null, Control);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -348,16 +491,15 @@ public class NMSManager {
         List<Enum> enums = Lists.newArrayList();
         Enum<?> first = null;
         boolean flag = false;
-        for (Goal.Control control:controls)
+        for (Goal.Control control : controls)
             if (!flag) {
                 flag = true;
                 first = toNMSControl(control);
-            }
-            else
+            } else
                 enums.add(toNMSControl(control));
         try {
             return EnumSet.class
-                    .getDeclaredMethod("of", Enum.class, Enum[].class).invoke(null,first,enums.toArray(new Enum[0]));
+                    .getDeclaredMethod("of", Enum.class, Enum[].class).invoke(null, first, enums.toArray(new Enum[0]));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -365,7 +507,7 @@ public class NMSManager {
     }
 
     private static Enum<?> toNMSControl(Goal.Control control) {
-        for (Enum<?> c:Control.getEnumConstants())
+        for (Enum<?> c : Control.getEnumConstants())
             if (c.name().equals(control.name()))
                 return c;
         return null;
@@ -373,7 +515,7 @@ public class NMSManager {
 
     public static EnumSet<Goal.Control> toFocessControls(Collection<?> collection) {
         EnumSet<Goal.Control> controls = EnumSet.noneOf(Goal.Control.class);
-        for (Object obj:collection)
+        for (Object obj : collection)
             controls.add(toFocessControl(obj));
         return controls;
     }

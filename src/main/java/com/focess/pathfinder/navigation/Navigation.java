@@ -1,11 +1,11 @@
 package com.focess.pathfinder.navigation;
 
-import com.focess.pathfinder.core.navigation.WrappedPath;
 import com.focess.pathfinder.entity.FocessEntity;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 public interface Navigation {
+    float DEFAULT_RANGE_MULTIPLIER = 1.0F;
 
     World getWorld();
 
@@ -13,11 +13,16 @@ public interface Navigation {
 
     void stop();
 
-    boolean startMovingTo(final double x, final double y, final double z, final double speed);
+    default boolean startMovingTo(final double x, final double y, final double z, final double speed) {
+        return startMovingAlong(findPathTo(x,y,z,1),speed);
+    }
 
-    boolean startMovingTo(final FocessEntity entity, final double speed);
+    default boolean startMovingTo(final FocessEntity entity, final double speed) {
+        Path path = findPathTo(entity,1);
+        return path != null && this.startMovingAlong(path,speed);
+    }
 
-    boolean startMovingAlong(final WrappedPath path, final double speed);
+    boolean startMovingAlong(final Path path, final double speed);
 
     Path findPathTo(final double x, final double y, final double z, final int distance);
 
@@ -28,11 +33,17 @@ public interface Navigation {
         return findPathTo(location.getX(),location.getY(),location.getZ(),distance);
     }
 
+    default Path findPathTo(final FocessEntity entity) {
+        return findPathTo(entity,1);
+    }
+
+    default Path findPathTo(final double x, final double y, final double z) {
+        return findPathTo(x,y,z,1);
+    }
+
     void setSpeed(double speed);
 
     void setCanSwim(final boolean canSwim);
-
-    boolean canSwim();
 
     void setAvoidSunlight(final boolean avoidSunlight);
 
@@ -42,11 +53,25 @@ public interface Navigation {
 
     boolean avoidSunlight();
 
+    void setAvoidsWater(boolean avoidsWater);
+
+    boolean getAvoidsWater();
+
     boolean canOpenDoors();
 
     boolean canEnterOpenDoors();
 
+    boolean canSwim();
+
     Path getCurrentPath();
 
     double getSpeed();
+
+    void setRangeMultiplier(final float rangeMultiplier);
+
+    float getRangeMultiplier();
+
+    boolean shouldRecalculatePath();
+
+    void recalculatePath();
 }
