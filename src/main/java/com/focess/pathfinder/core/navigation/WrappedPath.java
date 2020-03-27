@@ -10,11 +10,11 @@ public class WrappedPath implements Path {
     protected WrappedPath(Object nmsPath){
         this.nmsPath = nmsPath;
     }
-
+    @Override
     public boolean isIdle() {
         return this.nmsPath == null || this.isFinished();
     }
-
+    @Override
     public boolean isFinished(){
         try {
             return (boolean) NMSManager.PathEntityMethodb.invoke(nmsPath);

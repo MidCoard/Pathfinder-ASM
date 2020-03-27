@@ -61,6 +61,7 @@ public class SimpleGoalSelector implements GoalSelector {
         }
     }
 
+    @Override
     public Set<GoalItem> getGoalItems() {
         update();
         Set<GoalItem> items = Sets.newHashSet();
