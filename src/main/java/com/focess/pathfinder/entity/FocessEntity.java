@@ -12,6 +12,8 @@ public interface FocessEntity {
 
     Entity getBukkitEntity();
 
+    int getID();
+
     Navigation getNavigationManager();
 
     Random getRandom();

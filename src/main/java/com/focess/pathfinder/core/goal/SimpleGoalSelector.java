@@ -2,11 +2,11 @@ package com.focess.pathfinder.core.goal;
 
 import com.focess.pathfinder.core.builder.PathfinderClassLoader;
 import com.focess.pathfinder.core.util.NMSManager;
+import com.focess.pathfinder.entity.FocessEntity;
 import com.focess.pathfinder.goal.Goal;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.GoalSelector;
 import com.focess.pathfinder.goal.WrappedGoal;
-import com.focess.pathfinder.entity.FocessEntity;
 import com.focess.pathfinder.goals.Goals;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -38,7 +38,9 @@ public class SimpleGoalSelector implements GoalSelector {
                 Object nmsGoal = NMSManager.PathfinderGoalItema.get(nmsWrappedGoal);
                 int priority = (int) NMSManager.PathfinderGoalItemb.get(nmsWrappedGoal);
                 if (nmsGoal.getClass().getName().equals("com.focess.pathfinder.core.goal.NMSGoal")) {
-                    Goal goal = (Goal) PathfinderClassLoader.NMSGoal.getDeclaredField("goal").get(nmsGoal);
+                    Field goalField = PathfinderClassLoader.NMSGoal.getDeclaredField("goal");
+                    goalField.setAccessible(true);
+                    Goal goal = (Goal) goalField.get(nmsGoal);
                     wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority,false));
                     continue;
                 }
@@ -49,7 +51,9 @@ public class SimpleGoalSelector implements GoalSelector {
                 Object nmsGoal = NMSManager.PathfinderGoalItema.get(nmsWrappedGoal);
                 int priority = (int) NMSManager.PathfinderGoalItemb.get(nmsWrappedGoal);
                 if (nmsGoal.getClass().getName().equals("com.focess.pathfinder.core.goal.NMSGoal")) {
-                    Goal goal = (Goal) PathfinderClassLoader.NMSGoal.getDeclaredField("goal").get(nmsGoal);
+                    Field goalField = PathfinderClassLoader.NMSGoal.getDeclaredField("goal");
+                    goalField.setAccessible(true);
+                    Goal goal = (Goal) goalField.get(nmsGoal);
                     wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority,true));
                     continue;
                 }

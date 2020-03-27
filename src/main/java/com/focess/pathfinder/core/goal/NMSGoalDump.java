@@ -16,7 +16,7 @@ public class NMSGoalDump implements Opcodes {
         cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/focess/pathfinder/core/goal/NMSGoal", null, NMSManager.getVersionStringAsClassName() + "PathfinderGoal", null);
 
         {
-            fv = cw.visitField(ACC_PRIVATE + ACC_FINAL, "goal", "Lcom/focess/pathfinder/goal/Goal;", null, null);
+            fv = cw.visitField(ACC_PRIVATE , "goal", "Lcom/focess/pathfinder/goal/Goal;", null, null);
             fv.visitEnd();
         }
         {

@@ -14,6 +14,7 @@ public class NMSFocessEntity implements FocessEntity {
     private final Navigation navigation;
     private final Entity entity;
     private final GoalSelector goalSelector;
+    private final int id;
     private Random random;
 
     public NMSFocessEntity(Entity entity) {
@@ -22,6 +23,7 @@ public class NMSFocessEntity implements FocessEntity {
         this.navigation = new SimpleNavigation(this);
         try {
             this.random = (Random) NMSManager.getField(NMSManager.getNMSClass("Entity"), "random").get(NMSManager.getNMSEntity(entity));
+            this.id = NMSManager.getField(NMSManager.getNMSClass("Entity"),"id").getInt(NMSManager.getNMSEntity(entity));
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -35,6 +37,11 @@ public class NMSFocessEntity implements FocessEntity {
     @Override
     public Entity getBukkitEntity() {
         return this.entity;
+    }
+
+    @Override
+    public int getID() {
+        return this.id;
     }
 
     @Override
