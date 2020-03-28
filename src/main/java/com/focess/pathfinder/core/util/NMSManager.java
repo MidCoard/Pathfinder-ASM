@@ -61,7 +61,7 @@ public class NMSManager {
 
     public static final Method PathfinderGoalSelectorRemove;
 
-    public static final Class<Enum<?>> Control;
+    public static Class<Enum<?>> Control;
 
     public static final Method PathfinderGoalMutexGetter;
 
@@ -118,7 +118,6 @@ public class NMSManager {
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
         EntityInsentientMethodgetNavigation = NMSManager.getMethod(EntityInsentient, "getNavigation");
         PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
-        Control = (Class<Enum<?>>) NMSManager.getNMSClass("PathfinderGoal$Type");
         pathfinderGoalMethodNames = new String[6];
         int point = 0;
         for (Method method : PathfinderGoal.getDeclaredMethods())
@@ -142,6 +141,7 @@ public class NMSManager {
         PathfinderGoalSelectorRemove = PathfinderGoalSelectorRemove1;
         try {
             if (getVersionInt() > 13) {
+                Control = (Class<Enum<?>>) NMSManager.getNMSClass("PathfinderGoal$Type");
                 PathfinderGoalItema1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "a");
                 PathfinderGoalItemb1 = NMSManager.getField(NMSManager.getNMSClass("PathfinderGoalWrapped"), "b");
                 PathfinderGoalsField1 = NMSManager.getField(PathfinderGoalSelector, "d");

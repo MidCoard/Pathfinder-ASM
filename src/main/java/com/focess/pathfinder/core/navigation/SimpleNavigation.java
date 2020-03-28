@@ -60,7 +60,7 @@ public final class SimpleNavigation implements Navigation {
     public boolean startMovingAlong(Path path, double speed) {
         updateNavigation();
         try {
-            return (boolean) NMSManager.NavigationAbstractMethodNames.get("startMovingAlong").invoke(this,nmsNavigation,path.toNMS(),speed);
+            return (boolean) NMSManager.NavigationAbstractMethodNames.get("startMovingAlong").invoke(this.nmsNavigation,path.toNMS(),speed);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
