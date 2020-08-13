@@ -480,30 +480,11 @@ public class NMSManager {
         return Arrays.copyOf(pathfinderGoalMethodNames, 6);
     }
 
-    public static Object toNMSControls(EnumSet<Goal.Control> controls) {
-        if (controls.size() == 0)
-            try {
-                return EnumSet.class.getDeclaredMethod("noneOf", Class.class).invoke(null, Control);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        List<Enum> enums = Lists.newArrayList();
-        Enum<?> first = null;
-        boolean flag = false;
+    public static<T extends  Enum<T>> EnumSet<T> toNMSControls(EnumSet<Goal.Control> controls) {
+        List<T> enums = Lists.newArrayList();
         for (Goal.Control control : controls)
-            if (!flag) {
-                flag = true;
-                first = toNMSControl(control);
-            } else
-                enums.add(toNMSControl(control));
-        try {
-            return EnumSet.class
-                    .getDeclaredMethod("of", Enum.class, Enum[].class).invoke(null, first, enums.toArray(new Enum[0]));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+            enums.add((T) toNMSControl(control));
+        return EnumSet.copyOf(enums);
     }
 
     private static Enum<?> toNMSControl(Goal.Control control) {
