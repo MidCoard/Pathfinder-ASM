@@ -1,5 +1,6 @@
 package com.focess.pathfinder.entity;
 
+import com.focess.pathfinder.navigation.FocessNavigation;
 import com.focess.pathfinder.navigation.Navigation;
 import com.focess.pathfinder.goal.GoalSelector;
 import org.bukkit.entity.Entity;
@@ -17,5 +18,7 @@ public interface FocessEntity {
     Navigation getNavigationManager();
 
     Random getRandom();
+    
+    FocessNavigation getFocessNavigation();
 
 }

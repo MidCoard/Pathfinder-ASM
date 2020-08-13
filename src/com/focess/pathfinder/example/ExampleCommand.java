@@ -56,7 +56,7 @@ public class ExampleCommand extends Command {
             GoalSelector goalSelector = focessEntity.getGoalSelector();
             if (prefix.equalsIgnoreCase("mark")) {
                 int pos = Integer.parseInt(strings[2]);
-                marks.put(strings[3],goalSelector.getGoal(pos));
+               // marks.put(strings[3],goalSelector.getGoal(pos));
             }
         }
         return true;

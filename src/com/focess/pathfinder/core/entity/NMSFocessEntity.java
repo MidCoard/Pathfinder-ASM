@@ -5,6 +5,7 @@ import com.focess.pathfinder.core.navigation.SimpleNavigation;
 import com.focess.pathfinder.core.util.NMSManager;
 import com.focess.pathfinder.entity.FocessEntity;
 import com.focess.pathfinder.goal.GoalSelector;
+import com.focess.pathfinder.navigation.FocessNavigation;
 import com.focess.pathfinder.navigation.Navigation;
 import org.bukkit.entity.Entity;
 
@@ -53,4 +54,10 @@ public class NMSFocessEntity implements FocessEntity {
     public Random getRandom() {
         return this.random;
     }
+
+	@Override
+	public FocessNavigation getFocessNavigation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
