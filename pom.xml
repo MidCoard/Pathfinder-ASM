@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Pathfinder-ASM</groupId>
-    <artifactId>Pathfinder-ASM</artifactId>
-    <version>1.0</version>
+    <groupId>Pathfinder-API</groupId>
+    <artifactId>Pathfinder-API</artifactId>
+    <version>2.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -14,24 +14,22 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>BukkitAPI_SpigotAPI_NMS2</groupId>
-            <artifactId>BukkitAPI_SpigotAPI_NMS2</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/1.12.2spigot.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>BukkitAPI_SpigotAPI_NMS</groupId>
             <artifactId>BukkitAPI_SpigotAPI_NMS</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/spigot-1.13-R0.1-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/libs/spigot.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>18.0.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-tree</artifactId>
+            <version>7.1</version>
         </dependency>
     </dependencies>
     <build>
@@ -40,6 +38,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <excludes>
+                        <exclude>**/example/*</exclude>
+                    </excludes>
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
@@ -54,9 +55,29 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assemble</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <outputDirectory>C:\Users\Admin\Desktop\[1.8.00]craftbukkit by boge\[1.8.00]craftbukkit by boge\plugins</outputDirectory>
+                    <excludes>
+                        <exclude>**/example/*</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
