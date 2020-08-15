@@ -1,7 +1,8 @@
 package com.focess.pathfinder.example;
 
+import com.focess.pathfinder.core.entity.NMSFocessEntity;
 import com.focess.pathfinder.entity.EntityManager;
-import com.focess.pathfinder.entity.FocessEntity;
+import com.focess.pathfinder.entity.IFocessEntity;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.GoalSelector;
 import com.focess.pathfinder.goal.WrappedGoal;
@@ -26,7 +27,7 @@ public class ExampleCommand extends Command {
         if(strings.length == 2) {
             String prefix = strings[0];
             UUID uuid = UUID.fromString(strings[1]);
-            FocessEntity focessEntity = EntityManager.getFocessEntity(Bukkit.getEntity(uuid));
+            NMSFocessEntity focessEntity = EntityManager.getFocessEntity(Bukkit.getEntity(uuid));
             if (prefix.equalsIgnoreCase("show")) {
                 for (GoalItem goalItem:focessEntity.getGoalSelector().getGoalItems())
                     for (WrappedGoal wrappedGoal:focessEntity.getGoalSelector().getGoal(goalItem))
@@ -40,7 +41,7 @@ public class ExampleCommand extends Command {
         if (strings.length == 3){
             String prefix = strings[0];
             UUID uuid = UUID.fromString(strings[1]);
-            FocessEntity focessEntity = EntityManager.getFocessEntity(Bukkit.getEntity(uuid));
+            NMSFocessEntity focessEntity = EntityManager.getFocessEntity(Bukkit.getEntity(uuid));
             GoalSelector goalSelector = focessEntity.getGoalSelector();
             if (prefix.equalsIgnoreCase("remove")) {
                 goalSelector.removeExactGoal(marks.get(strings[2]));
@@ -52,7 +53,7 @@ public class ExampleCommand extends Command {
         if (strings.length == 4) {
             String prefix = strings[0];
             UUID uuid = UUID.fromString(strings[1]);
-            FocessEntity focessEntity = EntityManager.getFocessEntity(Bukkit.getEntity(uuid));
+            NMSFocessEntity focessEntity = EntityManager.getFocessEntity(Bukkit.getEntity(uuid));
             GoalSelector goalSelector = focessEntity.getGoalSelector();
             if (prefix.equalsIgnoreCase("mark")) {
                 int pos = Integer.parseInt(strings[2]);

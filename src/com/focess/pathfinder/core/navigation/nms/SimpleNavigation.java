@@ -1,20 +1,20 @@
-package com.focess.pathfinder.core.navigation;
+package com.focess.pathfinder.core.navigation.nms;
 
 import com.focess.pathfinder.core.util.NMSManager;
-import com.focess.pathfinder.entity.FocessEntity;
-import com.focess.pathfinder.navigation.Navigation;
-import com.focess.pathfinder.navigation.Path;
+import com.focess.pathfinder.entity.IFocessEntity;
+import com.focess.pathfinder.navigation.NMSNavigation;
+import com.focess.pathfinder.navigation.NMSPath;
 import org.bukkit.World;
 
-public final class SimpleNavigation implements Navigation {
+public final class SimpleNavigation implements NMSNavigation {
 
-    private final FocessEntity entity;
+    private final IFocessEntity entity;
     private WrappedPath currentPath;
 
     private Object nmsNavigation;
     private Object nmsPathNodeMaker;
 
-    public SimpleNavigation(FocessEntity entity){
+    public SimpleNavigation(IFocessEntity entity){
         this.entity = entity;
     }
 
@@ -57,7 +57,7 @@ public final class SimpleNavigation implements Navigation {
     }
 
     @Override
-    public boolean startMovingAlong(Path path, double speed) {
+    public boolean startMovingAlong(NMSPath path, double speed) {
         updateNavigation();
         try {
             return (boolean) NMSManager.NavigationAbstractMethodNames.get("startMovingAlong").invoke(this.nmsNavigation,path.toNMS(),speed);
@@ -69,7 +69,7 @@ public final class SimpleNavigation implements Navigation {
 
 
     @Override
-    public Path findPathTo(double x, double y, double z, int distance) {
+    public NMSPath findPathTo(double x, double y, double z, int distance) {
         updateNavigation();
         if (NMSManager.getVersionInt() < 14) {
             try {
@@ -276,7 +276,7 @@ public final class SimpleNavigation implements Navigation {
     }
 
     @Override
-    public Path getCurrentPath() {
+    public NMSPath getCurrentPath() {
         updatePath();
         return this.currentPath;
     }

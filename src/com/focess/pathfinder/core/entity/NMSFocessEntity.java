@@ -1,18 +1,18 @@
 package com.focess.pathfinder.core.entity;
 
 import com.focess.pathfinder.core.goal.SimpleGoalSelector;
-import com.focess.pathfinder.core.navigation.SimpleNavigation;
+import com.focess.pathfinder.core.navigation.focess.FocessNavigation;
+import com.focess.pathfinder.core.navigation.nms.SimpleNavigation;
 import com.focess.pathfinder.core.util.NMSManager;
-import com.focess.pathfinder.entity.FocessEntity;
+import com.focess.pathfinder.entity.INMSFocessEntity;
 import com.focess.pathfinder.goal.GoalSelector;
-import com.focess.pathfinder.navigation.FocessNavigation;
-import com.focess.pathfinder.navigation.Navigation;
+import com.focess.pathfinder.navigation.NMSNavigation;
 import org.bukkit.entity.Entity;
 
 import java.util.Random;
 
-public class NMSFocessEntity implements FocessEntity {
-    private final Navigation navigation;
+public class NMSFocessEntity implements INMSFocessEntity {
+    private final NMSNavigation navigation;
     private final Entity entity;
     private final GoalSelector goalSelector;
     private final int id;
@@ -46,7 +46,7 @@ public class NMSFocessEntity implements FocessEntity {
     }
 
     @Override
-    public Navigation getNavigationManager() {
+    public NMSNavigation getNavigationManager() {
         return this.navigation;
     }
 
@@ -54,10 +54,4 @@ public class NMSFocessEntity implements FocessEntity {
     public Random getRandom() {
         return this.random;
     }
-
-	@Override
-	public FocessNavigation getFocessNavigation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

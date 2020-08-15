@@ -1,9 +1,9 @@
-package com.focess.pathfinder.core.navigation;
+package com.focess.pathfinder.core.navigation.nms;
 
 import com.focess.pathfinder.core.util.NMSManager;
-import com.focess.pathfinder.navigation.Path;
+import com.focess.pathfinder.navigation.NMSPath;
 
-public class WrappedPath implements Path {
+public class WrappedPath implements NMSPath {
 
     private final Object nmsPath;
 

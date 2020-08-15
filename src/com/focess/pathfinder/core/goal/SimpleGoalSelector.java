@@ -2,7 +2,7 @@ package com.focess.pathfinder.core.goal;
 
 import com.focess.pathfinder.core.builder.PathfinderClassLoader;
 import com.focess.pathfinder.core.util.NMSManager;
-import com.focess.pathfinder.entity.FocessEntity;
+import com.focess.pathfinder.entity.IFocessEntity;
 import com.focess.pathfinder.goal.Goal;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.GoalSelector;
@@ -18,9 +18,9 @@ import java.util.Set;
 
 public class SimpleGoalSelector implements GoalSelector {
 
-    private final FocessEntity entity;
+    private final IFocessEntity entity;
 
-    public SimpleGoalSelector(FocessEntity focessEntity) {
+    public SimpleGoalSelector(IFocessEntity focessEntity) {
         this.entity = focessEntity;
     }
 
