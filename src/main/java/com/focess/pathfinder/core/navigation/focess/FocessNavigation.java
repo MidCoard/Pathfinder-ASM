@@ -6,21 +6,15 @@ import com.focess.pathfinder.navigation.*;
  * 通过实现该类自定义路径寻找AI
  */
 public abstract class FocessNavigation implements BasicNavigation{
-
-	private FocessPath currentPath;//当前路径
 	
 	public FocessNavigation() {
-		currentPath=new FocessPath();
-	}
-	
-	public void recalculatePath() {
 		
 	}
-
-	@Override
-	public BasicPath getCurrentPath() {
-		return this.currentPath;
-	}
+	
+	/**
+	 * 时刻任务
+	 */
+	public abstract void timer();
 	
 	/**
 	 * 是否到达了指定路径点
@@ -36,8 +30,8 @@ public abstract class FocessNavigation implements BasicNavigation{
 	public abstract void gotoPathPoint(FocessPathPoint pathPoint);
 
 	/**
-	 * 是否可以向下一个路径点出发
+	 * 是否可以一步到达该路径点
 	 * @return
 	 */
-	public abstract boolean canGotoNextPathPoint();
+	public abstract boolean canReachPathPointInOneStep(FocessPathPoint pathPoint);
 }

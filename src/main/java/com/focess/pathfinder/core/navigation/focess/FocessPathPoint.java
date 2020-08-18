@@ -39,4 +39,16 @@ public class FocessPathPoint implements PathPoint{
 	public void setPointIndex(int pointIndex) {
 		this.pointIndex = pointIndex;
 	}
+	
+	@Override
+	public boolean equals(Object ano) {
+		if(ano==null||!(ano instanceof FocessPathPoint)) {
+			return false;
+		}
+		FocessPathPoint anotherPoint=(FocessPathPoint)ano;
+		if(anotherPoint.getPointIndex()==this.getPointIndex()&&anotherPoint.getLocation().equals(this.getLocation())) {
+			return true;
+		}
+		return false;
+	}
 }

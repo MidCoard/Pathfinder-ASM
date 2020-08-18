@@ -19,6 +19,10 @@ public class NavigationManager {
 	public void registerFocessNavigation(FocessNavigation focessNavigation) {
 		registeredFocessNavigations.add(focessNavigation);
 	}
+	
+	public List<FocessNavigation> getAllNavigations(){
+		return this.registeredFocessNavigations;
+	}
 
 	public FocessCalculateRunnable getCalculateRunnable() {
 		return calculateRunnable;

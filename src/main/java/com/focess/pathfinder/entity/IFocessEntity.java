@@ -9,6 +9,6 @@ import java.util.Random;
 
 public interface IFocessEntity {
 
-    Entity getBukkitEntity();
+    public Entity getBukkitEntity();
 
 }
