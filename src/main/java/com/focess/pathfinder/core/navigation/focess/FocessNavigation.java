@@ -34,4 +34,8 @@ public abstract class FocessNavigation implements BasicNavigation{
 	 * @return
 	 */
 	public abstract boolean canReachPathPointInOneStep(FocessPathPoint pathPoint);
+	
+	public abstract FocessPath getCurrentPath();
+	
+	public abstract boolean equals(Object another);
 }

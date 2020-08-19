@@ -63,5 +63,11 @@ public abstract class FocessPath implements BasicPath{
 		}
 		return null;
 	}
-
+	
+	/**
+	 * 该路径是否有效
+	 * @return
+	 */
+	public abstract boolean isPathAlive();
+	
 }

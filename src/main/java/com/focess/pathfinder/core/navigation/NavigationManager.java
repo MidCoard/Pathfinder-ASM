@@ -20,6 +20,10 @@ public class NavigationManager {
 		registeredFocessNavigations.add(focessNavigation);
 	}
 	
+	public void unregisterFocessNavigation(FocessNavigation focessNavigation) {
+		registeredFocessNavigations.remove(focessNavigation);
+	}
+	
 	public List<FocessNavigation> getAllNavigations(){
 		return this.registeredFocessNavigations;
 	}
