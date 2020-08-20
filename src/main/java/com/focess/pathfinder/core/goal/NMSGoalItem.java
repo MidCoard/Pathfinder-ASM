@@ -1,5 +1,6 @@
 package com.focess.pathfinder.core.goal;
 
+import com.focess.pathfinder.core.exception.PathfinderGoalNotFoundException;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.WrappedGoal;
 import com.focess.pathfinder.goals.BreedGoalItem_1_11;
@@ -32,6 +33,8 @@ public abstract class NMSGoalItem extends GoalItem {
             fixedValues.add(buildParameter(object));
         Object nmsGoal = null;
         try {
+            if (this.getGoalClass() == null)
+                throw new PathfinderGoalNotFoundException(this.getClass().getSimpleName());
             nmsGoal = getGoalClass().getConstructor(this.parameters).newInstance(fixedValues.toArray(new Object[0]));
         } catch (Exception e) {
             throw new RuntimeException(e);
