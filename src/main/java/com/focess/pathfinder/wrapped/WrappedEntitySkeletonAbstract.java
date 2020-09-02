@@ -6,7 +6,7 @@ import org.bukkit.entity.Skeleton;
 public class WrappedEntitySkeletonAbstract extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntitySkeleton",true),WrappedEntitySkeleton.class);
+        register(NMSManager.getNMSClass("EntitySkeleton", true), WrappedEntitySkeleton.class);
     }
 
     private final Object nmsSkeleton;
@@ -21,7 +21,7 @@ public class WrappedEntitySkeletonAbstract extends WrappedType {
     }
 
     private static WrappedEntitySkeletonAbstract getWrappedEntitySkeletonAbstract(Object nmsSkeleton) {
-           return new WrappedEntitySkeletonAbstract(nmsSkeleton);
+        return new WrappedEntitySkeletonAbstract(nmsSkeleton);
     }
 
     @Override

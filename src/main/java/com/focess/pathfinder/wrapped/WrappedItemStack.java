@@ -10,7 +10,7 @@ public class WrappedItemStack extends WrappedType {
     private static final Method asNMSCopy;
 
     static {
-        register(NMSManager.getNMSClass("ItemStack",true),WrappedItemStack.class);
+        register(NMSManager.getNMSClass("ItemStack", true), WrappedItemStack.class);
         Class<?> CraftItemStack = NMSManager.getCraftClass("inventory.CraftItemStack");
         asNMSCopy = NMSManager.getMethod(CraftItemStack, "asNMSCopy", ItemStack.class);
     }
@@ -23,7 +23,7 @@ public class WrappedItemStack extends WrappedType {
 
     public static WrappedItemStack getWrappedItemStack(ItemStack itemStack) {
         try {
-            Object nmsItemStack = asNMSCopy.invoke(null,itemStack);
+            Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
             return getWrappedItemStack(nmsItemStack);
         } catch (Exception e) {
             throw new RuntimeException(e);

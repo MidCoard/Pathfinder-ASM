@@ -1,15 +1,25 @@
 package com.focess.pathfinder.entity;
 
 import com.focess.pathfinder.core.entity.NMSFocessEntity;
+import com.focess.pathfinder.goal.FocessGoalItem;
+import com.google.common.collect.Maps;
 import org.bukkit.entity.Entity;
+
+import java.util.Map;
 
 public class EntityManager {
 
-    public static NMSFocessEntity getFocessEntity(Entity entity) {
-        return new NMSFocessEntity(entity);
+    private static Map<Entity,FocessEntity> entities = Maps.newHashMap();
+
+    public static void register(Entity entity, FocessEntity focessEntity) {
+        entities.put(entity,focessEntity);
     }
 
-    public static void registerEntity(Class<? extends IFocessEntity> entity,String name) {
+    public static FocessEntity getFocessEntity(Entity entity) {
+        return entities.get(entity);
+    }
+
+    public static void registerEntity(Class<? extends FocessEntity> entity, String name) {
 
     }
 }

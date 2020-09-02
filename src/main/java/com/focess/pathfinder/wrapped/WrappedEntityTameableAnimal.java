@@ -6,7 +6,7 @@ import org.bukkit.entity.Tameable;
 public class WrappedEntityTameableAnimal extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityTameableAnimal",true),WrappedEntityTameableAnimal.class);
+        register(NMSManager.getNMSClass("EntityTameableAnimal", true), WrappedEntityTameableAnimal.class);
     }
 
     private final Object nmsTameable;
@@ -21,7 +21,7 @@ public class WrappedEntityTameableAnimal extends WrappedType {
     }
 
     private static WrappedEntityTameableAnimal getWrappedEntityTameableAnimal(Object nmsTameable) {
-            return new WrappedEntityTameableAnimal(nmsTameable);
+        return new WrappedEntityTameableAnimal(nmsTameable);
     }
 
     @Override

@@ -4,9 +4,9 @@ import com.focess.pathfinder.core.util.NMSManager;
 import org.bukkit.entity.Pillager;
 
 public class WrappedICrossbow extends WrappedType {
-    
+
     static {
-        register(NMSManager.getNMSClass("ICrossbow",true),WrappedICrossbow.class);
+        register(NMSManager.getNMSClass("ICrossbow", true), WrappedICrossbow.class);
     }
 
     private final Object nmsPillager;

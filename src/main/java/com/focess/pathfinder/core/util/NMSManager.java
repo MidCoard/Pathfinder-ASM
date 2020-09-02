@@ -23,79 +23,50 @@ public class NMSManager {
 
     // NBT Builder
     public static final Class<?> EntityPlayer;
+    public static final Class<?> MinecraftServer;
+    public static final Class<?> NBTTagCompound;
+    public static final Class<?> World;
+    public static final Class<?> WorldServer;
+    public static final Class<?> PathfinderGoalSelector;
+    public static final Class<?> EntityInsentient;
+    public static final Class<?> PathfinderGoal;
+    public static final Class<?> ControllerMove;
+    public static final Field PathfinderGoalsField;
+    public static final Field PathfinderGoalItema;
+    public static final Field PathfinderGoalItemb;
+    public static final Method PathfinderGoalMutex;
+    public static final Method PathfinderGoalSelectorAdd;
+    public static final Method PathfinderGoalSelectorRemove;
+    public static final Method PathfinderGoalMutexGetter;
+    public static final Class<?> NavigationAbstract;
+    public static final Field NavigationAbstractc;
+    public static final Class<?> PathEntity;
+    public static final Method PathEntityMethodb;
+    public static final Method EntityInsentientMethodgetNavigation;
+    public static final Field NavigationAbstractd;
+    public static final Field NavigationFieldAvoidSunlight;
+    public static final Field MoveController;
+    public static final Method MoveTo;
     // basic
     private static final Map<Class<?>, Map<String, Field>> loadedFields = new HashMap<>();
     private static final Map<Class<?>, Map<String, Method>> loadedMethods = new HashMap<>();
-
     private static final Map<String, Class<?>> loadedNMSClasses = new HashMap<>();
-    public static final Class<?> MinecraftServer;
-
-    public static final Class<?> NBTTagCompound;
+    private static final Method getHandle;
+    private static final String[] pathfinderGoalMethodNames;
+    private static final Class<?> PathfinderAbstract;
     public static Object ExceptCreativeOrSpectator = null;
+    public static Class<Enum<?>> Control;
+    public static Field NavigationAbstracts;
+    public static Map<String, Method> NavigationAbstractMethodNames;
+    public static Field NavigationAbstractRecalculate;
+    public static Field NavigationAbstractGetPathfinder;
+    public static Field PathfinderGetPathfinderAbstract;
+    public static Field NavigationAbstractGetPathfinderAbstract;
+    public static Map<String, Method> PathfinderAbstractMethodNames;
+    public static Map<String, Method> PathfinderNormalMethodNames;
     private static int versionInt = -1;
     private static String versionString;
-    public static final Class<?> World;
-    public static final Class<?> WorldServer;
     private static String versionStringAsClassName;
-
-
-    private static final Method getHandle;
-
-    public static final Class<?> PathfinderGoalSelector;
-
-    public static final Class<?> EntityInsentient;
-
-    public static final Class<?> PathfinderGoal;
-
-    private static final String[] pathfinderGoalMethodNames;
-
-    public static final Field PathfinderGoalsField;
-
-    public static final Field PathfinderGoalItema;
-
-    public static final Field PathfinderGoalItemb;
-
-    public static final Method PathfinderGoalMutex;
-
-    public static final Method PathfinderGoalSelectorAdd;
-
-    public static final Method PathfinderGoalSelectorRemove;
-
-    public static Class<Enum<?>> Control;
-
-    public static final Method PathfinderGoalMutexGetter;
-
-    public static final Class<?> NavigationAbstract;
-
-    public static final Field NavigationAbstractc;
-
-    public static final Class<?> PathEntity;
-
-    public static final Method PathEntityMethodb;
-
-    public static final Method EntityInsentientMethodgetNavigation;
-
-    public static final Field NavigationAbstractd;
-
-    public static Field NavigationAbstracts;
-
-    public static Map<String, Method> NavigationAbstractMethodNames;
-
-    public static Field NavigationAbstractRecalculate;
-
-    public static Field NavigationAbstractGetPathfinder;
-
-    private static final Class<?> PathfinderAbstract;
-
-    public static Field PathfinderGetPathfinderAbstract;
-
-    public static Field NavigationAbstractGetPathfinderAbstract;
-
-    public static Map<String, Method> PathfinderAbstractMethodNames;
-
-    public static Map<String, Method> PathfinderNormalMethodNames;
-
-    public static final Field NavigationFieldAvoidSunlight;
 
     static {
         Field PathfinderGoalsField1 = null;
@@ -116,6 +87,9 @@ public class NMSManager {
         NBTTagCompound = NMSManager.getNMSClass("NBTTagCompound");
         PathfinderGoalSelector = NMSManager.getNMSClass("PathfinderGoalSelector");
         EntityInsentient = NMSManager.getNMSClass("EntityInsentient");
+        MoveController = NMSManager.getField(EntityInsentient,"moveController");
+        ControllerMove = NMSManager.getNMSClass("ControllerMove");
+        MoveTo = NMSManager.getMethod(ControllerMove,"a",double.class,double.class,double.class,double.class);
         EntityInsentientMethodgetNavigation = NMSManager.getMethod(EntityInsentient, "getNavigation");
         PathfinderGoal = NMSManager.getNMSClass("PathfinderGoal");
         pathfinderGoalMethodNames = new String[6];
@@ -242,100 +216,6 @@ public class NMSManager {
             NavigationFieldAvoidSunlight = NMSManager.getField(NMSManager.getNMSClass("Navigation"), "i");
         else
             NavigationFieldAvoidSunlight = NMSManager.getField(NMSManager.getNMSClass("Navigation"), "p");
-    }
-
-    private static class ClassIdentity {
-
-        private List<MethodType> methodTypes = Lists.newCopyOnWriteArrayList();
-        private List<Method> methods;
-
-        public ClassIdentity addMethodType(MethodType methodType) {
-            methodTypes.add(methodType);
-            return this;
-        }
-
-        public Map<String, Method> identity(Class<?> clazz) {
-            Map<String, Method> ret = Maps.newHashMap();
-            methods = Lists.newCopyOnWriteArrayList(Lists.newArrayList(clazz.getDeclaredMethods()));
-            for (MethodType methodType : methodTypes)
-                for (Method method : methods) {
-                    if (methodType.getPattern().contains(methodType.getPattern().toPattern(method.getName())) && Arrays.equals(method.getParameterTypes(), methodType.getParameterTypes()) && method.getReturnType().equals(methodType.getReturnType())) {
-                        ret.put(methodType.getMethodName(), method);
-                        methods.remove(method);
-                        methodTypes.remove(methodTypes);
-                    }
-                }
-            return ret;
-        }
-
-    }
-
-    private static class MethodType {
-        private Class<?> returnType;
-        private final String methodName;
-        private final NamePattern pattern;
-
-        public NamePattern getPattern() {
-            return pattern;
-        }
-
-        private Class<?>[] parameterTypes;
-
-        public Class<?> getReturnType() {
-            return returnType;
-        }
-
-        public String getMethodName() {
-            return methodName;
-        }
-
-        public Class<?>[] getParameterTypes() {
-            return parameterTypes;
-        }
-
-        public MethodType(String methodName, NamePattern pattern, Class<?> returnType, Class<?>... parameterTypes) {
-            this.methodName = methodName;
-            this.pattern = pattern;
-            this.parameterTypes = parameterTypes;
-            this.returnType = returnType;
-        }
-    }
-
-    private abstract static class NamePattern implements Cloneable {
-        public static final NamePattern DEFAULT = new NamePattern() {
-            @Override
-            public Object toPattern(String name) {
-                return name;
-            }
-
-            @Override
-            protected boolean contains(Object object) {
-                return true;
-            }
-        };
-
-        public static NamePattern ofCharPattern(Predicate<Character> predicate) {
-            return new NamePattern() {
-
-                @Override
-                public Character toPattern(String name) {
-                    if (name.length() == 1)
-                        return name.charAt(0);
-                    return null;
-                }
-
-                @Override
-                public boolean contains(Object object) {
-                    if (object == null || object instanceof Character)
-                        return false;
-                    return predicate.test((Character) object);
-                }
-            };
-        }
-
-        public abstract Object toPattern(String name);
-
-        protected abstract boolean contains(Object object);
     }
 
     public static Object getConnection(final Player player) {
@@ -536,5 +416,98 @@ public class NMSManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static class ClassIdentity {
+
+        private List<MethodType> methodTypes = Lists.newCopyOnWriteArrayList();
+        private List<Method> methods;
+
+        public ClassIdentity addMethodType(MethodType methodType) {
+            methodTypes.add(methodType);
+            return this;
+        }
+
+        public Map<String, Method> identity(Class<?> clazz) {
+            Map<String, Method> ret = Maps.newHashMap();
+            methods = Lists.newCopyOnWriteArrayList(Lists.newArrayList(clazz.getDeclaredMethods()));
+            for (MethodType methodType : methodTypes)
+                for (Method method : methods) {
+                    if (methodType.getPattern().contains(methodType.getPattern().toPattern(method.getName())) && Arrays.equals(method.getParameterTypes(), methodType.getParameterTypes()) && method.getReturnType().equals(methodType.getReturnType())) {
+                        ret.put(methodType.getMethodName(), method);
+                        methods.remove(method);
+                        methodTypes.remove(methodTypes);
+                    }
+                }
+            return ret;
+        }
+
+    }
+
+    private static class MethodType {
+        private final String methodName;
+        private final NamePattern pattern;
+        private Class<?> returnType;
+        private Class<?>[] parameterTypes;
+
+        public MethodType(String methodName, NamePattern pattern, Class<?> returnType, Class<?>... parameterTypes) {
+            this.methodName = methodName;
+            this.pattern = pattern;
+            this.parameterTypes = parameterTypes;
+            this.returnType = returnType;
+        }
+
+        public NamePattern getPattern() {
+            return pattern;
+        }
+
+        public Class<?> getReturnType() {
+            return returnType;
+        }
+
+        public String getMethodName() {
+            return methodName;
+        }
+
+        public Class<?>[] getParameterTypes() {
+            return parameterTypes;
+        }
+    }
+
+    private abstract static class NamePattern implements Cloneable {
+        public static final NamePattern DEFAULT = new NamePattern() {
+            @Override
+            public Object toPattern(String name) {
+                return name;
+            }
+
+            @Override
+            protected boolean contains(Object object) {
+                return true;
+            }
+        };
+
+        public static NamePattern ofCharPattern(Predicate<Character> predicate) {
+            return new NamePattern() {
+
+                @Override
+                public Character toPattern(String name) {
+                    if (name.length() == 1)
+                        return name.charAt(0);
+                    return null;
+                }
+
+                @Override
+                public boolean contains(Object object) {
+                    if (object == null || object instanceof Character)
+                        return false;
+                    return predicate.test((Character) object);
+                }
+            };
+        }
+
+        public abstract Object toPattern(String name);
+
+        protected abstract boolean contains(Object object);
     }
 }

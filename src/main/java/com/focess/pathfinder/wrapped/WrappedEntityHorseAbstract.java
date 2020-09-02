@@ -6,7 +6,7 @@ import org.bukkit.entity.Horse;
 public class WrappedEntityHorseAbstract extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("WrappedEntityHorseAbstract"),WrappedEntityHorseAbstract.class);
+        register(NMSManager.getNMSClass("WrappedEntityHorseAbstract"), WrappedEntityHorseAbstract.class);
     }
 
     private final Object nmsHorse;
@@ -21,8 +21,8 @@ public class WrappedEntityHorseAbstract extends WrappedType {
     }
 
     private static WrappedEntityHorseAbstract getWrappedEntityHorseAbstract(Object nmsHorse) {
-            return new WrappedEntityHorseAbstract(nmsHorse);
-   }
+        return new WrappedEntityHorseAbstract(nmsHorse);
+    }
 
     @Override
     public Object toNMS() {

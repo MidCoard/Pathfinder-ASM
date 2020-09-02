@@ -43,13 +43,8 @@ public class BowShootGoalItem_1_12 extends NMSGoalItem {
 
         private final Object nms;
 
-        private WrappedEntityMonsterAndIRangedEntity(Object nms){
+        private WrappedEntityMonsterAndIRangedEntity(Object nms) {
             this.nms = nms;
-        }
-
-        @Override
-        public Object toNMS() {
-            return this.nms;
         }
 
         public static WrappedEntityMonsterAndIRangedEntity getWrappedEntityMonsterAndIRangedEntity(Monster monster) {
@@ -58,6 +53,11 @@ public class BowShootGoalItem_1_12 extends NMSGoalItem {
             if (Objects.equals(wrappedEntityMonster.toNMS(), iRangedEntity.toNMS()))
                 return new WrappedEntityMonsterAndIRangedEntity(wrappedEntityMonster.toNMS());
             throw new IllegalArgumentException(monster.getClass().getTypeName());
+        }
+
+        @Override
+        public Object toNMS() {
+            return this.nms;
         }
     }
 }

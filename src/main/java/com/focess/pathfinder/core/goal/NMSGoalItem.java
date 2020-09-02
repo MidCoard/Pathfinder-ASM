@@ -1,6 +1,6 @@
 package com.focess.pathfinder.core.goal;
 
-import com.focess.pathfinder.core.exception.PathfinderGoalNotFoundException;
+import com.focess.pathfinder.core.exceptions.PathfinderGoalNotFoundException;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.WrappedGoal;
 import com.focess.pathfinder.goals.BreedGoalItem_1_11;
@@ -18,18 +18,18 @@ public abstract class NMSGoalItem extends GoalItem {
 
     private final Class<?>[] parameters;
 
-    protected NMSGoalItem(Class<?> clz,int args,Class<?>... parameters) {
+    protected NMSGoalItem(Class<?> clz, int args, Class<?>... parameters) {
         super(clz);
-        this.values =  new Object[args];
+        this.values = new Object[args];
         this.parameters = parameters;
     }
 
     public abstract NMSGoalItem clear();
 
     @Override
-    public WrappedGoal build(int priority,boolean isTarget) {
+    public WrappedGoal build(int priority, boolean isTarget) {
         this.fixedValues.clear();
-        for (Object object:values)
+        for (Object object : values)
             fixedValues.add(buildParameter(object));
         Object nmsGoal = null;
         try {
@@ -39,7 +39,7 @@ public abstract class NMSGoalItem extends GoalItem {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return new WrappedGoal(this,nmsGoal,priority,isTarget);
+        return new WrappedGoal(this, nmsGoal, priority, isTarget);
     }
 
     private Object buildParameter(Object object) {
@@ -72,7 +72,7 @@ public abstract class NMSGoalItem extends GoalItem {
         }
 
         public void write(Object object) {
-            NMSGoalItem.this.write(this.pointer+this.start,object);
+            NMSGoalItem.this.write(this.pointer + this.start, object);
             if (this.isEnd())
                 pointer = 0;
             else pointer++;

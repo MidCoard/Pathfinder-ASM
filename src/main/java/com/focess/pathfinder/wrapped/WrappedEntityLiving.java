@@ -6,7 +6,7 @@ import org.bukkit.entity.LivingEntity;
 public class WrappedEntityLiving extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityLiving",true),WrappedEntityLiving.class);
+        register(NMSManager.getNMSClass("EntityLiving", true), WrappedEntityLiving.class);
     }
 
     private final Object nmsLivingEntity;
@@ -15,17 +15,17 @@ public class WrappedEntityLiving extends WrappedType {
         this.nmsLivingEntity = nmsLivingEntity;
     }
 
-    @Override
-    public Object toNMS() {
-        return this.nmsLivingEntity;
-    }
-
     private static WrappedEntityLiving getWrappedEntityLiving(Object nmsLivingEntity) {
-            return new WrappedEntityLiving(nmsLivingEntity);
+        return new WrappedEntityLiving(nmsLivingEntity);
     }
 
     public static WrappedEntityLiving getWrappedEntityLiving(LivingEntity livingEntity) {
         Object nmsLivingEntity = NMSManager.getNMSEntity(livingEntity);
         return getWrappedEntityLiving(nmsLivingEntity);
+    }
+
+    @Override
+    public Object toNMS() {
+        return this.nmsLivingEntity;
     }
 }

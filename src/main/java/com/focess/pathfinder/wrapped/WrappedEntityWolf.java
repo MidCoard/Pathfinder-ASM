@@ -6,7 +6,7 @@ import org.bukkit.entity.Wolf;
 public class WrappedEntityWolf extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityWolf",true),WrappedEntityWolf.class);
+        register(NMSManager.getNMSClass("EntityWolf", true), WrappedEntityWolf.class);
     }
 
     private final Object nmsWolf;
@@ -15,17 +15,17 @@ public class WrappedEntityWolf extends WrappedType {
         this.nmsWolf = nmsWolf;
     }
 
-    @Override
-    public Object toNMS() {
-        return null;
-    }
-
     public static WrappedEntityWolf getWrappedEntityWolf(Wolf wolf) {
         Object nmsWolf = NMSManager.getNMSEntity(wolf);
         return getWrappedEntityWolf(nmsWolf);
     }
 
     private static WrappedEntityWolf getWrappedEntityWolf(Object nmsWolf) {
-           return new WrappedEntityWolf(nmsWolf);
-     }
+        return new WrappedEntityWolf(nmsWolf);
+    }
+
+    @Override
+    public Object toNMS() {
+        return null;
+    }
 }

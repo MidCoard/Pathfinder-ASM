@@ -5,8 +5,8 @@ import org.bukkit.entity.Creeper;
 
 public class WrappedEntityCreeper extends WrappedType {
 
-    static{
-        register(NMSManager.getNMSClass("EntityCreeper"),WrappedEntityCreeper.class);
+    static {
+        register(NMSManager.getNMSClass("EntityCreeper"), WrappedEntityCreeper.class);
     }
 
     private final Object nmsCreeper;
@@ -21,7 +21,7 @@ public class WrappedEntityCreeper extends WrappedType {
     }
 
     private static WrappedEntityCreeper getWrappedEntityCreeper(Object nmsCreeper) {
-            return new WrappedEntityCreeper(nmsCreeper);
+        return new WrappedEntityCreeper(nmsCreeper);
     }
 
     @Override

@@ -3,10 +3,10 @@ package com.focess.pathfinder.wrapped;
 import com.focess.pathfinder.core.util.NMSManager;
 import org.bukkit.entity.Horse;
 
-public class WrappedEntityHorse extends  WrappedType {
+public class WrappedEntityHorse extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityHorse",true),WrappedEntityHorse.class);
+        register(NMSManager.getNMSClass("EntityHorse", true), WrappedEntityHorse.class);
     }
 
     private final Object nmsHorse;
@@ -21,8 +21,8 @@ public class WrappedEntityHorse extends  WrappedType {
     }
 
     private static WrappedEntityHorse getWrappedEntityHorse(Object nmsHorse) {
-            return new WrappedEntityHorse(nmsHorse);
-     }
+        return new WrappedEntityHorse(nmsHorse);
+    }
 
     @Override
     public Object toNMS() {

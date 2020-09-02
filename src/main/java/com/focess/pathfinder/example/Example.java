@@ -27,8 +27,8 @@ public class Example implements Listener {
 
     public Example() {
         try {
-            SimpleCommandMap commandMap = (SimpleCommandMap) NMSManager.getMethod(NMSManager.getCraftClass("CraftServer"),"getCommandMap").invoke(Bukkit.getServer());
-            commandMap.register("PathfinderAPI",new ExampleCommand());
+            SimpleCommandMap commandMap = (SimpleCommandMap) NMSManager.getMethod(NMSManager.getCraftClass("CraftServer"), "getCommandMap").invoke(Bukkit.getServer());
+            commandMap.register("PathfinderAPI", new ExampleCommand());
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

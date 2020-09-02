@@ -15,11 +15,6 @@ public class WrappedEntityPerchable extends WrappedType {
         this.nmsTameable = nmsTameable;
     }
 
-    @Override
-    public Object toNMS() {
-        return null;
-    }
-
     public static WrappedEntityPerchable getWrappedEntityPerchable(Tameable tameable) {
         Object nmsTameable = NMSManager.getNMSEntity(tameable);
         return getWrappedEntityPerchable(nmsTameable);
@@ -29,5 +24,10 @@ public class WrappedEntityPerchable extends WrappedType {
         if (NMSManager.getNMSClass("EntityPerchable").isAssignableFrom(nmsTameable.getClass()))
             return new WrappedEntityPerchable(nmsTameable);
         throw new ClassCastException(nmsTameable.getClass().getTypeName() + " cannot be cast to " + WrappedEntityCreature.class.getTypeName());
+    }
+
+    @Override
+    public Object toNMS() {
+        return null;
     }
 }

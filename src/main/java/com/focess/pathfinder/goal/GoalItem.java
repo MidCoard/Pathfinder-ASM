@@ -5,10 +5,18 @@ import com.focess.pathfinder.goals.Goals;
 
 import java.util.Objects;
 
-public abstract class  GoalItem {
+public abstract class GoalItem {
 
     private final GoalType type;
     private final Class<?> clz;
+
+    protected GoalItem(Class<?> clz) {
+        this.clz = clz;
+        if (clz != null && clz.getName().startsWith("net.minecraft")) {
+            this.type = GoalType.NMS;
+            Goals.goalItems.add((NMSGoalItem) this);
+        } else this.type = GoalType.FOCESS;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -24,16 +32,7 @@ public abstract class  GoalItem {
         return Objects.hash(type, clz);
     }
 
-    protected GoalItem(Class<?> clz) {
-        this.clz = clz;
-        if (clz!= null && clz.getName().startsWith("net.minecraft")) {
-            this.type = GoalType.NMS;
-            Goals.goalItems.add((NMSGoalItem) this);
-        }
-        else this.type = GoalType.FOCESS;
-    }
-
-    public Class<?> getGoalClass(){
+    public Class<?> getGoalClass() {
         return this.clz;
     }
 
@@ -41,9 +40,9 @@ public abstract class  GoalItem {
         return this.type;
     }
 
-    public abstract WrappedGoal build(int priority,boolean isTarget);
+    public abstract WrappedGoal build(int priority, boolean isTarget);
 
-    public enum GoalType{
-        NMS,FOCESS
+    public enum GoalType {
+        NMS, FOCESS
     }
 }

@@ -7,11 +7,11 @@ import com.focess.pathfinder.wrapped.WrappedEntityCreature;
 public class MoveIndoorsGoalItem extends NMSGoalItem {
 
     protected MoveIndoorsGoalItem() {
-        super(NMSManager.getNMSClass("PathfinderGoalMoveIndoors",true),1,NMSManager.getNMSClass("EntityCreature",true));
+        super(NMSManager.getNMSClass("PathfinderGoalMoveIndoors", true), 1, NMSManager.getNMSClass("EntityCreature", true));
     }
 
     public MoveIndoorsGoalItem writeEntityCreature(WrappedEntityCreature arg) {
-        this.write(0,arg);
+        this.write(0, arg);
         return this;
     }
 

@@ -6,7 +6,8 @@ import com.focess.pathfinder.core.util.NMSManager;
 public class RandomStrollGoalItem extends NMSGoalItem {
 
     public static final int CHANCE = 120;
-    protected RandomStrollGoalItem(){
+
+    protected RandomStrollGoalItem() {
         super(NMSManager.getNMSClass("PathfinderGoalRandomStroll", true), 3, NMSManager.getNMSClass("EntityCreature", true), double.class, int.class);
     }
 

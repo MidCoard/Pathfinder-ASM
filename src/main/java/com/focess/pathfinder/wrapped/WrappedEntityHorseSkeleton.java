@@ -6,7 +6,7 @@ import org.bukkit.entity.Horse;
 public class WrappedEntityHorseSkeleton extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityHorseSkeleton",true),WrappedEntityHorseSkeleton.class);
+        register(NMSManager.getNMSClass("EntityHorseSkeleton", true), WrappedEntityHorseSkeleton.class);
     }
 
     private final Object nmsHorse;

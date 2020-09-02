@@ -1,4 +1,4 @@
-package com.focess.pathfinder.core.exception;
+package com.focess.pathfinder.core.exceptions;
 
 public class GoalRuntimeException extends RuntimeException {
 

@@ -26,9 +26,9 @@ public class WrappedNMSPredicate<T extends WrappedType> implements Predicate {
             }
             if (WrappedType.class.isAssignableFrom(c))
                 try {
-                    Method method = c.getDeclaredMethod("get" + c.getSimpleName(),Object.class);
+                    Method method = c.getDeclaredMethod("get" + c.getSimpleName(), Object.class);
                     method.setAccessible(true);
-                    return (T) method.invoke(null,object);
+                    return (T) method.invoke(null, object);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

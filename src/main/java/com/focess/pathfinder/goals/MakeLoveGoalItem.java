@@ -10,7 +10,7 @@ public class MakeLoveGoalItem extends NMSGoalItem {
     }
 
     public MakeLoveGoalItem writeEntityVillager(WrappedEntityVillager arg) {
-        this.write(0,arg);
+        this.write(0, arg);
         return this;
     }
 

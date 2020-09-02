@@ -16,7 +16,7 @@ public class NMSGoalDump implements Opcodes {
         cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/focess/pathfinder/core/goal/NMSGoal", null, NMSManager.getVersionStringAsClassName() + "PathfinderGoal", null);
 
         {
-            fv = cw.visitField(ACC_PRIVATE , "goal", "Lcom/focess/pathfinder/goal/Goal;", null, null);
+            fv = cw.visitField(ACC_PRIVATE, "goal", "Lcom/focess/pathfinder/goal/Goal;", null, null);
             fv.visitEnd();
         }
         {
@@ -48,7 +48,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exceptions/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
             mv.visitInsn(ICONST_0);
             mv.visitInsn(IRETURN);
             mv.visitMaxs(1, 2);
@@ -71,7 +71,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exceptions/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
             mv.visitInsn(ICONST_0);
             mv.visitInsn(IRETURN);
             mv.visitMaxs(1, 2);
@@ -95,7 +95,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exceptions/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
             mv.visitLabel(l3);
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
             mv.visitInsn(RETURN);
@@ -120,7 +120,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exceptions/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
             mv.visitLabel(l3);
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
             mv.visitInsn(RETURN);
@@ -145,7 +145,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exceptions/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
             mv.visitLabel(l3);
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
             mv.visitInsn(RETURN);
@@ -169,7 +169,7 @@ public class NMSGoalDump implements Opcodes {
             mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 1);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exception/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/focess/pathfinder/core/exceptions/ExceptionCatcher", "catchException", "(Ljava/lang/Exception;)V", false);
             mv.visitInsn(ICONST_0);
             mv.visitInsn(IRETURN);
             mv.visitMaxs(1, 2);

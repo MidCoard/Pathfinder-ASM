@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 public class BreakDoorGoalItem_1_14 extends NMSGoalItem {
 
     public static final int MAX_PROGRESS = -1;
+
     protected BreakDoorGoalItem_1_14() {
         super(NMSManager.getNMSClass("PathfinderGoalBreakDoor", true), 3, NMSManager.getNMSClass("EntityInsentient", true), int.class, Predicate.class);
     }

@@ -6,35 +6,54 @@ import com.focess.pathfinder.goal.WrappedGoal;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
 public class Goals {
 
+    //these goals are not complete or outdated. do not use them...
+    public static final BreakDoorGoalItem_1_8 BREAK_DOOR_1_8 = new BreakDoorGoalItem_1_8();
+    public static final BreakDoorGoalItem_1_14 BREAK_DOOR_1_14 = new BreakDoorGoalItem_1_14();
+    public static final DoorOpenGoalItem DOOR_OPEN = new DoorOpenGoalItem();
+    public static final FishSchoolGoalItem FISH_SCHOOL = new FishSchoolGoalItem();
+    public static final FollowBoatGoalItem FOLLOW_BOAT = new FollowBoatGoalItem();
+    public static final FollowParentGoalItem FOLLOW_PARENT = new FollowParentGoalItem();
+    public static final HorseTrapGoalItem_1_9 HORSE_TRAP_1_9 = new HorseTrapGoalItem_1_9();
+    public static final HorseTrapGoalItem_1_11 HORSE_TRAP_1_11 = new HorseTrapGoalItem_1_11();
+    public static final NearestAttackableTargetInsentientGoalItem NEAREST_ATTACKABLE_TARGET_INSENTIENT = new NearestAttackableTargetInsentientGoalItem();
+    public static final OpenDoorGoalItem OPEN_DOOR = new OpenDoorGoalItem();
+    public static final PerchGoalItem PERCH = new PerchGoalItem();
+    public static final RestrictOpenDoorGoalItem RESTRICT_OPEN_DOOR = new RestrictOpenDoorGoalItem();
+    public static final RestrictSunGoalItem RESTRICT_SUN = new RestrictSunGoalItem();
+    public static final TargetGoalItem TARGET_GOAL_ITEM = new TargetGoalItem();
+    public static final UseItemGoalItem USE_ITEM = new UseItemGoalItem();
+    public static final WaterGoalItem WATER = new WaterGoalItem();
     public static Set<NMSGoalItem> goalItems = Sets.newHashSet();
-
+    @Nonnull
     public static List<GoalItem> getNMSGoalItem(Class<?> clz) {
         List<GoalItem> goalItems = Lists.newArrayList();
         for (NMSGoalItem goalItem : Goals.goalItems)
             if (goalItem.getGoalClass().equals(clz))
                 goalItems.add(goalItem);
-        if (goalItems.size() == 0)
-            goalItems.add(new NMSGoalItem(clz, 0) {
-                @Override
-                public NMSGoalItem clear() {
-                    return this;
-                }
-
-                @Override
-                public WrappedGoal build(int priority,boolean isTarget) {
-                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be built.");
-                }
-
-                @Override
-                protected void write(int i, Object object) {
-                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be written.");
-                }
-            });
+//        if (goalItems.size() == 0)
+//            goalItems.add(new NMSGoalItem(clz, 0) {
+//                @Override
+//                public NMSGoalItem clear() {
+//                    return this;
+//                }
+//
+//                @Override
+//                public WrappedGoal build(int priority, boolean isTarget) {
+//                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be built.");
+//                }
+//
+//                @Override
+//                protected void write(int i, Object object) {
+//                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be written.");
+//                }
+//            });
+        // need to remove
         return goalItems;
     }
 
@@ -152,22 +171,5 @@ public class Goals {
         public static final OwnerHurtTargetGoalItem OWNER_HURT_TARGET = new OwnerHurtTargetGoalItem();
         public static final RandomTargetNonTamedGoalItem RANDOM_TARGET_NON_TAMED = new RandomTargetNonTamedGoalItem();
     }
-    //these goals are not complete or outdated. do not use them...
-    public static final BreakDoorGoalItem_1_8 BREAK_DOOR_1_8 = new BreakDoorGoalItem_1_8();
-    public static final BreakDoorGoalItem_1_14 BREAK_DOOR_1_14 = new BreakDoorGoalItem_1_14();
-    public static final DoorOpenGoalItem DOOR_OPEN = new DoorOpenGoalItem();
-    public static final FishSchoolGoalItem FISH_SCHOOL = new FishSchoolGoalItem();
-    public static final FollowBoatGoalItem FOLLOW_BOAT = new FollowBoatGoalItem();
-    public static final FollowParentGoalItem FOLLOW_PARENT = new FollowParentGoalItem();
-    public static final HorseTrapGoalItem_1_9 HORSE_TRAP_1_9 = new HorseTrapGoalItem_1_9();
-    public static final HorseTrapGoalItem_1_11 HORSE_TRAP_1_11 = new HorseTrapGoalItem_1_11();
-    public static final NearestAttackableTargetInsentientGoalItem NEAREST_ATTACKABLE_TARGET_INSENTIENT = new NearestAttackableTargetInsentientGoalItem();
-    public static final OpenDoorGoalItem OPEN_DOOR = new OpenDoorGoalItem();
-    public static final PerchGoalItem PERCH = new PerchGoalItem();
-    public static final RestrictOpenDoorGoalItem RESTRICT_OPEN_DOOR = new RestrictOpenDoorGoalItem();
-    public static final RestrictSunGoalItem RESTRICT_SUN = new RestrictSunGoalItem();
-    public static final TargetGoalItem TARGET_GOAL_ITEM = new TargetGoalItem();
-    public static final UseItemGoalItem USE_ITEM = new UseItemGoalItem();
-    public static final WaterGoalItem WATER = new WaterGoalItem();
 
 }

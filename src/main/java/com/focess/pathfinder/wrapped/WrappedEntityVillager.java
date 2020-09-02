@@ -6,7 +6,7 @@ import org.bukkit.entity.Villager;
 public class WrappedEntityVillager extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityVillager",true),WrappedEntityVillager.class);
+        register(NMSManager.getNMSClass("EntityVillager", true), WrappedEntityVillager.class);
     }
 
     private final Object nmsVillager;
@@ -21,8 +21,8 @@ public class WrappedEntityVillager extends WrappedType {
     }
 
     private static WrappedEntityVillager getWrappedEntityVillager(Object nmsVillager) {
-         return new WrappedEntityVillager(nmsVillager);
-   }
+        return new WrappedEntityVillager(nmsVillager);
+    }
 
     @Override
     public Object toNMS() {

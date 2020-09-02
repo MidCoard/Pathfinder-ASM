@@ -6,7 +6,7 @@ import org.bukkit.entity.LivingEntity;
 public class WrappedEntityInsentient extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityInsentient",true),WrappedEntityInsentient.class);
+        register(NMSManager.getNMSClass("EntityInsentient", true), WrappedEntityInsentient.class);
     }
 
     private final Object nmsMob;

@@ -4,8 +4,8 @@ import com.focess.pathfinder.core.util.NMSManager;
 import org.bukkit.entity.Llama;
 
 public class WrappedEntityLlama extends WrappedType {
-    static  {
-        register(NMSManager.getNMSClass("EntityLlama",true),WrappedEntityLlama.class);
+    static {
+        register(NMSManager.getNMSClass("EntityLlama", true), WrappedEntityLlama.class);
     }
 
     private final Object nmsLlama;
@@ -14,13 +14,13 @@ public class WrappedEntityLlama extends WrappedType {
         this.nmsLlama = nmsLlama;
     }
 
-    public static WrappedEntityLlama getWrappedEntityLlama(Llama llama){
+    public static WrappedEntityLlama getWrappedEntityLlama(Llama llama) {
         Object nmsLlama = NMSManager.getNMSEntity(llama);
         return getWrappedEntityLlama(nmsLlama);
     }
 
     private static WrappedEntityLlama getWrappedEntityLlama(Object nmsLlama) {
-            return new WrappedEntityLlama(nmsLlama);
+        return new WrappedEntityLlama(nmsLlama);
     }
 
     @Override

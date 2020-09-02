@@ -2,7 +2,7 @@ package com.focess.pathfinder.core.goal;
 
 import com.focess.pathfinder.core.builder.PathfinderClassLoader;
 import com.focess.pathfinder.core.util.NMSManager;
-import com.focess.pathfinder.entity.IFocessEntity;
+import com.focess.pathfinder.entity.FocessEntity;
 import com.focess.pathfinder.goal.Goal;
 import com.focess.pathfinder.goal.GoalItem;
 import com.focess.pathfinder.goal.GoalSelector;
@@ -18,13 +18,12 @@ import java.util.Set;
 
 public class SimpleGoalSelector implements GoalSelector {
 
-    private final IFocessEntity entity;
+    private final FocessEntity entity;
+    private final List<WrappedGoal> wrappedGoals = Lists.newArrayList();
 
-    public SimpleGoalSelector(IFocessEntity focessEntity) {
+    public SimpleGoalSelector(FocessEntity focessEntity) {
         this.entity = focessEntity;
     }
-
-    private final List<WrappedGoal> wrappedGoals = Lists.newArrayList();
 
     private void update() {
         this.wrappedGoals.clear();
@@ -41,11 +40,11 @@ public class SimpleGoalSelector implements GoalSelector {
                     Field goalField = PathfinderClassLoader.NMSGoal.getDeclaredField("goal");
                     goalField.setAccessible(true);
                     Goal goal = (Goal) goalField.get(nmsGoal);
-                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority,false));
+                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(), nmsGoal,goal, priority, false));
                     continue;
                 }
                 List<GoalItem> goalItems = Goals.getNMSGoalItem(nmsGoal.getClass());
-                wrappedGoals.add(new WrappedGoal(goalItems,nmsGoal,priority,false));
+                wrappedGoals.add(new WrappedGoal(goalItems, nmsGoal, priority, false));
             }
             for (Object nmsWrappedGoal : nmsWrappedGoals2) {
                 Object nmsGoal = NMSManager.PathfinderGoalItema.get(nmsWrappedGoal);
@@ -54,11 +53,11 @@ public class SimpleGoalSelector implements GoalSelector {
                     Field goalField = PathfinderClassLoader.NMSGoal.getDeclaredField("goal");
                     goalField.setAccessible(true);
                     Goal goal = (Goal) goalField.get(nmsGoal);
-                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(),nmsGoal,priority,true));
+                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(), nmsGoal,goal, priority, true));
                     continue;
                 }
                 List<GoalItem> goalItems = Goals.getNMSGoalItem(nmsGoal.getClass());
-                wrappedGoals.add(new WrappedGoal(goalItems,nmsGoal,priority,true));
+                wrappedGoals.add(new WrappedGoal(goalItems, nmsGoal, priority, true));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +76,7 @@ public class SimpleGoalSelector implements GoalSelector {
     @Override
     public void removeGoal(GoalItem goalItem) {
         update();
-        for (WrappedGoal goal: wrappedGoals)
+        for (WrappedGoal goal : wrappedGoals)
             if (goal.getGoalItems().contains(goalItem))
                 removeExactGoal(goal);
     }
@@ -85,7 +84,7 @@ public class SimpleGoalSelector implements GoalSelector {
     @Override
     public boolean containsGoal(GoalItem goalItem) {
         update();
-        for (WrappedGoal goal:wrappedGoals)
+        for (WrappedGoal goal : wrappedGoals)
             if (goal.getGoalItems().contains(goalItem))
                 return true;
         return false;
@@ -97,13 +96,12 @@ public class SimpleGoalSelector implements GoalSelector {
         try {
             if (goal.getControls().contains(Goal.Control.TARGET)) {
                 Object targetSelector = NMSManager.getField(NMSManager.EntityInsentient, "targetSelector").get(nmsEntity);
-                NMSManager.PathfinderGoalSelectorRemove.invoke(targetSelector, goal.getNmsGoal());
+                NMSManager.PathfinderGoalSelectorRemove.invoke(targetSelector, goal.toNMS());
             } else {
                 Object goalSelector = NMSManager.getField(NMSManager.EntityInsentient, "goalSelector").get(nmsEntity);
-                NMSManager.PathfinderGoalSelectorRemove.invoke(goalSelector,  goal.getNmsGoal());
+                NMSManager.PathfinderGoalSelectorRemove.invoke(goalSelector, goal.toNMS());
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -114,10 +112,10 @@ public class SimpleGoalSelector implements GoalSelector {
             Object nmsEntity = NMSManager.getNMSEntity(this.entity.getBukkitEntity());
             if (goal.getControls().contains(Goal.Control.TARGET)) {
                 Object targetSelector = NMSManager.getField(NMSManager.EntityInsentient, "targetSelector").get(nmsEntity);
-                NMSManager.PathfinderGoalSelectorAdd.invoke(targetSelector,goal.getPriority(),goal.getNmsGoal());
+                NMSManager.PathfinderGoalSelectorAdd.invoke(targetSelector, goal.getPriority(), goal.toNMS());
             } else {
                 Object goalSelector = NMSManager.getField(NMSManager.EntityInsentient, "goalSelector").get(nmsEntity);
-                NMSManager.PathfinderGoalSelectorAdd.invoke(goalSelector,goal.getPriority(),goal.getNmsGoal());
+                NMSManager.PathfinderGoalSelectorAdd.invoke(goalSelector, goal.getPriority(), goal.toNMS());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +135,7 @@ public class SimpleGoalSelector implements GoalSelector {
     public List<WrappedGoal> getGoal(GoalItem goalItem) {
         update();
         List<WrappedGoal> foundGoals = Lists.newArrayList();
-        for (WrappedGoal goal :wrappedGoals)
+        for (WrappedGoal goal : wrappedGoals)
             if (goal.getGoalItems().contains(goalItem))
                 foundGoals.add(goal);
         return foundGoals;

@@ -5,17 +5,13 @@ import org.bukkit.entity.Animals;
 
 public class WrappedEntityAnimal extends WrappedType {
     static {
-        register(NMSManager.getNMSClass("EntityAnimal",true),WrappedEntityAnimal.class);
+        register(NMSManager.getNMSClass("EntityAnimal", true), WrappedEntityAnimal.class);
     }
+
     private final Object nmsAnimals;
 
     private WrappedEntityAnimal(Object nmsAnimals) {
         this.nmsAnimals = nmsAnimals;
-    }
-
-    @Override
-    public Object toNMS() {
-        return this.nmsAnimals;
     }
 
     public static WrappedEntityAnimal getWrappedEntityAnimal(Animals animals) {
@@ -24,6 +20,11 @@ public class WrappedEntityAnimal extends WrappedType {
     }
 
     private static WrappedEntityAnimal getWrappedEntityAnimal(Object nmsAnimals) {
-            return new WrappedEntityAnimal(nmsAnimals);
-  }
+        return new WrappedEntityAnimal(nmsAnimals);
+    }
+
+    @Override
+    public Object toNMS() {
+        return this.nmsAnimals;
+    }
 }

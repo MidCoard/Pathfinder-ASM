@@ -18,13 +18,13 @@ public class WrappedBlock extends WrappedType {
     private static final Method getBlock;
 
     static {
-        register(NMSManager.getNMSClass("Block",true),WrappedBlock.class);
+        register(NMSManager.getNMSClass("Block", true), WrappedBlock.class);
         Class<?> CraftMagicNumbers = NMSManager.getCraftClass("util.CraftMagicNumbers");
         Class<?> IBlockData = NMSManager.getNMSClass("IBlockData");
-        getBlockMaterial = NMSManager.getMethod(CraftMagicNumbers,"getBlock",Material.class);
-        getBlockMaterialByte = NMSManager.getMethod(CraftMagicNumbers,"getBlock",Material.class,byte.class);
-        getBlockMaterialData = NMSManager.getMethod(CraftMagicNumbers,"getBlock", MaterialData.class);
-        getBlock = NMSManager.getMethod(IBlockData,"getBlock");
+        getBlockMaterial = NMSManager.getMethod(CraftMagicNumbers, "getBlock", Material.class);
+        getBlockMaterialByte = NMSManager.getMethod(CraftMagicNumbers, "getBlock", Material.class, byte.class);
+        getBlockMaterialData = NMSManager.getMethod(CraftMagicNumbers, "getBlock", MaterialData.class);
+        getBlock = NMSManager.getMethod(IBlockData, "getBlock");
     }
 
     private final Object nmsBlock;
@@ -33,13 +33,13 @@ public class WrappedBlock extends WrappedType {
         this.nmsBlock = nmsBlock;
     }
 
-    public static WrappedBlock getWrappedBlock(Object nmsBlock){
+    public static WrappedBlock getWrappedBlock(Object nmsBlock) {
         return new WrappedBlock(nmsBlock);
     }
 
     public static WrappedBlock getWrappedBlock(Material material) {
         try {
-            return getWrappedBlock(getBlockMaterial.invoke(null,material));
+            return getWrappedBlock(getBlockMaterial.invoke(null, material));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -53,17 +53,17 @@ public class WrappedBlock extends WrappedType {
         }
     }
 
-    public static WrappedBlock getWrappedBlock(Material material,byte b){
+    public static WrappedBlock getWrappedBlock(Material material, byte b) {
         try {
-            return getWrappedBlock(getWrappedBlock0(getBlockMaterialByte.invoke(null,material,b)));
+            return getWrappedBlock(getWrappedBlock0(getBlockMaterialByte.invoke(null, material, b)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static WrappedBlock getWrappedBlock(MaterialData materialData){
+    public static WrappedBlock getWrappedBlock(MaterialData materialData) {
         try {
-            return getWrappedBlock(getWrappedBlock0(getBlockMaterialData.invoke(null,materialData)));
+            return getWrappedBlock(getWrappedBlock0(getBlockMaterialData.invoke(null, materialData)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

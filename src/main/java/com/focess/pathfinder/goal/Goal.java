@@ -31,7 +31,7 @@ public abstract class Goal {
         return this;
     }
 
-    public EnumSet<Control> getControls(){
+    public EnumSet<Control> getControls() {
         return this.controls;
     }
 

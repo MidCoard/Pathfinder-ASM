@@ -37,16 +37,11 @@ public class WrappedRecipeItemStack extends WrappedType {
         this.nmsRecipeItemStack = nmsRecipeItemStack;
     }
 
-    @Override
-    public Object toNMS() {
-        return null;
-    }
-
     public static WrappedRecipeItemStack getWrappedRecipeItemStack(Stream<ItemStack> itemStacks) {
         try {
             Object nmsRecipeItemStack;
             if (NMSManager.getVersionInt() >= 13) {
-                nmsRecipeItemStack = RecipeItemStackConstructor.newInstance(itemStacks.map(i-> {
+                nmsRecipeItemStack = RecipeItemStackConstructor.newInstance(itemStacks.map(i -> {
                     try {
                         return StackProviderConstructor.newInstance(asNMSCopy.invoke(null, i));
                     } catch (Exception e) {
@@ -73,5 +68,10 @@ public class WrappedRecipeItemStack extends WrappedType {
 
     private static WrappedRecipeItemStack getWrappedRecipeItemStack(Object nmsRecipeItemStack) {
         return new WrappedRecipeItemStack(nmsRecipeItemStack);
+    }
+
+    @Override
+    public Object toNMS() {
+        return null;
     }
 }

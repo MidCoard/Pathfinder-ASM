@@ -6,7 +6,7 @@ import org.bukkit.entity.Dolphin;
 public class WrappedEntityDolphin extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityDolphin",true),WrappedEntityDolphin.class);
+        register(NMSManager.getNMSClass("EntityDolphin", true), WrappedEntityDolphin.class);
     }
 
     private final Object nmsDolphin;

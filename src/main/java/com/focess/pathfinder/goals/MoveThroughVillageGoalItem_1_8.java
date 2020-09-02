@@ -22,6 +22,7 @@ public class MoveThroughVillageGoalItem_1_8 extends NMSGoalItem {
         this.write(2, arg);
         return this;
     }
+
     @Override
     public MoveThroughVillageGoalItem_1_8 clear() {
         return this;

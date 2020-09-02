@@ -6,7 +6,7 @@ import org.bukkit.entity.Fish;
 public class WrappedEntityFishSchool extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityFishSchool",true),WrappedEntityFishSchool.class);
+        register(NMSManager.getNMSClass("EntityFishSchool", true), WrappedEntityFishSchool.class);
     }
 
     private final Object nmsFish;

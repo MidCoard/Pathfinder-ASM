@@ -8,7 +8,7 @@ import com.focess.pathfinder.wrapped.WrappedNMSPredicate;
 import java.util.function.Predicate;
 
 public class AvoidTargetGoalItem extends NMSGoalItem {
-    public static final WrappedNMSPredicate<WrappedEntityLiving> EXTRA_INCLUSION_SELECTOR = new WrappedNMSPredicate<WrappedEntityLiving>((t)-> true);
+    public static final WrappedNMSPredicate<WrappedEntityLiving> EXTRA_INCLUSION_SELECTOR = new WrappedNMSPredicate<WrappedEntityLiving>((t) -> true);
 
     private final PointerWriter doubleWriter = new PointerWriter(4, 2);
 

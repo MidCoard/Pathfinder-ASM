@@ -20,7 +20,7 @@ public class GotoTargetGoalItem extends NMSGoalItem {
     }
 
     public GotoTargetGoalItem writeInt(int arg) {
-        this.write(2,arg);
+        this.write(2, arg);
         return this;
     }
 

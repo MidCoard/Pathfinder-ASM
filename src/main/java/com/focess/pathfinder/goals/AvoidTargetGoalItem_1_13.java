@@ -8,12 +8,12 @@ import com.focess.pathfinder.wrapped.WrappedNMSPredicate;
 import java.util.function.Predicate;
 
 public class AvoidTargetGoalItem_1_13 extends NMSGoalItem {
-    public static final WrappedNMSPredicate<WrappedEntityLiving> EXTRA_INCLUSION_SELECTOR = new WrappedNMSPredicate<WrappedEntityLiving>((t)-> true);
-    public static final WrappedNMSPredicate<WrappedEntityLiving>  INCLUSION_SELECTOR = new WrappedNMSPredicate<WrappedEntityLiving>(new Predicate<WrappedEntityLiving>() {
+    public static final WrappedNMSPredicate<WrappedEntityLiving> EXTRA_INCLUSION_SELECTOR = new WrappedNMSPredicate<WrappedEntityLiving>((t) -> true);
+    public static final WrappedNMSPredicate<WrappedEntityLiving> INCLUSION_SELECTOR = new WrappedNMSPredicate<WrappedEntityLiving>(new Predicate<WrappedEntityLiving>() {
         @Override
         public boolean test(WrappedEntityLiving wrappedEntityLiving) {
             try {
-                return (boolean) Predicate.class.getDeclaredMethod("test", Object.class).invoke(NMSManager.ExceptCreativeOrSpectator,wrappedEntityLiving.toNMS());
+                return (boolean) Predicate.class.getDeclaredMethod("test", Object.class).invoke(NMSManager.ExceptCreativeOrSpectator, wrappedEntityLiving.toNMS());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

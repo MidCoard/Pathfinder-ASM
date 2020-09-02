@@ -39,22 +39,22 @@ public class CrossbowAttackGoalItem extends NMSGoalItem {
 
         private final Object nms;
 
-        private WrappedEntityMonsterAndIRangedEntityAndICrossbow(Object nms){
+        private WrappedEntityMonsterAndIRangedEntityAndICrossbow(Object nms) {
             this.nms = nms;
-        }
-
-        @Override
-        public Object toNMS() {
-            return this.nms;
         }
 
         public static WrappedEntityMonsterAndIRangedEntityAndICrossbow getWrappedEntityMonsterAndIRangedEntityAndICrossbow(Pillager pillager) {
             WrappedEntityMonster wrappedEntityMonster = WrappedEntityMonster.getWrappedEntityMonster(pillager);
             WrappedIRangedEntity iRangedEntity = WrappedIRangedEntity.getWrappedIRangedEntity(pillager);
-            WrappedICrossbow iCrossbow = WrappedICrossbow.getWrappedICrossbow( pillager);
-            if (Objects.equals(wrappedEntityMonster.toNMS(), iRangedEntity.toNMS()) && Objects.equals(iRangedEntity,iCrossbow))
+            WrappedICrossbow iCrossbow = WrappedICrossbow.getWrappedICrossbow(pillager);
+            if (Objects.equals(wrappedEntityMonster.toNMS(), iRangedEntity.toNMS()) && Objects.equals(iRangedEntity, iCrossbow))
                 return new WrappedEntityMonsterAndIRangedEntityAndICrossbow(wrappedEntityMonster.toNMS());
             throw new IllegalArgumentException(pillager.getClass().getTypeName());
+        }
+
+        @Override
+        public Object toNMS() {
+            return this.nms;
         }
     }
 }

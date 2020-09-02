@@ -6,7 +6,7 @@ import org.bukkit.entity.Zombie;
 public class WrappedEntityZombie extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityZombie",true),WrappedEntityZombie.class);
+        register(NMSManager.getNMSClass("EntityZombie", true), WrappedEntityZombie.class);
     }
 
     private final Object nmsZombie;

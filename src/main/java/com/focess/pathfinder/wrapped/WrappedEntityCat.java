@@ -3,10 +3,10 @@ package com.focess.pathfinder.wrapped;
 import com.focess.pathfinder.core.util.NMSManager;
 import org.bukkit.entity.Cat;
 
-public class WrappedEntityCat extends WrappedType{
+public class WrappedEntityCat extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityCat",true),WrappedEntityCat.class);
+        register(NMSManager.getNMSClass("EntityCat", true), WrappedEntityCat.class);
     }
 
 
@@ -22,8 +22,8 @@ public class WrappedEntityCat extends WrappedType{
     }
 
     private static WrappedEntityCat getWrappedEntityCat(Object nmsCat) {
-            return new WrappedEntityCat(nmsCat);
-   }
+        return new WrappedEntityCat(nmsCat);
+    }
 
     @Override
     public Object toNMS() {

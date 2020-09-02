@@ -6,7 +6,7 @@ import org.bukkit.entity.IronGolem;
 public class WrappedEntityIronGolem extends WrappedType {
 
     static {
-        register(NMSManager.getNMSClass("EntityIronGolem",true),WrappedEntityIronGolem.class);
+        register(NMSManager.getNMSClass("EntityIronGolem", true), WrappedEntityIronGolem.class);
     }
 
     private final Object nmsIronGolem;
@@ -15,14 +15,14 @@ public class WrappedEntityIronGolem extends WrappedType {
         this.nmsIronGolem = nmsIronGolem;
     }
 
-    public static WrappedEntityIronGolem getWrappedEntityIronGolem(IronGolem ironGolem){
+    public static WrappedEntityIronGolem getWrappedEntityIronGolem(IronGolem ironGolem) {
         Object nmsIronGolem = NMSManager.getNMSEntity(ironGolem);
         return getWrappedEntityIronGolem(nmsIronGolem);
     }
 
     private static WrappedEntityIronGolem getWrappedEntityIronGolem(Object nmsIronGolem) {
-            return new WrappedEntityIronGolem(nmsIronGolem);
-     }
+        return new WrappedEntityIronGolem(nmsIronGolem);
+    }
 
     @Override
     public Object toNMS() {

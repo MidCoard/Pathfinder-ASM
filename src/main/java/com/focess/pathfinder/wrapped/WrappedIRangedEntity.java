@@ -5,19 +5,14 @@ import org.bukkit.entity.LivingEntity;
 
 public class WrappedIRangedEntity extends WrappedType {
 
-    static  {
-        register(NMSManager.getNMSClass("IRangedEntity",true),WrappedIRangedEntity.class);
+    static {
+        register(NMSManager.getNMSClass("IRangedEntity", true), WrappedIRangedEntity.class);
     }
 
     private final Object nmsIRangedEntity;
 
     private WrappedIRangedEntity(Object nmsIRangedEntity) {
         this.nmsIRangedEntity = nmsIRangedEntity;
-    }
-
-    @Override
-    public Object toNMS() {
-        return this.nmsIRangedEntity;
     }
 
     private static WrappedIRangedEntity getWrappedIRangedEntity(Object nmsLivingEntity) {
@@ -29,5 +24,10 @@ public class WrappedIRangedEntity extends WrappedType {
     public static WrappedIRangedEntity getWrappedIRangedEntity(LivingEntity livingEntity) {
         Object nmsLivingEntity = NMSManager.getNMSEntity(livingEntity);
         return getWrappedIRangedEntity(nmsLivingEntity);
+    }
+
+    @Override
+    public Object toNMS() {
+        return this.nmsIRangedEntity;
     }
 }

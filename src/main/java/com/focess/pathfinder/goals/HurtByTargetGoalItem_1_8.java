@@ -5,7 +5,7 @@ import com.focess.pathfinder.core.util.NMSManager;
 
 public class HurtByTargetGoalItem_1_8 extends NMSGoalItem {
     protected HurtByTargetGoalItem_1_8() {
-        super(NMSManager.getNMSClass("PathfinderGoalHurtByTarget", true), 3, NMSManager.getNMSClass("EntityCreature", true),boolean.class, Class[].class);
+        super(NMSManager.getNMSClass("PathfinderGoalHurtByTarget", true), 3, NMSManager.getNMSClass("EntityCreature", true), boolean.class, Class[].class);
     }
 
     public HurtByTargetGoalItem_1_8 writeEntityCreature(com.focess.pathfinder.wrapped.WrappedEntityCreature arg) {
@@ -14,7 +14,7 @@ public class HurtByTargetGoalItem_1_8 extends NMSGoalItem {
     }
 
     public HurtByTargetGoalItem_1_8 writeBoolean(boolean arg) {
-        this.write(1,arg);
+        this.write(1, arg);
         return this;
     }
 
