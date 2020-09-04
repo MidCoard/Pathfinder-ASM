@@ -1,5 +1,5 @@
 name: PathfinderAPI
 main: com.focess.pathfinder.core.PathfinderPlugin
-version: 2.0
+version: 3.0
 authrors: [ MidCoard,si_12 ]
 api-version: 1.13
