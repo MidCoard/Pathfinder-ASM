@@ -32,4 +32,8 @@ public class PathfinderUtil {
             return styleLowerClassName(c.getComponentType()) + "s";
         return String.valueOf(c.getSimpleName().charAt(0)).toLowerCase() + c.getSimpleName().substring(1);
     }
+
+    public static Goal toGoal(Object goal) {
+        return (Goal) goal;
+    }
 }

@@ -2,9 +2,11 @@ package com.focess.pathfinder.entity;
 
 import com.focess.pathfinder.core.entity.NMSFocessEntity;
 import com.focess.pathfinder.goal.FocessGoalItem;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.entity.Entity;
 
+import java.util.List;
 import java.util.Map;
 
 public class EntityManager {
@@ -21,5 +23,9 @@ public class EntityManager {
 
     public static void registerEntity(Class<? extends FocessEntity> entity, String name) {
 
+    }
+
+    public static List<FocessEntity> getAllFocessEntities() {
+        return Lists.newArrayList(entities.values());
     }
 }

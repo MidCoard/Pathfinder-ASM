@@ -21,7 +21,7 @@ public class PathCallBackMode extends PathMode {
         return (isNeedCallBack && checkPosition()) || !isNeedCallBack;
     }
 
-    public void nextStep() {
+    public final void next() {
         if (!callBack())
             return;
         move();
@@ -34,6 +34,6 @@ public class PathCallBackMode extends PathMode {
     }
 
     private boolean checkPosition() {
-        return this.getNavigation().getFocessEntity().getLocation().distance(this.targetLocation) < 1;
+        return this.getNavigation().getFocessEntity().getLocation().distance(this.targetLocation) < 0.5;
     }
 }

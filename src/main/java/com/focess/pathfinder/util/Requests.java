@@ -27,7 +27,7 @@ public class Requests {
         isAllocated = true;
         managers = new RequestManager[count];
         for (int i = 0;i<count;i++)
-            Bukkit.getScheduler().runTaskTimer(plugin,managers[i] = new RequestManager(), 0l,1l );
+            Bukkit.getScheduler().runTaskTimerAsynchronously(plugin,managers[i] = new RequestManager(), 0l,1l );
     }
 
     private static class RequestManager implements Runnable {

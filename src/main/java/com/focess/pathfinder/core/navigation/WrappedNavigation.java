@@ -7,6 +7,7 @@ import com.focess.pathfinder.navigation.path.Path;
 
 public final class WrappedNavigation extends Navigation {
 
+    private final Object nmsEntity;
     private WrappedPath currentPath;
 
     private Object nmsNavigation;
@@ -14,13 +15,14 @@ public final class WrappedNavigation extends Navigation {
 
     public WrappedNavigation(FocessEntity entity) {
         super(entity);
+        this.nmsEntity = NMSManager.getNMSEntity(getFocessEntity().getBukkitEntity());
     }
 
     private void updateNavigation() {
-        Object nmsEntity = NMSManager.getNMSEntity(getFocessEntity().getBukkitEntity());
         try {
             this.nmsNavigation = NMSManager.EntityInsentientMethodgetNavigation.invoke(nmsEntity);
         } catch (Exception e) {
+            System.out.println(nmsEntity);
             throw new RuntimeException(e);
         }
     }

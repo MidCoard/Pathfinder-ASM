@@ -12,7 +12,9 @@ import java.util.Map;
 
 public class PathRunnable implements Runnable {
 
-    private  static Map<Class<? extends FocessNavigation>, List<Pair<FocessEntity,PathMode>>> pathModes = Maps.newHashMap();
+    private  static Map<Class<? extends FocessNavigation>, List<Pair<FocessEntity,PathMode>>> pathModes = Maps.newConcurrentMap();
+
+    static Map<FocessEntity,Class<? extends FocessNavigation>> targetNavigations = Maps.newConcurrentMap();
 
     public static void addPathMode(Class<? extends FocessNavigation> cls, FocessEntity focessEntity, PathMode pathMode) {
         pathModes.compute(cls,(k,v)->{
@@ -21,6 +23,11 @@ public class PathRunnable implements Runnable {
 
                 v.add(Pair.of(focessEntity,pathMode));
                 return v;
+        });
+        targetNavigations.compute(focessEntity,(k,v)-> {
+            if (v == null)
+                return cls;
+            return v;
         });
     }
 
@@ -32,13 +39,19 @@ public class PathRunnable implements Runnable {
                    }
                    return v;
                });
-
+        targetNavigations.remove(entity);
     }
 
     @Override
     public void run() {
-        for (Class<?> cls:pathModes.keySet())
-            for (Pair<FocessEntity,PathMode> pair: pathModes.get(cls))
-                pair.getValue().nextStep();
+        for (Class<? extends FocessNavigation> cls:pathModes.keySet())
+            for (Pair<FocessEntity,PathMode> pair: pathModes.get(cls)) {
+                if (targetNavigations.get(pair.getKey()) == null) {
+                    removePathMode(cls,pair.getKey());
+                    continue;
+                }
+                if (targetNavigations.get(pair.getKey()).equals(cls))
+                    pair.getValue().nextStep();
+            }
     }
 }

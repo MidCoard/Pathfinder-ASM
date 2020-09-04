@@ -29,7 +29,15 @@ public abstract class PathMode {
         this(navigation,path,1);
     }
 
-    public abstract void nextStep();
+    public final void nextStep() {
+        if (this.getPath().isIdle() || this.getPath().isFinished()) {
+            over();
+            return;
+        }
+        next();
+    }
+
+    public abstract void next();
 
     public FocessNavigation getNavigation() {
         return navigation;
@@ -57,5 +65,9 @@ public abstract class PathMode {
             return null;
         PathRunnable.addPathMode(navigation.getClass(),navigation.getFocessEntity(),pathMode);
         return pathMode;
+    }
+
+    public void over() {
+        PathRunnable.removePathMode(this.getNavigation().getClass(),this.getNavigation().getFocessEntity());
     }
 }

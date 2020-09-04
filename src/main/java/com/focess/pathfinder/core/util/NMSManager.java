@@ -14,6 +14,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Predicate;
 
+import static java.util.stream.Collectors.toList;
+
 public class NMSManager {
 
     public static final Class<?> CraftEntity;
@@ -499,7 +501,7 @@ public class NMSManager {
 
                 @Override
                 public boolean contains(Object object) {
-                    if (object == null || object instanceof Character)
+                    if (object == null || !(object instanceof Character))
                         return false;
                     return predicate.test((Character) object);
                 }

@@ -1,6 +1,7 @@
 package com.focess.pathfinder.core.goal;
 
 import com.focess.pathfinder.core.builder.PathfinderClassLoader;
+import com.focess.pathfinder.core.exceptions.GoalRuntimeException;
 import com.focess.pathfinder.core.util.NMSManager;
 import com.focess.pathfinder.entity.FocessEntity;
 import com.focess.pathfinder.goal.Goal;
@@ -12,14 +13,16 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SimpleGoalSelector implements GoalSelector {
 
     private final FocessEntity entity;
-    private final List<WrappedGoal> wrappedGoals = Lists.newArrayList();
+    private final List<WrappedGoal> wrappedGoals = Lists.newCopyOnWriteArrayList();
 
     public SimpleGoalSelector(FocessEntity focessEntity) {
         this.entity = focessEntity;
@@ -39,8 +42,15 @@ public class SimpleGoalSelector implements GoalSelector {
                 if (nmsGoal.getClass().getName().equals("com.focess.pathfinder.core.goal.NMSGoal")) {
                     Field goalField = PathfinderClassLoader.NMSGoal.getDeclaredField("goal");
                     goalField.setAccessible(true);
-                    Goal goal = (Goal) goalField.get(nmsGoal);
-                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(), nmsGoal,goal, priority, false));
+                    Goal goal = null;
+                    try {
+                        goal = (Goal) goalField.get(nmsGoal);
+                    }
+                    catch (IllegalArgumentException exception) {
+                        System.err.println("Please do not reload.");
+                    }
+                    if (goal != null)
+                        wrappedGoals.add(new WrappedGoal(goal.getGoalItem(), nmsGoal,goal, priority, false));
                     continue;
                 }
                 List<GoalItem> goalItems = Goals.getNMSGoalItem(nmsGoal.getClass());
@@ -52,8 +62,15 @@ public class SimpleGoalSelector implements GoalSelector {
                 if (nmsGoal.getClass().getName().equals("com.focess.pathfinder.core.goal.NMSGoal")) {
                     Field goalField = PathfinderClassLoader.NMSGoal.getDeclaredField("goal");
                     goalField.setAccessible(true);
-                    Goal goal = (Goal) goalField.get(nmsGoal);
-                    wrappedGoals.add(new WrappedGoal(goal.getGoalItem(), nmsGoal,goal, priority, true));
+                    Goal goal = null;
+                    try {
+                        goal = (Goal) goalField.get(nmsGoal);
+                    }
+                    catch (IllegalArgumentException exception) {
+                        System.err.println("Please do not reload.");
+                    }
+                    if (goal != null)
+                        wrappedGoals.add(new WrappedGoal(goal.getGoalItem(), nmsGoal,goal, priority, true));
                     continue;
                 }
                 List<GoalItem> goalItems = Goals.getNMSGoalItem(nmsGoal.getClass());
@@ -134,11 +151,7 @@ public class SimpleGoalSelector implements GoalSelector {
     @Override
     public List<WrappedGoal> getGoal(GoalItem goalItem) {
         update();
-        List<WrappedGoal> foundGoals = Lists.newArrayList();
-        for (WrappedGoal goal : wrappedGoals)
-            if (goal.getGoalItems().contains(goalItem))
-                foundGoals.add(goal);
-        return foundGoals;
+        return wrappedGoals.stream().filter(i->i.getGoalItems().contains(goalItem)).collect(Collectors.toList());
     }
 
     @Override

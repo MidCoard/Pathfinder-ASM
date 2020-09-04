@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class FocessGoalItem extends GoalItem {
 
-    static Map<String,Class<? extends FocessGoalItem>> goalItemTypes = Maps.newHashMap();
+    static Map<String,Class<? extends Goal>> goalTypes = Maps.newHashMap();
 
     private final Goal goal;
 
@@ -37,10 +37,10 @@ public class FocessGoalItem extends GoalItem {
         return null;
     }
 
-    public static boolean registerGoalItem(String id,Class<? extends FocessGoalItem> cls) {
-        if (goalItemTypes.containsKey(id))
+    public static boolean registerGoalItem(String id,Class<? extends Goal> cls) {
+        if (goalTypes.containsKey(id))
             return false;
-        goalItemTypes.put(id,cls);
+        goalTypes.put(id,cls);
         return true;
     }
 }

@@ -13,11 +13,12 @@ public interface NavigationManager {
 
     FocessEntity getFocessEntity();
 
-    default Navigation getNavigation(String id) {
-        return getNavigation(Navigations.getNavigationClass(id));
+    Navigation getNavigation(String id);
+
+    default Navigation getNavigation(Class<? extends Navigation> navigationClass){
+        return getNavigation(Navigations.getNavigationID(navigationClass));
     }
 
-    Navigation getNavigation(Class<? extends Navigation> navigationClass);
 
     void stop();
 
@@ -27,4 +28,8 @@ public interface NavigationManager {
             navigations.add(this.getNavigation(id));
         return navigations;
     }
+
+    boolean addNavigation(String id,Navigation navigation);
+
+    boolean removeNavigation(String id);
 }

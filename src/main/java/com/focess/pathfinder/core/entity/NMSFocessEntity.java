@@ -8,13 +8,16 @@ import com.focess.pathfinder.entity.FocessEntity;
 import com.focess.pathfinder.goal.GoalSelector;
 import com.focess.pathfinder.navigation.Navigation;
 import org.bukkit.Location;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Random;
 
 public class NMSFocessEntity implements FocessEntity {
-    private final SimpleNavigationManager navigation;
+    private SimpleNavigationManager navigation;
     private final Entity entity;
     private final GoalSelector goalSelector;
     private final int id;
@@ -37,7 +40,8 @@ public class NMSFocessEntity implements FocessEntity {
     public NMSFocessEntity(Entity entity) {
         this.entity = entity;
         this.goalSelector = new SimpleGoalSelector(this);
-        this.navigation = new SimpleNavigationManager(this);
+        if (!(entity instanceof HumanEntity) &&!(entity instanceof ArmorStand))
+            this.navigation = new SimpleNavigationManager(this);
         try {
             this.random = (Random) NMSManager.getField(NMSManager.getNMSClass("Entity"), "random").get(NMSManager.getNMSEntity(entity));
             this.id = NMSManager.getField(NMSManager.getNMSClass("Entity"), "id").getInt(NMSManager.getNMSEntity(entity));
@@ -62,7 +66,10 @@ public class NMSFocessEntity implements FocessEntity {
     }
 
     @Override
+    @Nullable
     public SimpleNavigationManager getNavigationManager() {
+        if (this.entity instanceof HumanEntity)
+            return null;
         return this.navigation;
     }
 

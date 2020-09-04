@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class PathModes  {
 
+    private static final Map<String,Class<? extends PathMode>> pathModeTypes = Maps.newHashMap();
+
     static {
         registerPathMode("CallBack",PathCallBackMode.class);
     }
-
-    private static final Map<String,Class<? extends PathMode>> pathModeTypes = Maps.newHashMap();
 
     public static boolean registerPathMode(String id,Class<? extends PathMode> cls) {
         if (hasRegisterPathMode(id))

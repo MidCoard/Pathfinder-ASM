@@ -13,6 +13,7 @@ import java.util.Set;
 public class Goals {
 
     //these goals are not complete or outdated. do not use them...
+    public static final Set<NMSGoalItem> goalItems = Sets.newHashSet();
     public static final BreakDoorGoalItem_1_8 BREAK_DOOR_1_8 = new BreakDoorGoalItem_1_8();
     public static final BreakDoorGoalItem_1_14 BREAK_DOOR_1_14 = new BreakDoorGoalItem_1_14();
     public static final DoorOpenGoalItem DOOR_OPEN = new DoorOpenGoalItem();
@@ -29,31 +30,29 @@ public class Goals {
     public static final TargetGoalItem TARGET_GOAL_ITEM = new TargetGoalItem();
     public static final UseItemGoalItem USE_ITEM = new UseItemGoalItem();
     public static final WaterGoalItem WATER = new WaterGoalItem();
-    public static Set<NMSGoalItem> goalItems = Sets.newHashSet();
     @Nonnull
     public static List<GoalItem> getNMSGoalItem(Class<?> clz) {
         List<GoalItem> goalItems = Lists.newArrayList();
         for (NMSGoalItem goalItem : Goals.goalItems)
             if (goalItem.getGoalClass().equals(clz))
                 goalItems.add(goalItem);
-//        if (goalItems.size() == 0)
-//            goalItems.add(new NMSGoalItem(clz, 0) {
-//                @Override
-//                public NMSGoalItem clear() {
-//                    return this;
-//                }
-//
-//                @Override
-//                public WrappedGoal build(int priority, boolean isTarget) {
-//                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be built.");
-//                }
-//
-//                @Override
-//                protected void write(int i, Object object) {
-//                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be written.");
-//                }
-//            });
-        // need to remove
+        if (goalItems.size() == 0)
+            goalItems.add(new NMSGoalItem(clz, 0) {
+                @Override
+                public NMSGoalItem clear() {
+                    return this;
+                }
+
+                @Override
+                public WrappedGoal build(int priority, boolean isTarget) {
+                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be built.");
+                }
+
+                @Override
+                protected void write(int i, Object object) {
+                    throw new UnsupportedOperationException("Unknown NMSGoal cannot be written.");
+                }
+            });
         return goalItems;
     }
 

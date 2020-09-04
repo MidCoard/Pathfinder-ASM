@@ -3,7 +3,7 @@ package com.focess.pathfinder.goal;
 public class NamedGoalItem extends GoalItem {
 
     public NamedGoalItem(String id) {
-        super(FocessGoalItem.goalItemTypes.get(id));
+        super(FocessGoalItem.goalTypes.get(id));
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.focess.pathfinder.navigation.path.Path;
 import com.focess.pathfinder.util.Useless;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class Navigation {
 
@@ -41,7 +42,7 @@ public abstract class Navigation {
 
     public abstract Path findPathTo(final double x, final double y, final double z, final double distance);
 
-    public Path findPathTo(final FocessEntity entity, final double distance) {
+    public Path findPathTo(@NotNull final FocessEntity entity, final double distance) {
         Location location = entity.getBukkitEntity().getLocation();
         if (!location.getWorld().equals(this.getWorld()))
             return null;

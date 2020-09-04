@@ -40,4 +40,7 @@ public abstract class FocessPath implements Path {
         return pos == this.pathPoints.size();
     }
 
+    public int getPosition() {
+        return this.pos;
+    }
 }
