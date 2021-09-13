@@ -449,8 +449,8 @@ public class NMSManager {
     private static class MethodType {
         private final String methodName;
         private final NamePattern pattern;
-        private Class<?> returnType;
-        private Class<?>[] parameterTypes;
+        private final Class<?> returnType;
+        private final Class<?>[] parameterTypes;
 
         public MethodType(String methodName, NamePattern pattern, Class<?> returnType, Class<?>... parameterTypes) {
             this.methodName = methodName;

@@ -1,6 +1,7 @@
 package com.focess.pathfinder.wrapped;
 
 import com.focess.pathfinder.core.util.NMSManager;
+import org.bukkit.entity.Piglin;
 import org.bukkit.entity.Pillager;
 
 public class WrappedICrossbow extends WrappedType {
@@ -9,10 +10,10 @@ public class WrappedICrossbow extends WrappedType {
         register(NMSManager.getNMSClass("ICrossbow", true), WrappedICrossbow.class);
     }
 
-    private final Object nmsPillager;
+    private final Object nmsICrossbow;
 
-    private WrappedICrossbow(Object nmsPillager) {
-        this.nmsPillager = nmsPillager;
+    private WrappedICrossbow(Object nmsICrossbow) {
+        this.nmsICrossbow = nmsICrossbow;
     }
 
 
@@ -21,14 +22,19 @@ public class WrappedICrossbow extends WrappedType {
         return getWrappedICrossbow(nmsPillager);
     }
 
-    private static WrappedICrossbow getWrappedICrossbow(Object nmsPillager) {
-        if (NMSManager.getNMSClass("ICrossbow").isAssignableFrom(nmsPillager.getClass()))
-            return new WrappedICrossbow(nmsPillager);
-        throw new ClassCastException(nmsPillager.getClass().getTypeName() + " cannot be cast to " + WrappedICrossbow.class.getTypeName());
+    public static WrappedICrossbow getWrappedICrossbow(Piglin piglin) {
+        Object nmsPiglin = NMSManager.getNMSEntity(piglin);
+        return getWrappedICrossbow(nmsPiglin);
+    }
+
+    private static WrappedICrossbow getWrappedICrossbow(Object nmsICrossbow) {
+        if (NMSManager.getNMSClass("ICrossbow").isAssignableFrom(nmsICrossbow.getClass()))
+            return new WrappedICrossbow(nmsICrossbow);
+        throw new ClassCastException(nmsICrossbow.getClass().getTypeName() + " cannot be cast to " + WrappedICrossbow.class.getTypeName());
     }
 
     @Override
     public Object toNMS() {
-        return this.nmsPillager;
+        return this.nmsICrossbow;
     }
 }

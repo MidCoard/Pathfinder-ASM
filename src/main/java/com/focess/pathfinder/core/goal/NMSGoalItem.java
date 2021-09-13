@@ -31,7 +31,7 @@ public abstract class NMSGoalItem extends GoalItem {
         this.fixedValues.clear();
         for (Object object : values)
             fixedValues.add(buildParameter(object));
-        Object nmsGoal = null;
+        Object nmsGoal;
         try {
             if (this.getGoalClass() == null)
                 throw new PathfinderGoalNotFoundException(this.getClass().getSimpleName());

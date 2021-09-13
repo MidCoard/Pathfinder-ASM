@@ -6,6 +6,7 @@ import com.focess.pathfinder.wrapped.WrappedEntityMonster;
 import com.focess.pathfinder.wrapped.WrappedICrossbow;
 import com.focess.pathfinder.wrapped.WrappedIRangedEntity;
 import com.focess.pathfinder.wrapped.WrappedType;
+import org.bukkit.entity.Piglin;
 import org.bukkit.entity.Pillager;
 
 import java.util.Objects;
@@ -50,6 +51,15 @@ public class CrossbowAttackGoalItem extends NMSGoalItem {
             if (Objects.equals(wrappedEntityMonster.toNMS(), iRangedEntity.toNMS()) && Objects.equals(iRangedEntity, iCrossbow))
                 return new WrappedEntityMonsterAndIRangedEntityAndICrossbow(wrappedEntityMonster.toNMS());
             throw new IllegalArgumentException(pillager.getClass().getTypeName());
+        }
+
+        public static WrappedEntityMonsterAndIRangedEntityAndICrossbow getWrappedEntityMonsterAndIRangedEntityAndICrossbow(Piglin piglin) {
+            WrappedEntityMonster wrappedEntityMonster = WrappedEntityMonster.getWrappedEntityMonster(piglin);
+            WrappedIRangedEntity iRangedEntity = WrappedIRangedEntity.getWrappedIRangedEntity(piglin);
+            WrappedICrossbow iCrossbow = WrappedICrossbow.getWrappedICrossbow(piglin);
+            if (Objects.equals(wrappedEntityMonster.toNMS(), iRangedEntity.toNMS()) && Objects.equals(iRangedEntity, iCrossbow))
+                return new WrappedEntityMonsterAndIRangedEntityAndICrossbow(wrappedEntityMonster.toNMS());
+            throw new IllegalArgumentException(piglin.getClass().getTypeName());
         }
 
         @Override
